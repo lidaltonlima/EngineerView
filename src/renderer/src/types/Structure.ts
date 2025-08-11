@@ -14,3 +14,8 @@ export interface INodes {
 	position: number[]
 	type: 'Fixed' | 'Hinged' | 'spring' | 'blend'
 }
+
+export interface IStructure {
+	nodes: INodes[]
+	bars: IBars[]
+}
