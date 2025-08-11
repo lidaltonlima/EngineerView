@@ -1,14 +1,29 @@
-import { Edges, PerspectiveCamera } from '@react-three/drei'
+import { PerspectiveCamera } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import * as THREE from 'three'
 import { CameraControlsConfig, Gizmo, GridConfig, LightBase } from '../scene_components'
 
-export const Default3dScene = (): React.JSX.Element => {
+interface IDefault3dSceneProps {
+  children?: React.ReactNode
+}
+
+export const Default3dScene = ({ children = null }: IDefault3dSceneProps): React.JSX.Element => {
   THREE.Object3D.DEFAULT_UP.set(0, 0, 1)
 
   return (
     <>
-      <Canvas>
+      <Canvas
+        raycaster={{
+          params: {
+            Mesh: {},
+            Line: { threshold: 10 },
+            Line2: { threshold: 10 },
+            Points: { threshold: 0.1 },
+            Sprite: {},
+            LOD: {}
+          }
+        }}
+      >
         <CameraControlsConfig />
         <Gizmo />
         <GridConfig />
@@ -17,11 +32,8 @@ export const Default3dScene = (): React.JSX.Element => {
           {/* eslint-disable-next-line react/no-unknown-property */}
           <directionalLight intensity={2} color={0xffffff} />
         </PerspectiveCamera>
-        <mesh>
-          <boxGeometry />
-          <meshLambertMaterial color={[1, 0, 0]} />
-          <Edges threshold={15} color='black' />
-        </mesh>
+        <axesHelper />
+        {children}
       </Canvas>
     </>
   )
