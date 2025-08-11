@@ -1,32 +1,30 @@
 import { useEffect, useRef } from 'react'
 import { useThree, useFrame } from '@react-three/fiber'
 import { ViewportGizmo } from 'three-viewport-gizmo'
+import { CameraControls } from '@react-three/drei'
 
 export const Gizmo = (): React.JSX.Element => {
-  const { camera, gl, scene, controls } = useThree()
   const gizmoRef = useRef<ViewportGizmo>(null)
+
+  const { camera, gl, scene, controls } = useThree()
+  const cameraControls = controls as CameraControls
 
   useEffect(() => {
     const gizmo = new ViewportGizmo(camera, gl)
     gizmoRef.current = gizmo
 
     const resize = (): void => {
-      const width = window.innerWidth
-      const height = window.innerHeight - 1
-      camera.aspect = width / height
-      camera.updateProjectionMatrix()
-      gl.setSize(width, height)
       gizmo.update()
     }
 
-    if (controls) {
-      gizmo.addEventListener('start', () => (controls.enabled = false))
-      gizmo.addEventListener('end', () => (controls.enabled = true))
+    if (cameraControls) {
+      gizmo.addEventListener('start', () => (cameraControls.enabled = false))
+      gizmo.addEventListener('end', () => (cameraControls.enabled = true))
       gizmo.addEventListener('change', () => {
-        controls.setPosition(...camera.position.toArray())
+        cameraControls.setPosition(...camera.position.toArray())
       })
-      controls.addEventListener('update', () => {
-        controls.getTarget(gizmo.target)
+      cameraControls.addEventListener('update', () => {
+        cameraControls.getTarget(gizmo.target)
         gizmo.update()
       })
     }
@@ -36,14 +34,14 @@ export const Gizmo = (): React.JSX.Element => {
     return () => {
       window.removeEventListener('resize', resize)
     }
-  }, [camera, gl, scene, controls])
+  }, [camera, gl, scene, cameraControls])
 
   useFrame(() => {
     if (gizmoRef.current) {
       gl.render(scene, camera)
       gizmoRef.current.render()
     }
-  }, true)
+  }, 1)
 
   return <></>
 }
