@@ -29,7 +29,6 @@ export const Default3dScene = ({ children = null }: IDefault3dSceneProps): React
         <GridConfig />
         <LightBase />
         <PerspectiveCamera makeDefault position={[5, -5, 5]}>
-          {/* eslint-disable-next-line react/no-unknown-property */}
           <directionalLight intensity={2} color={0xffffff} />
         </PerspectiveCamera>
         <axesHelper />

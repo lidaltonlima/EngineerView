@@ -24,7 +24,11 @@ export default tseslint.config(
     },
     rules: {
       ...eslintPluginReactHooks.configs.recommended.rules,
-      ...eslintPluginReactRefresh.configs.vite.rules
+      ...eslintPluginReactRefresh.configs.vite.rules,
+      'react/no-unknown-property': [
+        'error',
+        { ignore: ['args', 'attach', 'intensity', 'color', 'position'] }
+      ]
     }
   },
   eslintConfigPrettier
