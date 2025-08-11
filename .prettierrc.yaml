@@ -3,4 +3,5 @@ semi: false
 printWidth: 100
 trailingComma: none
 jsxSingleQuote: true
-endOfLine: lf
+endOfLine: crlf
+useTabs: true
