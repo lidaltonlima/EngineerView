@@ -4,36 +4,36 @@ import * as THREE from 'three'
 import { CameraControlsConfig, Gizmo, GridConfig, LightBase } from '../scene_components'
 
 interface IDefault3dSceneProps {
-  children?: React.ReactNode
+	children?: React.ReactNode
 }
 
 export const Default3dScene = ({ children = null }: IDefault3dSceneProps): React.JSX.Element => {
-  THREE.Object3D.DEFAULT_UP.set(0, 0, 1)
+	THREE.Object3D.DEFAULT_UP.set(0, 0, 1)
 
-  return (
-    <>
-      <Canvas
-        raycaster={{
-          params: {
-            Mesh: {},
-            Line: { threshold: 0.3 },
-            Line2: { threshold: 0.3 },
-            Points: { threshold: 0.1 },
-            Sprite: {},
-            LOD: {}
-          }
-        }}
-      >
-        <CameraControlsConfig />
-        <Gizmo />
-        <GridConfig />
-        <LightBase />
-        <PerspectiveCamera makeDefault position={[5, -5, 5]}>
-          <directionalLight intensity={2} color={0xffffff} />
-        </PerspectiveCamera>
-        <axesHelper />
-        {children}
-      </Canvas>
-    </>
-  )
+	return (
+		<>
+			<Canvas
+				raycaster={{
+					params: {
+						Mesh: {},
+						Line: { threshold: 0.3 },
+						Line2: { threshold: 0.3 },
+						Points: { threshold: 0.1 },
+						Sprite: {},
+						LOD: {}
+					}
+				}}
+			>
+				<CameraControlsConfig />
+				<Gizmo />
+				<GridConfig />
+				<LightBase />
+				<PerspectiveCamera makeDefault position={[5, -5, 5]}>
+					<directionalLight intensity={2} color={0xffffff} />
+				</PerspectiveCamera>
+				<axesHelper />
+				{children}
+			</Canvas>
+		</>
+	)
 }
