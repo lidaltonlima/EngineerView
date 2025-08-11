@@ -28,7 +28,7 @@ export const Default3dScene = ({ children = null }: IDefault3dSceneProps): React
 				<Gizmo />
 				<GridConfig />
 				<LightBase />
-				<PerspectiveCamera makeDefault position={[5, -5, 5]}>
+				<PerspectiveCamera makeDefault position={[20, -20, 20]}>
 					<directionalLight intensity={2} color={0xffffff} />
 				</PerspectiveCamera>
 				<axesHelper />

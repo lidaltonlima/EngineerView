@@ -19,7 +19,7 @@ export const Bar = ({
 			name={name}
 			points={[...startNode, ...endNode]}
 			color={color}
-			lineWidth={0.03}
+			lineWidth={0.1}
 		/>
 	)
 }
