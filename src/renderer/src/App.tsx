@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Default3dScene } from './components/3d'
-import { Point, Points } from '@react-three/drei'
+// import { Point, Points } from '@react-three/drei'
 import { DrawLine } from './components/3d/objects'
 
 export const App = (): React.JSX.Element => {
@@ -12,8 +12,7 @@ export const App = (): React.JSX.Element => {
 
   return (
     <Default3dScene>
-      <Points limit={2} range={2}>
-        {/*eslint-disable-next-line react/no-unknown-property */}
+      {/* <Points limit={2} range={2}>
         <pointsMaterial vertexColors size={0.1} />
         <Point
           name='pt_01'
@@ -21,7 +20,7 @@ export const App = (): React.JSX.Element => {
           color={'red'}
           onClick={(event) => console.log(event.object.name)}
         />
-      </Points>
+      </Points> */}
       <DrawLine />
     </Default3dScene>
   )

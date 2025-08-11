@@ -27,7 +27,7 @@ export default tseslint.config(
       ...eslintPluginReactRefresh.configs.vite.rules,
       'react/no-unknown-property': [
         'error',
-        { ignore: ['args', 'attach', 'intensity', 'color', 'position'] }
+        { ignore: ['args', 'attach', 'intensity', 'color', 'position', 'vertexColors'] }
       ]
     }
   },
