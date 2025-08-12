@@ -12,11 +12,12 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 
 	const startPoint = new Vector3()
 	const endPoint = new Vector3()
+	console.log(bar.start_node)
 
 	for (const node of structure.nodes) {
-		if (node.name == bar.startNode) {
+		if (node.name == bar.start_node) {
 			startPoint.set(node.position[0], node.position[1], node.position[2])
-		} else if (node.name == bar.endNode) {
+		} else if (node.name == bar.end_node) {
 			endPoint.set(node.position[0], node.position[1], node.position[2])
 		}
 	}

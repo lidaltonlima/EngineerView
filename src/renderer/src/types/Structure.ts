@@ -1,12 +1,12 @@
 export interface IBarData {
 	name: string
-	startNode: string
-	endNode: string
+	start_node: string
+	end_node: string
 	section: string
 	material: string
 	rotation: number
-	startConnection: 'Fixed' | 'Hinged' | 'spring'
-	endConnection: 'Fixed' | 'Hinged' | 'spring'
+	start_connection: 'Fixed' | 'Hinged' | 'spring'
+	end_connection: 'Fixed' | 'Hinged' | 'spring'
 }
 
 export interface INodeData {
