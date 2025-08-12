@@ -1,24 +1,22 @@
 import { Line } from '@react-three/drei'
 import { useStructureContext } from '@renderer/contexts/Structure'
+import { IBarData } from '@renderer/types/Structure'
 import { Vector3 } from 'three'
 
 interface IBarProps {
-	name: string
-	startNode: string
-	endNode: string
-	color?: string
+	bar: IBarData
 }
 
-export const Bar = ({ name, startNode, endNode, color = 'red' }: IBarProps): React.JSX.Element => {
-	const { nodes } = useStructureContext()
+export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
+	const { structure } = useStructureContext()
 
 	const startPoint = new Vector3()
 	const endPoint = new Vector3()
 
-	for (const node of nodes) {
-		if (node.name == startNode) {
+	for (const node of structure.nodes) {
+		if (node.name == bar.startNode) {
 			startPoint.set(node.position[0], node.position[1], node.position[2])
-		} else if (node.name == endNode) {
+		} else if (node.name == bar.endNode) {
 			endPoint.set(node.position[0], node.position[1], node.position[2])
 		}
 	}
@@ -26,9 +24,9 @@ export const Bar = ({ name, startNode, endNode, color = 'red' }: IBarProps): Rea
 	return (
 		<Line
 			worldUnits
-			name={name}
+			name={bar.name}
 			points={[startPoint, endPoint]}
-			color={color}
+			color={'blue'}
 			lineWidth={0.1}
 		/>
 	)

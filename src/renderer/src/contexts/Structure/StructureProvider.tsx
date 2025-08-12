@@ -1,19 +1,19 @@
 import { StructureContext } from './StructureContext'
-import { IBars, INodes } from '@renderer/types/Structure'
+import { IBarData, INodeData, IStructureData } from '@renderer/types/Structure'
 
 interface StructureProviderProps {
 	children: React.ReactNode
 }
 
 export const StructureProvider = ({ children }: StructureProviderProps): React.JSX.Element => {
-	const bars: IBars[] = []
-	const nodes: INodes[] = []
+	const nodes: INodeData[] = []
+	const bars: IBarData[] = []
+	const structure: IStructureData = { nodes, bars }
 
 	return (
 		<StructureContext.Provider
 			value={{
-				bars: bars,
-				nodes: nodes
+				structure: structure
 			}}
 		>
 			{children}
