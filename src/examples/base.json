@@ -52,17 +52,35 @@
 				}
 			],
 			"bars_loads": {
-				"points": {
-					"bar": "B1",
-					"position": [0, 1, 0],
-					"reference": "local",
-					"loads": { "Fx": 100, "Fy": 100, "Fz": 100, "Mx": 200, "My": 200, "Mz": 200 }
-				},
-				"distributed": {
-					"bar": "B1",
-					"reference": "local",
-					"loads": { "Fx": 100, "Fy": 100, "Fz": 100, "Mx": 200, "My": 200, "Mz": 200 }
-				}
+				"points": [
+					{
+						"bar": "B1",
+						"position": [0, 1, 0],
+						"reference": "local",
+						"loads": {
+							"Fx": 100,
+							"Fy": 100,
+							"Fz": 100,
+							"Mx": 200,
+							"My": 200,
+							"Mz": 200
+						}
+					}
+				],
+				"distributed": [
+					{
+						"bar": "B1",
+						"reference": "local",
+						"loads": {
+							"Fx": 100,
+							"Fy": 100,
+							"Fz": 100,
+							"Mx": 200,
+							"My": 200,
+							"Mz": 200
+						}
+					}
+				]
 			}
 		}
 	]

@@ -1,3 +1,34 @@
+/**
+ * Interface of structure data
+ */
+export interface IStructureData {
+	material: IMaterialData[]
+	section: ISectionData[]
+	nodes: INodeData[]
+	bars: IBarData[]
+	supports: ISupportData[]
+}
+
+// Material and Section ///////////////////////////////////////////////////////////////////////////
+export interface IMaterialData {
+	name: string
+	properties: { E: number; G: number; ni: number; rho: number }
+}
+
+export interface ISectionData {
+	name: string
+	area: number
+	inertias: { Ix: number; Iy: number; Iz: number }
+}
+
+// Nodes //////////////////////////////////////////////////////////////////////////////////////////
+export interface INodeData {
+	name: string
+	position: [number, number, number]
+	type: 'Fixed' | 'Hinged' | 'spring' | 'blend'
+}
+
+// bars ///////////////////////////////////////////////////////////////////////////////////////////
 export interface IBarData {
 	name: string
 	start_node: string
@@ -9,13 +40,47 @@ export interface IBarData {
 	end_connection: 'Fixed' | 'Hinged' | 'spring'
 }
 
-export interface INodeData {
-	name: string
-	position: number[]
-	type: 'Fixed' | 'Hinged' | 'spring' | 'blend'
+// Supports ///////////////////////////////////////////////////////////////////////////////////////
+export interface ISupportData {
+	node: string
+	supports: {
+		Dx: number | boolean
+		Dy: number | boolean
+		Dz: number | boolean
+		Rx: number | boolean
+		Ry: number | boolean
+		Rz: number | boolean
+	}
 }
 
-export interface IStructureData {
-	nodes: INodeData[]
-	bars: IBarData[]
+// Loads //////////////////////////////////////////////////////////////////////////////////////////
+export interface ILoadData {
+	name: string
+	nodes_loads: IPointLoadsData[]
+	bars_loads: IBarLoadsData[]
+}
+
+// Nodal loads ************************************************************************************
+interface IPointLoadsData {
+	node: string
+	loads: { Fx: number; Fy: number; Fz: number; Mx: number; My: number; Mz: number }
+}
+
+// Bar loads **************************************************************************************
+interface IBarLoadsData {
+	points: IBarPointLoadsData[]
+	distributed: IBarDistributedLoadsData[]
+}
+
+interface IBarPointLoadsData {
+	bar: string
+	position: [number, number, number]
+	reference: 'local' | 'global'
+	loads: { Fx: number; Fy: number; Fz: number; Mx: number; My: number; Mz: number }
+}
+
+interface IBarDistributedLoadsData {
+	bar: string
+	reference: 'local' | 'global'
+	loads: { Fx: number; Fy: number; Fz: number; Mx: number; My: number; Mz: number }
 }
