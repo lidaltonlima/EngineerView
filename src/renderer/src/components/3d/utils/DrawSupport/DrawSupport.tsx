@@ -1,4 +1,9 @@
-import { FixedDisplacement, SpringDisplacement } from '@renderer/components/3d/objects/Supports'
+import {
+	FixedDisplacement,
+	FixedRotation,
+	SpringDisplacement,
+	SpringRotation
+} from '@renderer/components/3d/objects/Supports'
 import { useStructureContext } from '@renderer/contexts/Structure'
 import { ISupportData } from '@renderer/types/Structure'
 
@@ -19,29 +24,47 @@ export const DrawSupport = (support: ISupportData): React.JSX.Element[] => {
 		if (isError) throw new Error('O nó do apoio não existe.')
 	}
 
-	const draw: React.JSX.Element[] = []
+	const drawings: React.JSX.Element[] = []
 
 	for (const [key, value] of Object.entries(support.supports)) {
 		if (key === 'Dx') {
 			if (typeof value === 'boolean' && value) {
-				draw.push(<FixedDisplacement basePoint={basePoint} direction='Dx' />)
-			} else {
-				draw.push(<SpringDisplacement basePoint={basePoint} direction='Dx' />)
+				drawings.push(<FixedDisplacement basePoint={basePoint} direction='Dx' />)
+			} else if (typeof value === 'number') {
+				drawings.push(<SpringDisplacement basePoint={basePoint} direction='Dx' />)
 			}
 		} else if (key === 'Dy') {
 			if (typeof value === 'boolean' && value) {
-				draw.push(<FixedDisplacement basePoint={basePoint} direction='Dy' />)
-			} else {
-				draw.push(<SpringDisplacement basePoint={basePoint} direction='Dy' />)
+				drawings.push(<FixedDisplacement basePoint={basePoint} direction='Dy' />)
+			} else if (typeof value === 'number') {
+				drawings.push(<SpringDisplacement basePoint={basePoint} direction='Dy' />)
 			}
 		} else if (key === 'Dz') {
 			if (typeof value === 'boolean' && value) {
-				draw.push(<FixedDisplacement basePoint={basePoint} direction='Dz' />)
-			} else {
-				draw.push(<SpringDisplacement basePoint={basePoint} direction='Dz' />)
+				drawings.push(<FixedDisplacement basePoint={basePoint} direction='Dz' />)
+			} else if (typeof value === 'number') {
+				drawings.push(<SpringDisplacement basePoint={basePoint} direction='Dz' />)
+			}
+		} else if (key === 'Rx') {
+			if (typeof value === 'boolean' && value) {
+				drawings.push(<FixedRotation basePoint={basePoint} direction='Rx' />)
+			} else if (typeof value === 'number') {
+				drawings.push(<SpringRotation basePoint={basePoint} direction='Rx' />)
+			}
+		} else if (key === 'Ry') {
+			if (typeof value === 'boolean' && value) {
+				drawings.push(<FixedRotation basePoint={basePoint} direction='Ry' />)
+			} else if (typeof value === 'number') {
+				drawings.push(<SpringRotation basePoint={basePoint} direction='Ry' />)
+			}
+		} else if (key === 'Rz') {
+			if (typeof value === 'boolean' && value) {
+				drawings.push(<FixedRotation basePoint={basePoint} direction='Rz' />)
+			} else if (typeof value === 'number') {
+				drawings.push(<SpringRotation basePoint={basePoint} direction='Rz' />)
 			}
 		}
 	}
 
-	return draw
+	return drawings
 }

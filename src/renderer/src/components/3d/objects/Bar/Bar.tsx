@@ -26,7 +26,7 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 			worldUnits
 			name={bar.name}
 			points={[startPoint, endPoint]}
-			color={'blue'}
+			color={'orange'}
 			lineWidth={0.1}
 		/>
 	)

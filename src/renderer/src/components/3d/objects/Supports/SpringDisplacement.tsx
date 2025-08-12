@@ -1,7 +1,7 @@
 import { Line } from '@react-three/drei'
 import { map2Plane, rotatePoints } from '../../utils/functions/transformPoints'
 
-interface ISpringDisplacement {
+interface ISpringDisplacementProps {
 	basePoint: [number, number, number]
 	direction: 'Dx' | 'Dy' | 'Dz'
 	scale?: number
@@ -11,7 +11,7 @@ export const SpringDisplacement = ({
 	basePoint,
 	direction,
 	scale = 1
-}: ISpringDisplacement): React.JSX.Element => {
+}: ISpringDisplacementProps): React.JSX.Element => {
 	const size = 0.3 * scale
 	const points_base = [
 		[0.0, 0.0, 0.0],

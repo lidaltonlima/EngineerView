@@ -68,7 +68,7 @@
 				"Dz": true,
 				"Rx": false,
 				"Ry": false,
-				"Rz": false
+				"Rz": 10e6
 			}
 		},
 		{
@@ -79,7 +79,7 @@
 				"Dz": true,
 				"Rx": true,
 				"Ry": true,
-				"Rz": true
+				"Rz": 10e6
 			}
 		}
 	],
