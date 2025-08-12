@@ -7,6 +7,15 @@ interface IAxesProps {
 	label?: boolean
 }
 
+// const initialPoint = new Vector3(0, 0, 0)
+// const endPoint = new Vector3(1, 1, 1)
+// const direction = new Vector3()
+// direction.subVectors(endPoint, initialPoint)
+
+// const from = new Vector3(1, 0, 0) // eixo X
+// const to = direction.clone().normalize() // normaliza o vetor de destino
+// const quaternion = new Quaternion().setFromUnitVectors(from, to)
+
 export const Axes = ({
 	position = [0, 0, 0],
 	rotation = [0, 0, 0],

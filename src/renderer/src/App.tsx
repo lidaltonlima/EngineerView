@@ -1,11 +1,25 @@
 import { useEffect, useState } from 'react'
 import { Default3dScene } from './components/3d'
-import { Bar } from './components/3d/objects/Bar'
-import { IStructureData } from './types/Structure'
-import { useStructureContext } from './contexts/Structure'
 import { Node } from './components/3d/objects'
+import { Bar } from './components/3d/objects/Bar'
 import { DrawSupport } from './components/3d/utils'
-import { Axes } from './components/3d/objects/Axes'
+import { useStructureContext } from './contexts/Structure'
+import { IStructureData } from './types/Structure'
+import { Hud, OrthographicCamera } from '@react-three/drei'
+
+function MyCustomGizmo(): React.JSX.Element {
+	return (
+		<Hud renderPriority={1}>
+			{/* Câmera do gizmo */}
+			<OrthographicCamera makeDefault position={[0, 0, 5]} />
+			<ambientLight intensity={1} />
+			<mesh position={[1.5, -1.5, 0]}>
+				<boxGeometry args={[0.5, 0.5, 0.5]} />
+				<meshStandardMaterial color='orange' />
+			</mesh>
+		</Hud>
+	)
+}
 
 export const App = (): React.JSX.Element => {
 	const [structureData, setStructureData] = useState<IStructureData | null>()
@@ -32,8 +46,7 @@ export const App = (): React.JSX.Element => {
 			{structureData?.bars.map((bar) => <Bar key={bar.name} bar={bar} />)}
 			{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
 			{structureData?.supports.map((support) => DrawSupport(support))}
-
-			<Axes />
+			<MyCustomGizmo />
 		</Default3dScene>
 	)
 }
