@@ -1,4 +1,4 @@
-import { FixedDisplacement } from '@renderer/components/3d/objects/Supports'
+import { FixedDisplacement, SpringDisplacement } from '@renderer/components/3d/objects/Supports'
 import { useStructureContext } from '@renderer/contexts/Structure'
 import { ISupportData } from '@renderer/types/Structure'
 
@@ -25,14 +25,20 @@ export const DrawSupport = (support: ISupportData): React.JSX.Element[] => {
 		if (key === 'Dx') {
 			if (typeof value === 'boolean' && value) {
 				draw.push(<FixedDisplacement basePoint={basePoint} direction='Dx' />)
+			} else {
+				draw.push(<SpringDisplacement basePoint={basePoint} direction='Dx' />)
 			}
 		} else if (key === 'Dy') {
 			if (typeof value === 'boolean' && value) {
 				draw.push(<FixedDisplacement basePoint={basePoint} direction='Dy' />)
+			} else {
+				draw.push(<SpringDisplacement basePoint={basePoint} direction='Dy' />)
 			}
 		} else if (key === 'Dz') {
 			if (typeof value === 'boolean' && value) {
 				draw.push(<FixedDisplacement basePoint={basePoint} direction='Dz' />)
+			} else {
+				draw.push(<SpringDisplacement basePoint={basePoint} direction='Dz' />)
 			}
 		}
 	}

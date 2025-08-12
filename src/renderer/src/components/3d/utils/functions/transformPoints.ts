@@ -1,4 +1,4 @@
-export const map2Plane1 = (points: number[][], axis: 'x' | 'y' | 'z'): number[][] => {
+export const map2Plane = (points: number[][], axis: 'x' | 'y' | 'z'): number[][] => {
 	if (axis === 'x') {
 		return points
 	} else if (axis == 'y') {
@@ -9,25 +9,6 @@ export const map2Plane1 = (points: number[][], axis: 'x' | 'y' | 'z'): number[][
 	} else {
 		const newPoints = points.map((point) => {
 			return [point[0], point[2], point[1]]
-		})
-		return newPoints
-	}
-}
-
-export const map2Plane2 = (points: number[][], axis: 'x' | 'y' | 'z'): number[][] => {
-	if (axis === 'x') {
-		const newPoints = points.map((point) => {
-			return [point[2], point[1], point[0]]
-		})
-		return newPoints
-	} else if (axis == 'y') {
-		const newPoints = points.map((point) => {
-			return [point[0], point[2], point[1]]
-		})
-		return newPoints
-	} else {
-		const newPoints = points.map((point) => {
-			return [point[2], point[0], point[1]]
 		})
 		return newPoints
 	}
