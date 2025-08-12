@@ -12,7 +12,6 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 
 	const startPoint = new Vector3()
 	const endPoint = new Vector3()
-	console.log(bar.start_node)
 
 	for (const node of structure.nodes) {
 		if (node.name == bar.start_node) {

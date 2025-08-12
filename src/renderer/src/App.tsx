@@ -4,7 +4,7 @@ import { Bar } from './components/3d/objects/Bar'
 import { IStructureData } from './types/Structure'
 import { useStructureContext } from './contexts/Structure'
 import { Node } from './components/3d/objects'
-import { FixedDisplacement } from './components/3d/objects/Supports'
+import { DrawSupport } from './components/3d/utils'
 
 export const App = (): React.JSX.Element => {
 	const [structureData, setStructureData] = useState<IStructureData | null>()
@@ -17,6 +17,7 @@ export const App = (): React.JSX.Element => {
 				setStructureData(data)
 				structure.nodes = data.nodes
 				structure.bars = data.bars
+				structure.supports = data.supports
 			}
 		)
 
@@ -29,7 +30,7 @@ export const App = (): React.JSX.Element => {
 		<Default3dScene>
 			{structureData?.bars.map((bar) => <Bar key={bar.name} bar={bar} />)}
 			{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
-			<FixedDisplacement basePoint={[1, 1, 1.5]} axis='y' />
+			{structureData?.supports.map((support) => DrawSupport(support))}
 		</Default3dScene>
 	)
 }

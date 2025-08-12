@@ -1,121 +1,122 @@
 import { Line } from '@react-three/drei'
+import { map2Plane1, map2Plane2, rotatePoints } from '../../utils/functions/transformPoints'
 
 interface IFixedDisplacementProps {
 	basePoint: [number, number, number]
-	axis: 'x' | 'y' | 'z'
+	direction: 'Dx' | 'Dy' | 'Dz'
 	scale?: number
 }
 
 export const FixedDisplacement = ({
 	basePoint,
-	axis,
+	direction,
 	scale = 1
 }: IFixedDisplacementProps): React.JSX.Element => {
 	const size = 1 * scale
 	const half = size / 2
 	const height = (size * Math.sqrt(3)) / 2
 
-	// Rotação para apontar para o sentido positivo
+	// Rotação para que o triângulo aponte para apontar para o sentido positivo do eixo
 	let rotation = 0
-	switch (axis) {
-		case 'x':
-		case 'y':
-			rotation = -Math.PI / 2
-			break
-		case 'z':
-			rotation = 0
-			break
+	if (direction === 'Dx' || direction === 'Dy') {
+		rotation = -Math.PI / 2
 	}
 
-	// Triângulo equilátero no plano XY com base centrada na origem e vértice oposto em cima
-	const points_xy = [
+	// Triângulo equilátero no plano XY
+	const pointsXY = [
 		[-half, -height / 3, 0], // canto esquerdo da base
 		[half, -height / 3, 0], // canto direito da base
 		[0, (2 * height) / 3, 0], // vértice oposto (topo)
 		[-half, -height / 3, 0] // fecha o triângulo
 	]
 
-	// Linha "chão"
-	const base = size * 0.3 // 30% maior que a base
-	const base_line_xy = [
-		[-half - base / 2, -height / 3 - 0.1, 0], // um pouco abaixo da base
+	// Line "floor"
+	const base = size * 0.3
+	const baseLineXY = [
+		[-half - base / 2, -height / 3 - 0.1, 0],
 		[half + base / 2, -height / 3 - 0.1, 0]
 	]
 
-	let tri_pts = map2Plane(points_xy, axis)
-	let base_line_pts = map2Plane(base_line_xy, axis)
+	// Axis of displacement
+	let axis: 'x' | 'y' | 'z'
+	switch (direction) {
+		case 'Dx':
+			axis = 'x'
+			break
+		case 'Dy':
+			axis = 'y'
+			break
+		case 'Dz':
+			axis = 'z'
+	}
 
-	const pivot = tri_pts[2]
+	// First triangle /////////////////////////////////////////////////////////////////////////////
+	let trianglePoints1 = map2Plane1(pointsXY, axis)
+	let baseLinePoints1 = map2Plane1(baseLineXY, axis)
 
-	tri_pts = tri_pts.map((point) => {
+	const pivot = trianglePoints1[2]
+
+	trianglePoints1 = trianglePoints1.map((point) => {
 		return point.map((element, index) => element - pivot[index])
 	})
 
-	base_line_pts = base_line_pts.map((point) => {
+	baseLinePoints1 = baseLinePoints1.map((point) => {
 		return point.map((element, index) => element - pivot[index])
 	})
 
-	tri_pts = rotatePoints(tri_pts, axis, rotation)
-	base_line_pts = rotatePoints(base_line_pts, axis, rotation)
+	trianglePoints1 = rotatePoints(trianglePoints1, axis, rotation)
+	baseLinePoints1 = rotatePoints(baseLinePoints1, axis, rotation)
 
-	tri_pts = tri_pts.map((point) => {
+	trianglePoints1 = trianglePoints1.map((point) => {
 		return point.map((value, index) => value + basePoint[index])
 	})
 
-	base_line_pts = base_line_pts.map((point) => {
+	baseLinePoints1 = baseLinePoints1.map((point) => {
 		return point.map((value, index) => value + basePoint[index])
 	})
+	// Second triangle /////////////////////////////////////////////////////////////////////////////
+	let trianglePoints2 = map2Plane2(pointsXY, axis)
+	let baseLinePoints2 = map2Plane2(baseLineXY, axis)
+
+	trianglePoints2 = trianglePoints2.map((point) => {
+		return point.map((element, index) => element - pivot[index])
+	})
+
+	baseLinePoints2 = baseLinePoints2.map((point) => {
+		return point.map((element, index) => element - pivot[index])
+	})
+
+	trianglePoints2 = rotatePoints(trianglePoints2, axis, rotation)
+	baseLinePoints2 = rotatePoints(baseLinePoints2, axis, rotation)
+
+	trianglePoints2 = trianglePoints2.map((point) => {
+		return point.map((value, index) => value + basePoint[index])
+	})
+
+	baseLinePoints2 = baseLinePoints2.map((point) => {
+		return point.map((value, index) => value + basePoint[index])
+	})
+
+	// Style //////////////////////////////////////////////////////////////////////////////////////
 
 	let color: string
-	switch (axis) {
-		case 'x':
+	switch (direction) {
+		case 'Dx':
 			color = 'red'
 			break
-		case 'y':
+		case 'Dy':
 			color = 'green'
 			break
-		case 'z':
+		case 'Dz':
 			color = 'blue'
 	}
 
 	return (
 		<>
-			<Line worldUnits points={tri_pts.flat()} color={color} lineWidth={0.05} />
-			<Line worldUnits points={base_line_pts.flat()} color={color} lineWidth={0.05} />
+			<Line worldUnits points={trianglePoints1.flat()} color={color} lineWidth={0.05} />
+			<Line worldUnits points={baseLinePoints1.flat()} color={color} lineWidth={0.05} />
+			<Line worldUnits points={trianglePoints2.flat()} color={color} lineWidth={0.05} />
+			<Line worldUnits points={baseLinePoints2.flat()} color={color} lineWidth={0.05} />
 		</>
 	)
-}
-
-const map2Plane = (points: number[][], axis: 'x' | 'y' | 'z'): number[][] => {
-	if (axis === 'x') {
-		return points
-	} else if (axis == 'y') {
-		const newPoints = points.map((point) => {
-			return [point[0], point[2], point[1]]
-		})
-		return newPoints
-	} else {
-		const newPoints = points.map((point) => {
-			return [point[2], point[0], point[1]]
-		})
-		return newPoints
-	}
-}
-
-const rotatePoints = (points: number[][], axis: 'x' | 'y' | 'z', rotation: number): number[][] => {
-	const perpendicular_axis = { x: 2, z: 1, y: 0 }
-	const pts_rot = points
-	points.map((point, index) => {
-		// Componentes do plano
-		const v1 = (perpendicular_axis[axis] + 1) % 3
-		const v2 = (perpendicular_axis[axis] + 2) % 3
-		const [x, y] = [point[v1], point[v2]]
-
-		const x_new = Math.cos(rotation) * x - Math.sin(rotation) * y
-		const y_new = Math.sin(rotation) * x + Math.cos(rotation) * y
-		pts_rot[index][v1] = x_new
-		pts_rot[index][v2] = y_new
-	})
-
-	return pts_rot
 }

@@ -1,0 +1,41 @@
+import { FixedDisplacement } from '@renderer/components/3d/objects/Supports'
+import { useStructureContext } from '@renderer/contexts/Structure'
+import { ISupportData } from '@renderer/types/Structure'
+
+export const DrawSupport = (support: ISupportData): React.JSX.Element[] => {
+	const { structure } = useStructureContext()
+
+	let basePoint: [number, number, number] = [0, 0, 0]
+	let isError = true
+
+	if (structure) {
+		for (const node of structure.nodes) {
+			if (node.name === support.node) {
+				basePoint = node.position
+				isError = false
+				break
+			}
+		}
+		if (isError) throw new Error('O nó do apoio não existe.')
+	}
+
+	const draw: React.JSX.Element[] = []
+
+	for (const [key, value] of Object.entries(support.supports)) {
+		if (key === 'Dx') {
+			if (typeof value === 'boolean' && value) {
+				draw.push(<FixedDisplacement basePoint={basePoint} direction='Dx' />)
+			}
+		} else if (key === 'Dy') {
+			if (typeof value === 'boolean' && value) {
+				draw.push(<FixedDisplacement basePoint={basePoint} direction='Dy' />)
+			}
+		} else if (key === 'Dz') {
+			if (typeof value === 'boolean' && value) {
+				draw.push(<FixedDisplacement basePoint={basePoint} direction='Dz' />)
+			}
+		}
+	}
+
+	return draw
+}
