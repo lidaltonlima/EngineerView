@@ -106,7 +106,7 @@ export const GizmoSphere = ({
 	return (
 		<>
 			<group>
-				<Line fog points={[0, 0, 0, 0.31, 0, 0]} color={'#ff3653'} lineWidth={2} />
+				<Line fog points={[0, 0, 0, 0.3, 0, 0]} color={'#ff3653'} lineWidth={2} />
 				<Billboard position={[0.4, 0, 0]}>
 					<Text position={[0, 0, 0.01]} font='/fonts/Inter-Bold.woff' fontSize={0.14}>
 						X
@@ -131,7 +131,7 @@ export const GizmoSphere = ({
 				</Billboard>
 			</group>
 			<group rotation-z={Math.PI * 0.5}>
-				<Line fog points={[0, 0, 0, 0.31, 0, 0]} color={'#77b316'} lineWidth={2} />
+				<Line fog points={[0, 0, 0, 0.3, 0, 0]} color={'#77b316'} lineWidth={2} />
 				<Billboard position={[0.4, 0, 0]}>
 					<Text position={[0, 0, 0.01]} font='/fonts/Inter-Bold.woff' fontSize={0.14}>
 						Y
@@ -156,7 +156,7 @@ export const GizmoSphere = ({
 				</Billboard>
 			</group>
 			<group rotation-y={-Math.PI * 0.5}>
-				<Line fog points={[0, 0, 0, 0.31, 0, 0]} color={'#317acd'} lineWidth={2} />
+				<Line fog points={[0, 0, 0, 0.3, 0, 0]} color={'#317acd'} lineWidth={2} />
 				<Billboard position={[0.4, 0, 0]}>
 					<Text position={[0, 0, 0.01]} font='/fonts/Inter-Bold.woff' fontSize={0.14}>
 						Z
@@ -183,7 +183,7 @@ export const GizmoSphere = ({
 			<group rotation-z={Math.PI}>
 				<Line
 					ref={lineXNegative}
-					points={[0, 0, 0, 0.31, 0, 0]}
+					points={[0, 0, 0, 0.3, 0, 0]}
 					color={'#ff3653'}
 					lineWidth={2}
 					depthTest={false}
@@ -222,7 +222,7 @@ export const GizmoSphere = ({
 			<group rotation-z={-Math.PI / 2}>
 				<Line
 					ref={lineYNegative}
-					points={[0, 0, 0, 0.31, 0, 0]}
+					points={[0, 0, 0, 0.3, 0, 0]}
 					color={'#77b316'}
 					lineWidth={2}
 					depthTest={false}
@@ -261,7 +261,7 @@ export const GizmoSphere = ({
 			<group rotation-y={Math.PI / 2}>
 				<Line
 					ref={lineZNegative}
-					points={[0, 0, 0, 0.31, 0, 0]}
+					points={[0, 0, 0, 0.3, 0, 0]}
 					color={'#317acd'}
 					lineWidth={2}
 					depthTest={false}

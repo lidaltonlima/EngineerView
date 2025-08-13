@@ -11,29 +11,12 @@ export const Gizmo = (): React.JSX.Element => {
 	const mesh = useRef<THREE.Group>(new THREE.Group())
 
 	// Move came with click in axis ///////////////////////////////////////////////////////////////
-	const moveToUp = (): void => {
-		cameraControls.rotateTo(0, 0, true)
-	}
-
-	const moveToDown = (): void => {
-		cameraControls.rotateTo(0, Math.PI, true)
-	}
-
-	const moveToRight = (): void => {
-		cameraControls.rotateTo(Math.PI / 2, Math.PI / 2, true)
-	}
-
-	const moveToLeft = (): void => {
-		cameraControls.rotateTo(-Math.PI / 2, Math.PI / 2, true)
-	}
-
-	const moveToFront = (): void => {
-		cameraControls.rotateTo(0, Math.PI / 2, true)
-	}
-
-	const moveToBack = (): void => {
-		cameraControls.rotateTo(Math.PI, Math.PI / 2, true)
-	}
+	const moveToUp = (): Promise<void> => cameraControls.rotateTo(0, 0, true)
+	const moveToDown = (): Promise<void> => cameraControls.rotateTo(0, Math.PI, true)
+	const moveToRight = (): Promise<void> => cameraControls.rotateTo(Math.PI / 2, Math.PI / 2, true)
+	const moveToLeft = (): Promise<void> => cameraControls.rotateTo(-Math.PI / 2, Math.PI / 2, true)
+	const moveToFront = (): Promise<void> => cameraControls.rotateTo(0, Math.PI / 2, true)
+	const moveToBack = (): Promise<void> => cameraControls.rotateTo(Math.PI, Math.PI / 2, true)
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Calcula a posição com base no tamanho atual
