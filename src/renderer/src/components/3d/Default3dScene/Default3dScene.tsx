@@ -25,7 +25,7 @@ export const Default3dScene = ({ children = null }: IDefault3dSceneProps): React
 				}}
 			>
 				<CameraControlsConfig />
-				{/* <Gizmo /> */}
+				<Gizmo />
 				<GridConfig />
 				<LightBase />
 				<PerspectiveCamera makeDefault position={[20, -20, 20]}>
