@@ -25,13 +25,13 @@ export const Default3dScene = ({ children = null }: IDefault3dSceneProps): React
 				}}
 			>
 				<CameraControlsConfig />
-				<Gizmo />
 				<GridConfig />
 				<LightBase />
 				<PerspectiveCamera makeDefault position={[20, -20, 20]}>
 					<directionalLight intensity={2} color={0xffffff} />
 				</PerspectiveCamera>
 				<axesHelper />
+				<Gizmo />
 				{children}
 			</Canvas>
 		</>
