@@ -34,72 +34,38 @@ export const SphereGizmo = ({
 	const lineZNegative = useRef<Line2 | LineSegments2>(null)
 
 	const isMouseEnter = useRef(false)
-	const cameraLooking = useRef<'x' | '-x' | 'y' | '-y' | 'z' | '-z' | 'none'>('none')
+	const cameraLooking = useRef<'x' | 'y' | 'z' | '-x' | '-y' | '-z' | 'none'>('none')
 
 	useFrame(() => {
-		if (Math.abs(camera.rotation.x) < 0.001 && Math.abs(camera.rotation.y) === 0) {
-			// Top ////////////////////////////////////////////////////////////////////////////////
+		if (camera.rotation.z === 0 && camera.rotation.y === Math.PI / 2) {
+			cameraLooking.current = 'x'
+		} else if (Math.abs(camera.rotation.z) === Math.PI && Math.abs(camera.rotation.y) < 0.001) {
+			cameraLooking.current = 'y'
+		} else if (Math.abs(camera.rotation.x) < 0.001 && Math.abs(camera.rotation.y) === 0) {
 			cameraLooking.current = 'z'
-			if (labelXNegative.current) labelXNegative.current.visible = true
-			if (lineXNegative.current) lineXNegative.current.visible = true
-
-			if (labelYNegative.current) labelYNegative.current.visible = true
-			if (lineYNegative.current) lineYNegative.current.visible = true
+		} else if (camera.rotation.z === 0 && camera.rotation.y === -Math.PI / 2) {
+			cameraLooking.current = '-x'
+		} else if (camera.rotation.z === 0 && camera.rotation.y === 0) {
+			cameraLooking.current = '-y'
 		} else if (
 			Math.abs(camera.rotation.x) > Math.PI - 0.001 &&
 			Math.abs(camera.rotation.y) === 0
 		) {
-			// Bottom /////////////////////////////////////////////////////////////////////////////
 			cameraLooking.current = '-z'
+		} else {
+			cameraLooking.current = 'none'
+		}
+
+		if (cameraLooking.current !== 'none') {
 			if (labelXNegative.current) labelXNegative.current.visible = true
 			if (lineXNegative.current) lineXNegative.current.visible = true
 
 			if (labelYNegative.current) labelYNegative.current.visible = true
 			if (lineYNegative.current) lineYNegative.current.visible = true
-
-			if (labelZNegative.current) labelZNegative.current.visible = true
-			if (lineZNegative.current) lineZNegative.current.visible = true
-		} else if (camera.rotation.z === 0 && camera.rotation.y === Math.PI / 2) {
-			// Right //////////////////////////////////////////////////////////////////////////////
-			cameraLooking.current = 'x'
-			if (labelYNegative.current) labelYNegative.current.visible = true
-			if (lineYNegative.current) lineYNegative.current.visible = true
-
-			if (labelZNegative.current) labelZNegative.current.visible = true
-			if (lineZNegative.current) lineZNegative.current.visible = true
-		} else if (camera.rotation.z === 0 && camera.rotation.y === -Math.PI / 2) {
-			// Left ///////////////////////////////////////////////////////////////////////////////
-			cameraLooking.current = '-x'
-			if (labelXNegative.current) labelXNegative.current.visible = true
-			if (lineXNegative.current) lineXNegative.current.visible = true
-
-			if (labelYNegative.current) labelYNegative.current.visible = true
-			if (lineYNegative.current) lineYNegative.current.visible = true
-
-			if (labelZNegative.current) labelZNegative.current.visible = true
-			if (lineZNegative.current) lineZNegative.current.visible = true
-		} else if (camera.rotation.z === 0 && camera.rotation.y === 0) {
-			// Front //////////////////////////////////////////////////////////////////////////////
-			cameraLooking.current = '-y'
-			if (labelXNegative.current) labelXNegative.current.visible = true
-			if (lineXNegative.current) lineXNegative.current.visible = true
-
-			if (labelYNegative.current) labelYNegative.current.visible = true
-			if (lineYNegative.current) lineYNegative.current.visible = true
-
-			if (labelZNegative.current) labelZNegative.current.visible = true
-			if (lineZNegative.current) lineZNegative.current.visible = true
-		} else if (Math.abs(camera.rotation.z) === Math.PI && Math.abs(camera.rotation.y) < 0.001) {
-			// Back ///////////////////////////////////////////////////////////////////////////////
-			cameraLooking.current = 'y'
-			if (labelXNegative.current) labelXNegative.current.visible = true
-			if (lineXNegative.current) lineXNegative.current.visible = true
 
 			if (labelZNegative.current) labelZNegative.current.visible = true
 			if (lineZNegative.current) lineZNegative.current.visible = true
 		} else if (!isMouseEnter.current) {
-			// None ///////////////////////////////////////////////////////////////////////////////
-			cameraLooking.current = 'none'
 			if (labelXNegative.current) labelXNegative.current.visible = false
 			if (lineXNegative.current) lineXNegative.current.visible = false
 
