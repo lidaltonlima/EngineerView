@@ -39,7 +39,8 @@ export default tseslint.config(
 						'rotation-x',
 						'rotation-y',
 						'rotation-z',
-						'visible'
+						'visible',
+						'transparent'
 					]
 				}
 			]
