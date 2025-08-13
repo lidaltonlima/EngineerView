@@ -4,6 +4,7 @@ import { Node, Bar } from './components/3d/objects'
 import { DrawSupport } from './components/3d/utils'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
+import { Axes } from './components/3d/objects/Axes'
 
 export const App = (): React.JSX.Element => {
 	const [structureData, setStructureData] = useState<IStructureData | null>()
@@ -30,6 +31,8 @@ export const App = (): React.JSX.Element => {
 			{structureData?.bars.map((bar) => <Bar key={bar.name} bar={bar} />)}
 			{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
 			{structureData?.supports.map((support) => DrawSupport(support))}
+
+			<Axes />
 		</Default3dScene>
 	)
 }
