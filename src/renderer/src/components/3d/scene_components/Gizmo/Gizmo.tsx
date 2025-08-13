@@ -49,11 +49,17 @@ export const Gizmo = (): React.JSX.Element => {
 				<GizmoSphere
 					camera={camera}
 					onClickX={moveToRight}
+					onClickLookingX={moveToLeft}
 					onClickXNegative={moveToLeft}
+					onClickLookingXNegative={moveToRight}
 					onClickY={moveToBack}
+					onClickLookingY={moveToFront}
 					onClickYNegative={moveToFront}
+					onClickLookingYNegative={moveToBack}
 					onClickZ={moveToUp}
+					onClickLookingZ={moveToDown}
 					onClickZNegative={moveToDown}
+					onClickLookingZNegative={moveToUp}
 				/>
 			</group>
 		</Hud>

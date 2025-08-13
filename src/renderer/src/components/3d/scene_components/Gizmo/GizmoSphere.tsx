@@ -6,22 +6,39 @@ import { Line2, LineSegments2 } from 'three/examples/jsm/Addons'
 
 interface IGizmoSphereProps {
 	camera: THREE.Camera
+
 	onClickX?: () => void
-	onClickY?: () => void
-	onClickZ?: () => void
+	onClickLookingX?: () => void
 	onClickXNegative?: () => void
+	onClickLookingXNegative?: () => void
+
+	onClickY?: () => void
+	onClickLookingY?: () => void
 	onClickYNegative?: () => void
+	onClickLookingYNegative?: () => void
+
+	onClickZ?: () => void
+	onClickLookingZ?: () => void
 	onClickZNegative?: () => void
+	onClickLookingZNegative?: () => void
 }
 
 export const GizmoSphere = ({
 	camera,
 	onClickX = undefined,
-	onClickY = undefined,
-	onClickZ = undefined,
+	onClickLookingX = undefined,
 	onClickXNegative = undefined,
+	onClickLookingXNegative = undefined,
+
+	onClickY = undefined,
+	onClickLookingY = undefined,
 	onClickYNegative = undefined,
-	onClickZNegative = undefined
+	onClickLookingYNegative = undefined,
+
+	onClickZ = undefined,
+	onClickLookingZ = undefined,
+	onClickZNegative = undefined,
+	onClickLookingZNegative = undefined
 }: IGizmoSphereProps): React.JSX.Element => {
 	const labelX = useRef<THREE.MeshBasicMaterial>(null)
 	const labelY = useRef<THREE.MeshBasicMaterial>(null)
@@ -34,10 +51,12 @@ export const GizmoSphere = ({
 	const lineZNegative = useRef<Line2 | LineSegments2>(null)
 
 	const isMouseEnter = useRef(false)
+	const cameraLooking = useRef<'x' | '-x' | 'y' | '-y' | 'z' | '-z' | 'none'>('none')
 
 	useFrame(() => {
 		if (Math.abs(camera.rotation.x) < 0.001 && Math.abs(camera.rotation.y) === 0) {
 			// Top ////////////////////////////////////////////////////////////////////////////////
+			cameraLooking.current = 'z'
 			if (labelXNegative.current) labelXNegative.current.visible = true
 			if (lineXNegative.current) lineXNegative.current.visible = true
 
@@ -48,6 +67,7 @@ export const GizmoSphere = ({
 			Math.abs(camera.rotation.y) === 0
 		) {
 			// Bottom /////////////////////////////////////////////////////////////////////////////
+			cameraLooking.current = '-z'
 			if (labelXNegative.current) labelXNegative.current.visible = true
 			if (lineXNegative.current) lineXNegative.current.visible = true
 
@@ -58,6 +78,7 @@ export const GizmoSphere = ({
 			if (lineZNegative.current) lineZNegative.current.visible = true
 		} else if (camera.rotation.z === 0 && camera.rotation.y === Math.PI / 2) {
 			// Right //////////////////////////////////////////////////////////////////////////////
+			cameraLooking.current = 'x'
 			if (labelYNegative.current) labelYNegative.current.visible = true
 			if (lineYNegative.current) lineYNegative.current.visible = true
 
@@ -65,6 +86,7 @@ export const GizmoSphere = ({
 			if (lineZNegative.current) lineZNegative.current.visible = true
 		} else if (camera.rotation.z === 0 && camera.rotation.y === -Math.PI / 2) {
 			// Left ///////////////////////////////////////////////////////////////////////////////
+			cameraLooking.current = '-x'
 			if (labelXNegative.current) labelXNegative.current.visible = true
 			if (lineXNegative.current) lineXNegative.current.visible = true
 
@@ -75,6 +97,7 @@ export const GizmoSphere = ({
 			if (lineZNegative.current) lineZNegative.current.visible = true
 		} else if (camera.rotation.z === 0 && camera.rotation.y === 0) {
 			// Front //////////////////////////////////////////////////////////////////////////////
+			cameraLooking.current = '-y'
 			if (labelXNegative.current) labelXNegative.current.visible = true
 			if (lineXNegative.current) lineXNegative.current.visible = true
 
@@ -85,13 +108,15 @@ export const GizmoSphere = ({
 			if (lineZNegative.current) lineZNegative.current.visible = true
 		} else if (Math.abs(camera.rotation.z) === Math.PI && Math.abs(camera.rotation.y) < 0.001) {
 			// Back ///////////////////////////////////////////////////////////////////////////////
+			cameraLooking.current = 'y'
 			if (labelXNegative.current) labelXNegative.current.visible = true
 			if (lineXNegative.current) lineXNegative.current.visible = true
 
 			if (labelZNegative.current) labelZNegative.current.visible = true
 			if (lineZNegative.current) lineZNegative.current.visible = true
 		} else if (!isMouseEnter.current) {
-			// Null ///////////////////////////////////////////////////////////////////////////////
+			// None ///////////////////////////////////////////////////////////////////////////////
+			cameraLooking.current = 'none'
 			if (labelXNegative.current) labelXNegative.current.visible = false
 			if (lineXNegative.current) lineXNegative.current.visible = false
 
@@ -123,7 +148,8 @@ export const GizmoSphere = ({
 						}}
 						onClick={(event) => {
 							event.stopPropagation()
-							if (onClickX) onClickX()
+							if (onClickLookingX && cameraLooking.current === 'x') onClickLookingX()
+							else if (onClickX) onClickX()
 						}}
 					>
 						<meshBasicMaterial color={'#ff3653'} />
@@ -148,7 +174,8 @@ export const GizmoSphere = ({
 						}}
 						onClick={(event) => {
 							event.stopPropagation()
-							if (onClickY) onClickY()
+							if (onClickLookingY && cameraLooking.current === 'y') onClickLookingY()
+							else if (onClickY) onClickY()
 						}}
 					>
 						<meshBasicMaterial color={'#77b316'} />
@@ -173,7 +200,8 @@ export const GizmoSphere = ({
 						}}
 						onClick={(event) => {
 							event.stopPropagation()
-							if (onClickZ) onClickZ()
+							if (onClickLookingZ && cameraLooking.current === 'z') onClickLookingZ()
+							else if (onClickZ) onClickZ()
 						}}
 					>
 						<meshBasicMaterial color={'#317acd'} />
@@ -209,7 +237,9 @@ export const GizmoSphere = ({
 						}}
 						onClick={(event) => {
 							event.stopPropagation()
-							if (onClickXNegative) onClickXNegative()
+							if (onClickLookingXNegative && cameraLooking.current === '-x')
+								onClickLookingXNegative()
+							else if (onClickXNegative) onClickXNegative()
 						}}
 					>
 						<meshBasicMaterial color={'#ff3653'} />
@@ -248,7 +278,9 @@ export const GizmoSphere = ({
 						}}
 						onClick={(event) => {
 							event.stopPropagation()
-							if (onClickYNegative) onClickYNegative()
+							if (onClickLookingYNegative && cameraLooking.current === '-y')
+								onClickLookingYNegative()
+							else if (onClickYNegative) onClickYNegative()
 						}}
 					>
 						<meshBasicMaterial color={'#77b316'} />
@@ -287,7 +319,9 @@ export const GizmoSphere = ({
 						}}
 						onClick={(event) => {
 							event.stopPropagation()
-							if (onClickZNegative) onClickZNegative()
+							if (onClickLookingZNegative && cameraLooking.current === '-z')
+								onClickLookingZNegative()
+							else if (onClickZNegative) onClickZNegative()
 						}}
 					>
 						<meshBasicMaterial color={'#317acd'} />
