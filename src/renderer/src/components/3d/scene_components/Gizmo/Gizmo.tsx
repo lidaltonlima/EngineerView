@@ -64,8 +64,9 @@ export const Gizmo = (): React.JSX.Element => {
 	return (
 		<Hud>
 			{/* Câmera do gizmo */}
-			<OrthographicCamera makeDefault position={[0, 0, 10]} zoom={90} />
+			<OrthographicCamera makeDefault position={[0, 0, 0.6]} zoom={90} />
 			<ambientLight intensity={1} />
+			<fog attach='fog' args={['#1a1a1a', 0.5, 1.5]} />
 			<group ref={mesh} position={position}>
 				<GizmoSphere
 					onClickX={moveToRight}
@@ -97,9 +98,9 @@ function GizmoSphere({
 	onClickYNegative = undefined,
 	onClickZNegative = undefined
 }: IGizmoSphereProps): React.JSX.Element {
-	const labelX = useRef<THREE.Mesh>(null)
-	const labelY = useRef<THREE.Mesh>(null)
-	const labelZ = useRef<THREE.Mesh>(null)
+	const labelX = useRef<THREE.MeshBasicMaterial>(null)
+	const labelY = useRef<THREE.MeshBasicMaterial>(null)
+	const labelZ = useRef<THREE.MeshBasicMaterial>(null)
 	const labelXNegative = useRef<THREE.Group>(null)
 	const labelYNegative = useRef<THREE.Group>(null)
 	const labelZNegative = useRef<THREE.Group>(null)
@@ -107,31 +108,20 @@ function GizmoSphere({
 	return (
 		<>
 			<group>
-				<Line points={[0, 0, 0, 0.31, 0, 0]} color={'#ff3653'} lineWidth={2} />
+				<Line fog points={[0, 0, 0, 0.31, 0, 0]} color={'#ff3653'} lineWidth={2} />
 				<Billboard position={[0.4, 0, 0]}>
-					<Text
-						ref={labelX}
-						position={[0, 0, 0.01]}
-						font='/fonts/Inter-Bold.woff'
-						color={'black'}
-						fontSize={0.14}
-					>
+					<Text position={[0, 0, 0.01]} font='/fonts/Inter-Bold.woff' fontSize={0.14}>
 						X
+						<meshBasicMaterial ref={labelX} color={'black'} fog={false} />
 					</Text>
 					<Circle
 						scale={0.1}
 						onPointerEnter={(event) => {
 							event.stopPropagation()
-							if (labelX.current)
-								(labelX.current.material as THREE.MeshBasicMaterial).color.set(
-									'white'
-								)
+							labelX.current?.color.set('white')
 						}}
 						onPointerLeave={() => {
-							if (labelX.current)
-								(labelX.current.material as THREE.MeshBasicMaterial).color.set(
-									'black'
-								)
+							labelX.current?.color.set('black')
 						}}
 						onClick={(event) => {
 							event.stopPropagation()
@@ -143,31 +133,20 @@ function GizmoSphere({
 				</Billboard>
 			</group>
 			<group rotation-z={Math.PI * 0.5}>
-				<Line points={[0, 0, 0, 0.31, 0, 0]} color={'#77b316'} lineWidth={2} />
+				<Line fog points={[0, 0, 0, 0.31, 0, 0]} color={'#77b316'} lineWidth={2} />
 				<Billboard position={[0.4, 0, 0]}>
-					<Text
-						ref={labelY}
-						position={[0, 0, 0.01]}
-						font='/fonts/Inter-Bold.woff'
-						color={'black'}
-						fontSize={0.14}
-					>
+					<Text position={[0, 0, 0.01]} font='/fonts/Inter-Bold.woff' fontSize={0.14}>
 						Y
+						<meshBasicMaterial ref={labelY} color={'black'} fog={false} />
 					</Text>
 					<Circle
 						scale={0.1}
 						onPointerEnter={(event) => {
 							event.stopPropagation()
-							if (labelY.current)
-								(labelY.current.material as THREE.MeshBasicMaterial).color.set(
-									'white'
-								)
+							labelY.current?.color.set('white')
 						}}
 						onPointerLeave={() => {
-							if (labelY.current)
-								(labelY.current.material as THREE.MeshBasicMaterial).color.set(
-									'black'
-								)
+							labelY.current?.color.set('black')
 						}}
 						onClick={(event) => {
 							event.stopPropagation()
@@ -179,31 +158,20 @@ function GizmoSphere({
 				</Billboard>
 			</group>
 			<group rotation-y={-Math.PI * 0.5}>
-				<Line points={[0, 0, 0, 0.31, 0, 0]} color={'#317acd'} lineWidth={2} />
+				<Line fog points={[0, 0, 0, 0.31, 0, 0]} color={'#317acd'} lineWidth={2} />
 				<Billboard position={[0.4, 0, 0]}>
-					<Text
-						ref={labelZ}
-						position={[0, 0, 0.01]}
-						font='/fonts/Inter-Bold.woff'
-						color={'black'}
-						fontSize={0.14}
-					>
+					<Text position={[0, 0, 0.01]} font='/fonts/Inter-Bold.woff' fontSize={0.14}>
 						Z
+						<meshBasicMaterial ref={labelZ} color={'black'} fog={false} />
 					</Text>
 					<Circle
 						scale={0.1}
 						onPointerEnter={(event) => {
 							event.stopPropagation()
-							if (labelZ.current)
-								(labelZ.current.material as THREE.MeshBasicMaterial).color.set(
-									'white'
-								)
+							labelZ.current?.color.set('white')
 						}}
 						onPointerLeave={() => {
-							if (labelZ.current)
-								(labelZ.current.material as THREE.MeshBasicMaterial).color.set(
-									'black'
-								)
+							labelZ.current?.color.set('black')
 						}}
 						onClick={(event) => {
 							event.stopPropagation()
@@ -225,8 +193,9 @@ function GizmoSphere({
 				/> */}
 				<Billboard position={[0.4, 0, 0]}>
 					<group ref={labelXNegative} visible={false} position={[0, 0, 0.01]}>
-						<Text font='/fonts/Inter-Bold.woff' color={'white'} fontSize={0.14}>
+						<Text font='/fonts/Inter-Bold.woff' fontSize={0.14}>
 							-X
+							<meshBasicMaterial color={'white'} fog={false} />
 						</Text>
 					</group>
 					<Circle
@@ -263,6 +232,7 @@ function GizmoSphere({
 					<group ref={labelYNegative} visible={false} position={[0, 0, 0.01]}>
 						<Text font='/fonts/Inter-Bold.woff' color={'white'} fontSize={0.14}>
 							-Y
+							<meshBasicMaterial color={'white'} fog={false} />
 						</Text>
 					</group>
 					<Circle
@@ -299,6 +269,7 @@ function GizmoSphere({
 					<group ref={labelZNegative} visible={false} position={[0, 0, 0.01]}>
 						<Text font='/fonts/Inter-Bold.woff' color={'white'} fontSize={0.14}>
 							-Z
+							<meshBasicMaterial color={'white'} fog={false} />
 						</Text>
 					</group>
 					<Circle
