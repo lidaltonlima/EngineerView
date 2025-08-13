@@ -1,19 +1,53 @@
-import { Billboard, Circle, Hud, Line, OrthographicCamera, Text } from '@react-three/drei'
+import {
+	Billboard,
+	CameraControls,
+	Circle,
+	Hud,
+	Line,
+	OrthographicCamera,
+	Text
+} from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 
 export const Gizmo = (): React.JSX.Element => {
-	const { size, camera } = useThree()
+	const { size, camera, controls } = useThree()
+	const cameraControls = controls as CameraControls
+
 	const mesh = useRef<THREE.Group>(new THREE.Group())
+
+	const moveToUp = (): void => {
+		cameraControls.rotateTo(0, 0, true)
+	}
+
+	const moveToDown = (): void => {
+		cameraControls.rotateTo(0, Math.PI, true)
+	}
+
+	const moveToRight = (): void => {
+		cameraControls.rotateTo(Math.PI / 2, Math.PI / 2, true)
+	}
+
+	const moveToLeft = (): void => {
+		cameraControls.rotateTo(-Math.PI / 2, Math.PI / 2, true)
+	}
+
+	const moveToFront = (): void => {
+		cameraControls.rotateTo(0, Math.PI / 2, true)
+	}
+
+	const moveToBack = (): void => {
+		cameraControls.rotateTo(Math.PI, Math.PI / 2, true)
+	}
 
 	// Calcula a posição com base no tamanho atual
 	const position = useMemo(() => {
 		const zoom = 90 // mesmo zoom da câmera ortográfica
 		const position = new THREE.Vector3()
 		position.set(
-			size.width / (2 * zoom) - 1, // canto direito
-			size.height / (2 * zoom) - 1, // canto superior
+			size.width / (2 * zoom) - 0.6, // canto direito
+			size.height / (2 * zoom) - 0.6, // canto superior
 			0
 		)
 
@@ -33,13 +67,36 @@ export const Gizmo = (): React.JSX.Element => {
 			<OrthographicCamera makeDefault position={[0, 0, 10]} zoom={90} />
 			<ambientLight intensity={1} />
 			<group ref={mesh} position={position}>
-				<GizmoSphere />
+				<GizmoSphere
+					onClickX={moveToRight}
+					onClickXNegative={moveToLeft}
+					onClickY={moveToBack}
+					onClickYNegative={moveToFront}
+					onClickZ={moveToUp}
+					onClickZNegative={moveToDown}
+				/>
 			</group>
 		</Hud>
 	)
 }
 
-function GizmoSphere(): React.JSX.Element {
+interface IGizmoSphereProps {
+	onClickX?: () => void
+	onClickY?: () => void
+	onClickZ?: () => void
+	onClickXNegative?: () => void
+	onClickYNegative?: () => void
+	onClickZNegative?: () => void
+}
+
+function GizmoSphere({
+	onClickX = undefined,
+	onClickY = undefined,
+	onClickZ = undefined,
+	onClickXNegative = undefined,
+	onClickYNegative = undefined,
+	onClickZNegative = undefined
+}: IGizmoSphereProps): React.JSX.Element {
 	const labelX = useRef<THREE.Mesh>(null)
 	const labelY = useRef<THREE.Mesh>(null)
 	const labelZ = useRef<THREE.Mesh>(null)
@@ -54,6 +111,7 @@ function GizmoSphere(): React.JSX.Element {
 				<Billboard position={[0.4, 0, 0]}>
 					<Text
 						ref={labelX}
+						position={[0, 0, 0.01]}
 						font='/fonts/Inter-Bold.woff'
 						color={'black'}
 						fontSize={0.14}
@@ -75,6 +133,10 @@ function GizmoSphere(): React.JSX.Element {
 									'black'
 								)
 						}}
+						onClick={(event) => {
+							event.stopPropagation()
+							if (onClickX) onClickX()
+						}}
 					>
 						<meshBasicMaterial color={'#ff3653'} />
 					</Circle>
@@ -85,6 +147,7 @@ function GizmoSphere(): React.JSX.Element {
 				<Billboard position={[0.4, 0, 0]}>
 					<Text
 						ref={labelY}
+						position={[0, 0, 0.01]}
 						font='/fonts/Inter-Bold.woff'
 						color={'black'}
 						fontSize={0.14}
@@ -106,6 +169,10 @@ function GizmoSphere(): React.JSX.Element {
 									'black'
 								)
 						}}
+						onClick={(event) => {
+							event.stopPropagation()
+							if (onClickY) onClickY()
+						}}
 					>
 						<meshBasicMaterial color={'#77b316'} />
 					</Circle>
@@ -116,6 +183,7 @@ function GizmoSphere(): React.JSX.Element {
 				<Billboard position={[0.4, 0, 0]}>
 					<Text
 						ref={labelZ}
+						position={[0, 0, 0.01]}
 						font='/fonts/Inter-Bold.woff'
 						color={'black'}
 						fontSize={0.14}
@@ -136,6 +204,10 @@ function GizmoSphere(): React.JSX.Element {
 								(labelZ.current.material as THREE.MeshBasicMaterial).color.set(
 									'black'
 								)
+						}}
+						onClick={(event) => {
+							event.stopPropagation()
+							if (onClickZ) onClickZ()
 						}}
 					>
 						<meshBasicMaterial color={'#317acd'} />
@@ -166,11 +238,15 @@ function GizmoSphere(): React.JSX.Element {
 						onPointerLeave={() => {
 							if (labelXNegative.current) labelXNegative.current.visible = false
 						}}
+						onClick={(event) => {
+							event.stopPropagation()
+							if (onClickXNegative) onClickXNegative()
+						}}
 					>
 						<meshBasicMaterial color={'#ff3653'} />
 					</Circle>
-					<Circle scale={0.09}>
-						<meshBasicMaterial color={'#292929'} transparent opacity={0.7} />
+					<Circle scale={0.09} position={[0, 0, 0.005]}>
+						<meshBasicMaterial color={'black'} transparent opacity={0.7} />
 					</Circle>
 				</Billboard>
 			</group>
@@ -198,11 +274,15 @@ function GizmoSphere(): React.JSX.Element {
 						onPointerLeave={() => {
 							if (labelYNegative.current) labelYNegative.current.visible = false
 						}}
+						onClick={(event) => {
+							event.stopPropagation()
+							if (onClickYNegative) onClickYNegative()
+						}}
 					>
 						<meshBasicMaterial color={'#77b316'} />
 					</Circle>
-					<Circle scale={0.09}>
-						<meshBasicMaterial color={'#292929'} transparent opacity={0.7} />
+					<Circle scale={0.09} position={[0, 0, 0.005]}>
+						<meshBasicMaterial color={'black'} transparent opacity={0.7} />
 					</Circle>
 				</Billboard>
 			</group>
@@ -230,11 +310,15 @@ function GizmoSphere(): React.JSX.Element {
 						onPointerLeave={() => {
 							if (labelZNegative.current) labelZNegative.current.visible = false
 						}}
+						onClick={(event) => {
+							event.stopPropagation()
+							if (onClickZNegative) onClickZNegative()
+						}}
 					>
 						<meshBasicMaterial color={'#317acd'} />
 					</Circle>
-					<Circle scale={0.09}>
-						<meshBasicMaterial color={'#292929'} transparent opacity={0.7} />
+					<Circle scale={0.09} position={[0, 0, 0.005]}>
+						<meshBasicMaterial color={'black'} transparent opacity={0.7} />
 					</Circle>
 				</Billboard>
 			</group>

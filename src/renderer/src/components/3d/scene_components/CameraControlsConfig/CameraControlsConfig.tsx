@@ -68,11 +68,12 @@ export const CameraControlsConfig = (): React.JSX.Element => {
 		<CameraControls
 			ref={controlsRef}
 			makeDefault
-			draggingSmoothTime={0.03}
+			infinityDolly
 			dollyToCursor
+			smoothTime={0.1}
+			draggingSmoothTime={0.03}
 			mouseButtons={defaultMouseButtons}
 			dollySpeed={speedDolly}
-			infinityDolly
 		/>
 	)
 }
