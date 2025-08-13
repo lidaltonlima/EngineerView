@@ -1,29 +1,12 @@
-import { Billboard, Circle, Line, Text } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import * as THREE from 'three'
 import { Line2, LineSegments2 } from 'three/examples/jsm/Addons'
+import { ISphereGizmoProps } from './ISphereGizmoProps'
+import { PositiveAxis } from './PositiveAxis'
+import { NegativeAxis } from './NegativeAxis'
 
-interface IGizmoSphereProps {
-	camera: THREE.Camera
-
-	onClickX?: () => void
-	onClickLookingX?: () => void
-	onClickXNegative?: () => void
-	onClickLookingXNegative?: () => void
-
-	onClickY?: () => void
-	onClickLookingY?: () => void
-	onClickYNegative?: () => void
-	onClickLookingYNegative?: () => void
-
-	onClickZ?: () => void
-	onClickLookingZ?: () => void
-	onClickZNegative?: () => void
-	onClickLookingZNegative?: () => void
-}
-
-export const GizmoSphere = ({
+export const SphereGizmo = ({
 	camera,
 	onClickX = undefined,
 	onClickLookingX = undefined,
@@ -39,7 +22,7 @@ export const GizmoSphere = ({
 	onClickLookingZ = undefined,
 	onClickZNegative = undefined,
 	onClickLookingZNegative = undefined
-}: IGizmoSphereProps): React.JSX.Element => {
+}: ISphereGizmoProps): React.JSX.Element => {
 	const labelX = useRef<THREE.MeshBasicMaterial>(null)
 	const labelY = useRef<THREE.MeshBasicMaterial>(null)
 	const labelZ = useRef<THREE.MeshBasicMaterial>(null)
@@ -130,7 +113,73 @@ export const GizmoSphere = ({
 
 	return (
 		<>
-			<group>
+			<PositiveAxis
+				axis='x'
+				label='X'
+				labelRef={labelX}
+				cameraLooking={cameraLooking}
+				color='#ff3653'
+				rotation={[0, 0, 0]}
+				onClick={onClickX}
+				onClickLooking={onClickLookingX}
+			/>
+			<PositiveAxis
+				axis='y'
+				label='Y'
+				labelRef={labelY}
+				cameraLooking={cameraLooking}
+				color='#77b316'
+				rotation={[0, 0, Math.PI * 0.5]}
+				onClick={onClickY}
+				onClickLooking={onClickLookingY}
+			/>
+			<PositiveAxis
+				axis='z'
+				label='Z'
+				labelRef={labelZ}
+				cameraLooking={cameraLooking}
+				color='#317acd'
+				rotation={[0, -Math.PI * 0.5, 0]}
+				onClick={onClickZ}
+				onClickLooking={onClickLookingZ}
+			/>
+			<NegativeAxis
+				axis='-x'
+				label='-X'
+				labelRef={labelXNegative}
+				lineRef={lineXNegative}
+				cameraLooking={cameraLooking}
+				isMouseEnter={isMouseEnter}
+				color='#ff3653'
+				rotation={[0, 0, Math.PI]}
+				onClick={onClickXNegative}
+				onClickLooking={onClickLookingXNegative}
+			/>
+			<NegativeAxis
+				axis='-y'
+				label='-Y'
+				labelRef={labelYNegative}
+				lineRef={lineYNegative}
+				cameraLooking={cameraLooking}
+				isMouseEnter={isMouseEnter}
+				color='#77b316'
+				rotation={[0, 0, -Math.PI / 2]}
+				onClick={onClickYNegative}
+				onClickLooking={onClickLookingYNegative}
+			/>
+			<NegativeAxis
+				axis='-z'
+				label='-Z'
+				labelRef={labelZNegative}
+				lineRef={lineZNegative}
+				cameraLooking={cameraLooking}
+				isMouseEnter={isMouseEnter}
+				color='#317acd'
+				rotation={[0, Math.PI / 2, 0]}
+				onClick={onClickZNegative}
+				onClickLooking={onClickLookingZNegative}
+			/>
+			{/* <group>
 				<Line fog points={[0, 0, 0, 0.3, 0, 0]} color={'#ff3653'} lineWidth={2} />
 				<Billboard position={[0.4, 0, 0]}>
 					<Text position={[0, 0, 0.01]} font='/fonts/Inter-Bold.woff' fontSize={0.14}>
@@ -155,8 +204,8 @@ export const GizmoSphere = ({
 						<meshBasicMaterial color={'#ff3653'} />
 					</Circle>
 				</Billboard>
-			</group>
-			<group rotation-z={Math.PI * 0.5}>
+			</group> */}
+			{/* <group rotation-z={Math.PI * 0.5}>
 				<Line fog points={[0, 0, 0, 0.3, 0, 0]} color={'#77b316'} lineWidth={2} />
 				<Billboard position={[0.4, 0, 0]}>
 					<Text position={[0, 0, 0.01]} font='/fonts/Inter-Bold.woff' fontSize={0.14}>
@@ -181,8 +230,8 @@ export const GizmoSphere = ({
 						<meshBasicMaterial color={'#77b316'} />
 					</Circle>
 				</Billboard>
-			</group>
-			<group rotation-y={-Math.PI * 0.5}>
+			</group> */}
+			{/* <group rotation-y={-Math.PI * 0.5}>
 				<Line fog points={[0, 0, 0, 0.3, 0, 0]} color={'#317acd'} lineWidth={2} />
 				<Billboard position={[0.4, 0, 0]}>
 					<Text position={[0, 0, 0.01]} font='/fonts/Inter-Bold.woff' fontSize={0.14}>
@@ -207,8 +256,8 @@ export const GizmoSphere = ({
 						<meshBasicMaterial color={'#317acd'} />
 					</Circle>
 				</Billboard>
-			</group>
-			<group rotation-z={Math.PI}>
+			</group> */}
+			{/* <group rotation-z={Math.PI}>
 				<Line
 					ref={lineXNegative}
 					points={[0, 0, 0, 0.3, 0, 0]}
@@ -248,8 +297,8 @@ export const GizmoSphere = ({
 						<meshBasicMaterial color={'black'} transparent opacity={0.7} />
 					</Circle>
 				</Billboard>
-			</group>
-			<group rotation-z={-Math.PI / 2}>
+			</group> */}
+			{/* <group rotation-z={-Math.PI / 2}>
 				<Line
 					ref={lineYNegative}
 					points={[0, 0, 0, 0.3, 0, 0]}
@@ -289,8 +338,8 @@ export const GizmoSphere = ({
 						<meshBasicMaterial color={'black'} transparent opacity={0.7} />
 					</Circle>
 				</Billboard>
-			</group>
-			<group rotation-y={Math.PI / 2}>
+			</group> */}
+			{/* <group rotation-y={Math.PI / 2}>
 				<Line
 					ref={lineZNegative}
 					points={[0, 0, 0, 0.3, 0, 0]}
@@ -330,7 +379,7 @@ export const GizmoSphere = ({
 						<meshBasicMaterial color={'black'} transparent opacity={0.7} />
 					</Circle>
 				</Billboard>
-			</group>
+			</group> */}
 		</>
 	)
 }
