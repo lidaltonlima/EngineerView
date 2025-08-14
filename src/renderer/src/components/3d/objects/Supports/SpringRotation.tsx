@@ -1,5 +1,6 @@
 import { Line } from '@react-three/drei'
 import { map2Plane, rotatePoints } from '../../utils/functions/transformPoints'
+import { linSpace } from '../../functions'
 
 interface ISpringRotationProps {
 	basePoint: [number, number, number]
@@ -87,19 +88,4 @@ export const SpringRotation = ({
 			<Line worldUnits points={pointsSpiral.flat()} color={color} lineWidth={0.05} />
 		</>
 	)
-}
-
-function linSpace(start: number, end: number, num: number): number[] {
-	if (num <= 0) {
-		return []
-	}
-	if (num === 1) {
-		return [start]
-	}
-	const result = new Array<number>(num)
-	const step = (end - start) / (num - 1)
-	for (let i = 0; i < num; i++) {
-		result[i] = start + step * i
-	}
-	return result
 }

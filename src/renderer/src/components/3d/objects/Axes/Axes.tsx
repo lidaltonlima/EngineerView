@@ -21,7 +21,7 @@ export const Axes = ({
 	position = [0, 0, 0],
 	rotation = [0, 0, 0],
 	scale = 1,
-	label = true
+	label = false
 }: IAxesProps): React.JSX.Element => {
 	return (
 		<group rotation={rotation} position={position} scale={scale}>
