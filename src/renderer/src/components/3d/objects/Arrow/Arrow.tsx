@@ -1,6 +1,6 @@
 import { Line } from '@react-three/drei'
 
-interface IArrowProps {
+interface IArrowCustomProps {
 	length?: number
 	color?: string
 	direction?: 'x' | '-x' | 'y' | '-y' | 'z' | '-z'
@@ -14,6 +14,8 @@ interface IArrowProps {
 	endBase?: boolean
 }
 
+type IArrowProps = IArrowCustomProps & React.JSX.IntrinsicElements['group']
+
 export const Arrow = ({
 	length = 1,
 	color = 'red',
@@ -22,8 +24,8 @@ export const Arrow = ({
 	heightArrow = 0.4,
 	radiusArrow = 0.12,
 	lineWeight = 0.08,
-	rotation = [0, 0, 0],
-	endBase = false
+	endBase = false,
+	...props
 }: IArrowProps): React.JSX.Element => {
 	const moveBase = endBase ? length : 0
 
@@ -49,7 +51,7 @@ export const Arrow = ({
 	}
 
 	return (
-		<group rotation={rotation}>
+		<group {...props}>
 			<group rotation={[rotateXToDirection, 0, rotateZToDirection]}>
 				<mesh
 					position={[0, length - moveBase - scale * (heightArrow / 2), 0]}
