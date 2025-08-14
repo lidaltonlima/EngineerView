@@ -1,9 +1,9 @@
 import { Line } from '@react-three/drei'
 
 interface IArrowCustomProps {
+	direction?: 'x' | '-x' | 'y' | '-y' | 'z' | '-z'
 	length?: number
 	color?: string
-	direction?: 'x' | '-x' | 'y' | '-y' | 'z' | '-z'
 	scale?: number
 	rotation?: [number, number, number]
 
@@ -17,10 +17,10 @@ interface IArrowCustomProps {
 type IArrowProps = IArrowCustomProps & React.JSX.IntrinsicElements['group']
 
 export const Arrow = ({
-	length = 1,
-	color = 'red',
-	scale = 1,
 	direction = 'x',
+	length = 1,
+	color = 'white',
+	scale = 1,
 	heightArrow = 0.4,
 	radiusArrow = 0.12,
 	lineWeight = 0.08,

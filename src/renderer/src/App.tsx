@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Default3dScene } from './components/3d'
-import { Arc, Bar, Node } from './components/3d/objects'
+import { Bar, Node } from './components/3d/objects'
 import { DrawSupport } from './components/3d/utils'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
@@ -30,9 +30,6 @@ export const App = (): React.JSX.Element => {
 			{structureData?.bars.map((bar) => <Bar key={bar.name} bar={bar} />)}
 			{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
 			{structureData?.supports.map((support) => DrawSupport(support))}
-
-			{/* <CurvedArrow /> */}
-			<Arc />
 		</Default3dScene>
 	)
 }
