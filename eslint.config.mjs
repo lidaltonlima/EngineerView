@@ -41,7 +41,8 @@ export default tseslint.config(
 						'rotation-z',
 						'visible',
 						'transparent',
-						'fog'
+						'fog',
+						'depthTest'
 					]
 				}
 			]

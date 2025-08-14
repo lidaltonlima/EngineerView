@@ -1,7 +1,7 @@
 import { Line } from '@react-three/drei'
 
 interface IArrowCustomProps {
-	direction?: 'x' | '-x' | 'y' | '-y' | 'z' | '-z'
+	direction?: 'x' | 'y' | 'z' | '-x' | '-y' | '-z'
 	length?: number
 	color?: string
 	scale?: number
@@ -35,16 +35,16 @@ export const Arrow = ({
 		case 'x':
 			rotateZToDirection = -Math.PI / 2
 			break
-		case '-x':
-			rotateZToDirection = Math.PI / 2
-			break
 		case 'y':
-			break
-		case '-y':
-			rotateZToDirection = Math.PI
 			break
 		case 'z':
 			rotateXToDirection = Math.PI / 2
+			break
+		case '-x':
+			rotateZToDirection = Math.PI / 2
+			break
+		case '-y':
+			rotateZToDirection = Math.PI
 			break
 		case '-z':
 			rotateXToDirection = -Math.PI / 2

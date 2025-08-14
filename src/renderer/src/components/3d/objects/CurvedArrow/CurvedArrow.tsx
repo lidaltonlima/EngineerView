@@ -14,7 +14,7 @@ interface ICurvedArrowCustomProps {
 type ICurvedArrowProps = ICurvedArrowCustomProps & React.JSX.IntrinsicElements['group']
 
 export const CurvedArrow = ({
-	direction = '-z',
+	direction = 'x',
 	radius = 1,
 	scale = 1,
 	heightArrow = 0.4,
