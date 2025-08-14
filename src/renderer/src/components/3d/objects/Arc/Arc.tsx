@@ -4,15 +4,13 @@ import { linSpace } from '../../functions'
 interface IArcCustomProps {
 	radius?: number
 	angle?: number
-	lineProps?: Omit<LineProps, 'points'>
 }
 
-type IArcProps = IArcCustomProps & React.JSX.IntrinsicElements['group']
+type IArcProps = IArcCustomProps & Omit<LineProps, 'points'>
 
 export const Arc = ({
 	radius = 1,
 	angle = Math.PI * 2,
-	lineProps,
 	...props
 }: IArcProps): React.JSX.Element => {
 	const anglesToLinePoints = linSpace(0, angle, 64)
@@ -22,9 +20,5 @@ export const Arc = ({
 		0
 	])
 
-	return (
-		<group {...props}>
-			<Line points={linePoints.flat()} {...lineProps} />
-		</group>
-	)
+	return <Line points={linePoints.flat()} {...props} />
 }
