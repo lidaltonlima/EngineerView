@@ -1,97 +1,66 @@
 import { Line } from '@react-three/drei'
-import { map2Plane, rotatePoints } from '../../utils/functions/transformPoints'
 
 interface IFixedDisplacementProps {
-	basePoint: [number, number, number]
+	// value: number
+	position: [number, number, number]
 	direction: 'Dx' | 'Dy' | 'Dz'
 	scale?: number
+
+	color?: string
 }
 
 export const FixedDisplacement = ({
-	basePoint,
+	position,
 	direction,
+	color = 'white',
 	scale = 1
 }: IFixedDisplacementProps): React.JSX.Element => {
-	const size = 1 * scale
+	const size = 1
 	const half = size / 2
 	const height = (size * Math.sqrt(3)) / 2
 
-	// Rotação para que o triângulo aponte para apontar para o sentido positivo do eixo
-	let rotation = 0
-	if (direction === 'Dx' || direction === 'Dy') {
-		rotation = -Math.PI / 2
-	}
-
-	// Triângulo equilátero no plano XY
-	const pointsXY = [
+	const trianglePoints = [
 		[-half, -height / 3, 0], // canto esquerdo da base
 		[half, -height / 3, 0], // canto direito da base
 		[0, (2 * height) / 3, 0], // vértice oposto (topo)
 		[-half, -height / 3, 0] // fecha o triângulo
 	]
 
-	// Line "floor"
 	const base = size * 0.3
-	const baseLineXY = [
-		[-half - base / 2, -height / 3 - 0.1, 0],
-		[half + base / 2, -height / 3 - 0.1, 0]
+	const offset = 0.1
+	const baseLinePoints = [
+		[-half - base / 2, -height / 3 - offset, 0],
+		[half + base / 2, -height / 3 - offset, 0]
 	]
 
-	// Axis of displacement
-	let axis: 'x' | 'y' | 'z'
+	let rotation: [number, number, number] = [0, 0, 0]
 	switch (direction) {
 		case 'Dx':
-			axis = 'x'
+			rotation = [0, 0, Math.PI]
 			break
 		case 'Dy':
-			axis = 'y'
+			rotation = [0, Math.PI / 2, -Math.PI / 2]
 			break
 		case 'Dz':
-			axis = 'z'
-	}
-
-	// triangle ///////////////////////////////////////////////////////////////////////////////////
-	let trianglePoints1 = map2Plane(pointsXY, axis)
-	let baseLinePoints1 = map2Plane(baseLineXY, axis)
-
-	const pivot = trianglePoints1[2]
-
-	trianglePoints1 = trianglePoints1.map((point) => {
-		return point.map((element, index) => element - pivot[index])
-	})
-
-	baseLinePoints1 = baseLinePoints1.map((point) => {
-		return point.map((element, index) => element - pivot[index])
-	})
-
-	trianglePoints1 = rotatePoints(trianglePoints1, axis, rotation)
-	baseLinePoints1 = rotatePoints(baseLinePoints1, axis, rotation)
-
-	trianglePoints1 = trianglePoints1.map((point) => {
-		return point.map((value, index) => value + basePoint[index])
-	})
-
-	baseLinePoints1 = baseLinePoints1.map((point) => {
-		return point.map((value, index) => value + basePoint[index])
-	})
-
-	// Style //////////////////////////////////////////////////////////////////////////////////////
-	let color: string
-	switch (direction) {
-		case 'Dx':
-			color = 'red'
-			break
-		case 'Dy':
-			color = 'green'
-			break
-		case 'Dz':
-			color = 'blue'
+			rotation = [Math.PI / 2, 0, -Math.PI / 2]
 	}
 
 	return (
-		<>
-			<Line worldUnits points={trianglePoints1.flat()} color={color} lineWidth={0.05} />
-			<Line worldUnits points={baseLinePoints1.flat()} color={color} lineWidth={0.05} />
-		</>
+		<group position={position} rotation={rotation} scale={scale}>
+			<group position-x={half + offset} rotation={[0, 0, Math.PI / 2]}>
+				<Line
+					worldUnits
+					points={trianglePoints.flat()}
+					color={color}
+					lineWidth={0.05 * scale}
+				/>
+				<Line
+					worldUnits
+					points={baseLinePoints.flat()}
+					color={color}
+					lineWidth={0.05 * scale}
+				/>
+			</group>
+		</group>
 	)
 }

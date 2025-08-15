@@ -32,8 +32,9 @@ export const DrawSupport = (
 				drawings.push(
 					<FixedDisplacement
 						key={`${support.node}${key}`}
-						basePoint={basePoint}
+						position={basePoint}
 						direction='Dx'
+						color='red'
 					/>
 				)
 			} else if (typeof value === 'number') {
@@ -53,8 +54,9 @@ export const DrawSupport = (
 				drawings.push(
 					<FixedDisplacement
 						key={`${support.node}${key}`}
-						basePoint={basePoint}
+						position={basePoint}
 						direction='Dy'
+						color='green'
 					/>
 				)
 			} else if (typeof value === 'number') {
@@ -74,8 +76,9 @@ export const DrawSupport = (
 				drawings.push(
 					<FixedDisplacement
 						key={`${support.node}${key}`}
-						basePoint={basePoint}
+						position={basePoint}
 						direction='Dz'
+						color='blue'
 					/>
 				)
 			} else if (typeof value === 'number') {
@@ -95,8 +98,9 @@ export const DrawSupport = (
 				drawings.push(
 					<FixedRotation
 						key={`${support.node}${key}`}
-						basePoint={basePoint}
+						position={basePoint}
 						direction='Rx'
+						color='red'
 					/>
 				)
 			} else if (typeof value === 'number') {
@@ -115,8 +119,9 @@ export const DrawSupport = (
 				drawings.push(
 					<FixedRotation
 						key={`${support.node}${key}`}
-						basePoint={basePoint}
+						position={basePoint}
 						direction='Ry'
+						color='green'
 					/>
 				)
 			} else if (typeof value === 'number') {
@@ -135,8 +140,9 @@ export const DrawSupport = (
 				drawings.push(
 					<FixedRotation
 						key={`${support.node}${key}`}
-						basePoint={basePoint}
+						position={basePoint}
 						direction='Rz'
+						color='blue'
 					/>
 				)
 			} else if (typeof value === 'number') {
