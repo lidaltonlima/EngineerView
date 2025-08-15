@@ -1,19 +1,28 @@
-import { Line } from '@react-three/drei'
-import { map2Plane, rotatePoints } from '../../utils/functions/transformPoints'
+import { Billboard, Line, Text } from '@react-three/drei'
 
 interface ISpringDisplacementProps {
-	basePoint: [number, number, number]
+	value: number
+	position: [number, number, number]
 	direction: 'Dx' | 'Dy' | 'Dz'
 	scale?: number
+
+	color?: string
+	textColor?: string
+
+	label?: boolean
 }
 
 export const SpringDisplacement = ({
-	basePoint,
+	value,
+	position,
 	direction,
-	scale = 1
+	scale = 1,
+	color = 'white',
+	textColor = 'white',
+	label = false
 }: ISpringDisplacementProps): React.JSX.Element => {
-	const size = 0.3 * scale
-	const points_base = [
+	const size = 0.3
+	const points = [
 		[0.0, 0.0, 0.0],
 		[size, size, 0.0],
 		[2 * size, -size, 0.0],
@@ -26,47 +35,40 @@ export const SpringDisplacement = ({
 		[7 * size, -2 * size, 0.0]
 	]
 
-	let rotation: number
-	if (direction === 'Dx' || direction === 'Dy') {
-		rotation = Math.PI
-	} else {
-		rotation = Math.PI / 2
-	}
-
-	// Axis of displacement
-	let axis: 'x' | 'y' | 'z'
+	let anchorXLabel: 'right' | 'left' = 'left'
+	let labelRotation = 0
+	let rotation: [number, number, number] = [0, 0, 0]
 	switch (direction) {
 		case 'Dx':
-			axis = 'x'
+			anchorXLabel = 'right'
+			rotation = [0, 0, Math.PI]
 			break
 		case 'Dy':
-			axis = 'y'
+			rotation = [0, Math.PI / 2, -Math.PI / 2]
 			break
 		case 'Dz':
-			axis = 'z'
-	}
-
-	let points = rotatePoints(map2Plane(points_base, axis), axis, rotation)
-	points = points.map((point) => {
-		return point.map((value, index) => value + basePoint[index])
-	})
-
-	// Style //////////////////////////////////////////////////////////////////////////////////////
-	let color: string
-	switch (direction) {
-		case 'Dx':
-			color = 'red'
-			break
-		case 'Dy':
-			color = 'green'
-			break
-		case 'Dz':
-			color = 'blue'
+			anchorXLabel = 'right'
+			labelRotation = Math.PI / 2
+			rotation = [Math.PI / 2, 0, -Math.PI / 2]
 	}
 
 	return (
-		<>
-			<Line worldUnits points={points.flat()} color={color} lineWidth={0.05} />
-		</>
+		<group position={position} scale={scale} rotation={rotation}>
+			<Line worldUnits points={points.flat()} color={color} lineWidth={0.05 * scale} />
+			{label && (
+				<Billboard position={[2.2, 0, 0]}>
+					<Text
+						rotation-z={labelRotation}
+						renderOrder={10}
+						anchorX={anchorXLabel}
+						font='/fonts/Inter-Regular.woff'
+						fontSize={0.3}
+					>
+						{value.toString()}
+						<meshBasicMaterial color={textColor} depthTest={false} />
+					</Text>
+				</Billboard>
+			)}
+		</group>
 	)
 }

@@ -52,12 +52,12 @@
 		{
 			"node": "N1",
 			"supports": {
-				"Dx": 5e6,
-				"Dy": true,
-				"Dz": true,
-				"Rx": true,
-				"Ry": true,
-				"Rz": true
+				"Dx": 1e6,
+				"Dy": 1e6,
+				"Dz": 1e6,
+				"Rx": 1e6,
+				"Ry": 2e6,
+				"Rz": 3e6
 			}
 		},
 		{

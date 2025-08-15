@@ -1,21 +1,28 @@
-import { Line } from '@react-three/drei'
-import { map2Plane, rotatePoints } from '../../utils/functions/transformPoints'
+import { Billboard, Line, Text } from '@react-three/drei'
 import { linSpace } from '../../functions'
 
 interface ISpringRotationProps {
-	basePoint: [number, number, number]
+	value: number
+	position: [number, number, number]
 	direction: 'Rx' | 'Ry' | 'Rz'
 	scale?: number
+	color?: string
+	textColor?: string
+	label?: boolean
 }
 
 export const SpringRotation = ({
-	basePoint,
+	value,
+	position,
 	direction,
-	scale = 1
+	scale = 1,
+	color = 'white',
+	textColor = 'white',
+	label = true
 }: ISpringRotationProps): React.JSX.Element => {
-	const size = 0.5 * scale
+	const size = 0.5
 
-	let pointsLine = [
+	const pointsLine = [
 		[0, 0, 0],
 		[size, 0, 0]
 	]
@@ -28,7 +35,7 @@ export const SpringRotation = ({
 	const theta = linSpace(0, 2 * Math.PI * lapsNumber, pointsNumber)
 	const raio = linSpace(initialRadius, endRadius, pointsNumber)
 
-	let pointsSpiral: number[][] = []
+	const pointsSpiral: number[][] = []
 	for (let i = 0; i < pointsNumber; i++) {
 		// Coordenada X é fixa para cada ponto da espiral
 		const x = size
@@ -39,53 +46,37 @@ export const SpringRotation = ({
 		pointsSpiral.push([x, y, z])
 	}
 
-	let rotation: number
-	if (direction === 'Rx' || direction === 'Ry') {
-		rotation = 0
-	} else {
-		rotation = -Math.PI / 2
-	}
-
-	// Axis of displacement
-	let axis: 'x' | 'y' | 'z'
+	let labelRotation = 0
+	let rotation: [number, number, number] = [0, 0, 0]
 	switch (direction) {
 		case 'Rx':
-			axis = 'x'
 			break
 		case 'Ry':
-			axis = 'y'
+			rotation = [0, 0, Math.PI / 2]
 			break
 		case 'Rz':
-			axis = 'z'
-	}
-
-	pointsLine = rotatePoints(map2Plane(pointsLine, axis), axis, rotation)
-	pointsLine = pointsLine.map((point) => {
-		return point.map((value, index) => value + basePoint[index])
-	})
-
-	pointsSpiral = rotatePoints(map2Plane(pointsSpiral, axis), axis, rotation)
-	pointsSpiral = pointsSpiral.map((point) => {
-		return point.map((value, index) => value + basePoint[index])
-	})
-
-	// Style //////////////////////////////////////////////////////////////////////////////////////
-	let color: string
-	switch (direction) {
-		case 'Rx':
-			color = 'red'
-			break
-		case 'Ry':
-			color = 'green'
-			break
-		case 'Rz':
-			color = 'blue'
+			labelRotation = Math.PI / 2
+			rotation = [0, -Math.PI / 2, 0]
 	}
 
 	return (
-		<>
-			<Line worldUnits points={pointsLine.flat()} color={color} lineWidth={0.05} />
-			<Line worldUnits points={pointsSpiral.flat()} color={color} lineWidth={0.05} />
-		</>
+		<group position={position} rotation={rotation} scale={scale}>
+			<Line worldUnits points={pointsLine.flat()} color={color} lineWidth={0.05 * scale} />
+			<Line worldUnits points={pointsSpiral.flat()} color={color} lineWidth={0.05 * scale} />
+			{label && (
+				<Billboard position={[0.6, 0, 0]}>
+					<Text
+						rotation-z={labelRotation}
+						renderOrder={10}
+						anchorX={'left'}
+						font='/fonts/Inter-Regular.woff'
+						fontSize={0.3}
+					>
+						{value.toString()}
+						<meshBasicMaterial color={textColor} depthTest={false} />
+					</Text>
+				</Billboard>
+			)}
+		</group>
 	)
 }

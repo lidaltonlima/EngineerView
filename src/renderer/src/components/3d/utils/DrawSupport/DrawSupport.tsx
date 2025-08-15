@@ -39,9 +39,12 @@ export const DrawSupport = (
 			} else if (typeof value === 'number') {
 				drawings.push(
 					<SpringDisplacement
+						label
 						key={`${support.node}${key}`}
-						basePoint={basePoint}
+						value={value}
+						position={basePoint}
 						direction='Dx'
+						color='red'
 					/>
 				)
 			}
@@ -57,9 +60,12 @@ export const DrawSupport = (
 			} else if (typeof value === 'number') {
 				drawings.push(
 					<SpringDisplacement
+						label
 						key={`${support.node}${key}`}
-						basePoint={basePoint}
+						value={value}
+						position={basePoint}
 						direction='Dy'
+						color='green'
 					/>
 				)
 			}
@@ -75,9 +81,12 @@ export const DrawSupport = (
 			} else if (typeof value === 'number') {
 				drawings.push(
 					<SpringDisplacement
+						label
 						key={`${support.node}${key}`}
-						basePoint={basePoint}
+						value={value}
+						position={basePoint}
 						direction='Dz'
+						color='blue'
 					/>
 				)
 			}
@@ -94,8 +103,10 @@ export const DrawSupport = (
 				drawings.push(
 					<SpringRotation
 						key={`${support.node}${key}`}
-						basePoint={basePoint}
+						value={value}
+						position={basePoint}
 						direction='Rx'
+						color='red'
 					/>
 				)
 			}
@@ -112,8 +123,10 @@ export const DrawSupport = (
 				drawings.push(
 					<SpringRotation
 						key={`${support.node}${key}`}
-						basePoint={basePoint}
+						value={value}
+						position={basePoint}
 						direction='Ry'
+						color='green'
 					/>
 				)
 			}
@@ -130,8 +143,10 @@ export const DrawSupport = (
 				drawings.push(
 					<SpringRotation
 						key={`${support.node}${key}`}
-						basePoint={basePoint}
+						value={value}
+						position={basePoint}
 						direction='Rz'
+						color='blue'
 					/>
 				)
 			}
