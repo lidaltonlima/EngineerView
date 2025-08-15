@@ -2,11 +2,12 @@
  * Interface for structure data
  */
 export interface IStructureData {
-	material: IMaterialData[]
-	section: ISectionData[]
+	materials: IMaterialData[]
+	sections: ISectionData[]
 	nodes: INodeData[]
 	bars: IBarData[]
 	supports: ISupportData[]
+	loads: ILoadData[]
 }
 
 // Material and Section ///////////////////////////////////////////////////////////////////////////

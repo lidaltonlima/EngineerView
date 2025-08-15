@@ -1,7 +1,7 @@
 import { Force } from './Force'
 import { Moment } from './Moment'
 
-interface INodalForcesCustomProps {
+interface INodalLoadCustomProps {
 	fx?: number
 	fy?: number
 	fz?: number
@@ -12,9 +12,9 @@ interface INodalForcesCustomProps {
 	label?: boolean
 }
 
-type INodalForcesProps = INodalForcesCustomProps & React.JSX.IntrinsicElements['group']
+type INodalLoadProps = INodalLoadCustomProps & React.JSX.IntrinsicElements['group']
 
-export const NodalForce = ({
+export const NodalLoad = ({
 	fx = 0,
 	fy = 0,
 	fz = 0,
@@ -23,7 +23,7 @@ export const NodalForce = ({
 	mz = 0,
 	label = false,
 	...props
-}: INodalForcesProps): React.JSX.Element => {
+}: INodalLoadProps): React.JSX.Element => {
 	return (
 		<group {...props}>
 			{/* Positive values */}

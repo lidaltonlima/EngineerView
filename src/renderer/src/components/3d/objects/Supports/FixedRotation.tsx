@@ -70,8 +70,8 @@ export const FixedRotation = ({
 
 	return (
 		<>
-			<Line worldUnits points={pointsLine.flat()} color={color} lineWidth={0.05} />
-			<Line worldUnits points={pointsSquare.flat()} color={color} lineWidth={0.05} />
+			<Line worldUnits points={pointsLine.flat()} color={color} lineWidth={0.05 * scale} />
+			<Line worldUnits points={pointsSquare.flat()} color={color} lineWidth={0.05 * scale} />
 		</>
 	)
 }

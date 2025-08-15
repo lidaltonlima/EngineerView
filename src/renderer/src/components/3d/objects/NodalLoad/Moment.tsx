@@ -19,19 +19,20 @@ export const Moment = ({
 }: IMomentProps): React.JSX.Element => {
 	const billboardPosition = new Vector3()
 	let anchorXLabel: 'right' | 'left' = 'left'
+	let rotationLabel = 0
 	switch (direction) {
 		case 'x':
-			anchorXLabel = 'right'
 			billboardPosition.set(0, 0.9, -1)
 			break
 		case 'y':
 			billboardPosition.set(0.9, 0, 1.1)
 			break
 		case 'z':
+			rotationLabel = Math.PI / 2
 			billboardPosition.set(-0.9, 1.1, 0)
 			break
 		case '-x':
-			billboardPosition.set(0, -0.9, 1.1)
+			billboardPosition.set(0, -0.9, 0.75)
 			break
 		case '-y':
 			anchorXLabel = 'right'
@@ -39,6 +40,7 @@ export const Moment = ({
 			break
 		case '-z':
 			anchorXLabel = 'right'
+			rotationLabel = Math.PI / 2
 			billboardPosition.set(1, -0.8, 0)
 	}
 
@@ -48,7 +50,7 @@ export const Moment = ({
 			{label && (
 				<Billboard position={billboardPosition}>
 					<Text
-						rotation-z={Math.PI / 2}
+						rotation-z={rotationLabel}
 						renderOrder={10}
 						anchorX={anchorXLabel}
 						font='/fonts/Inter-Regular.woff'

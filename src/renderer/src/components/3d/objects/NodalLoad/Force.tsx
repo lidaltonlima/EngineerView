@@ -22,6 +22,7 @@ export const Force = ({
 	let labelRotation = 0
 	switch (direction) {
 		case 'x':
+			anchorXLabel = 'right'
 			billboardPosition.set(-1.1, 0, 0)
 			break
 		case 'y':
@@ -45,7 +46,7 @@ export const Force = ({
 
 	return (
 		<>
-			<Arrow endBase color={arrowColor} direction={direction} />
+			<Arrow renderOrder={9} endBase color={arrowColor} direction={direction} />
 			{label && (
 				<Billboard position={billboardPosition}>
 					<Text
