@@ -4,12 +4,12 @@ import {
 	SpringDisplacement,
 	SpringRotation
 } from '@renderer/components/3d/objects/Supports'
-import { useStructureContext } from '@renderer/contexts/Structure'
-import { ISupportData } from '@renderer/types/Structure'
+import { IStructureData, ISupportData } from '@renderer/types/Structure'
 
-export const DrawSupport = (support: ISupportData): React.JSX.Element[] => {
-	const { structure } = useStructureContext()
-
+export const DrawSupport = (
+	support: ISupportData,
+	structure: IStructureData
+): React.JSX.Element[] => {
 	let basePoint: [number, number, number] = [0, 0, 0]
 	let isError = true
 

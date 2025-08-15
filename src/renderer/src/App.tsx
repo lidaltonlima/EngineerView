@@ -30,7 +30,7 @@ export const App = (): React.JSX.Element => {
 		<Default3dScene>
 			{structureData?.bars.map((bar) => <Bar key={bar.name} bar={bar} />)}
 			{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
-			{structureData?.supports.map((support) => DrawSupport(support))}
+			{structureData?.supports.map((support) => DrawSupport(support, structure))}
 			{structureData?.loads[0].nodes_loads.map((nodalLoad) => (
 				<NodalLoad
 					label
