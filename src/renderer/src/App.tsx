@@ -39,11 +39,11 @@ export const App = (): React.JSX.Element => {
 						structureData?.nodes.find((node) => node.name === nodalLoad.node)?.position
 					}
 					fx={nodalLoad.loads.Fx}
-					fy={-nodalLoad.loads.Fy}
+					fy={nodalLoad.loads.Fy}
 					fz={nodalLoad.loads.Fz}
-					mx={-nodalLoad.loads.Mx}
+					mx={nodalLoad.loads.Mx}
 					my={nodalLoad.loads.My}
-					mz={-nodalLoad.loads.Mz}
+					mz={nodalLoad.loads.Mz}
 				/>
 			))}
 		</Default3dScene>
