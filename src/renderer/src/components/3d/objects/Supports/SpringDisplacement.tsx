@@ -21,7 +21,7 @@ export const SpringDisplacement = ({
 	textColor = 'white',
 	label = false
 }: ISpringDisplacementProps): React.JSX.Element => {
-	const size = 0.3
+	const size = 0.05
 	const points = [
 		[0.0, 0.0, 0.0],
 		[size, size, 0.0],
@@ -54,15 +54,15 @@ export const SpringDisplacement = ({
 
 	return (
 		<group position={position} scale={scale} rotation={rotation}>
-			<Line worldUnits points={points.flat()} color={color} lineWidth={0.05 * scale} />
+			<Line worldUnits points={points.flat()} color={color} lineWidth={0.02 * scale} />
 			{label && (
-				<Billboard position={[2.2, 0, 0]}>
+				<Billboard position={[0.4, 0, 0]}>
 					<Text
 						rotation-z={labelRotation}
 						renderOrder={10}
 						anchorX={anchorXLabel}
 						font='/fonts/Inter-Regular.woff'
-						fontSize={0.3}
+						fontSize={0.1}
 					>
 						{value.toString()}
 						<meshBasicMaterial color={textColor} depthTest={false} />

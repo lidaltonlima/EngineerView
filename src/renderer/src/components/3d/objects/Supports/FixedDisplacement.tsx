@@ -15,7 +15,7 @@ export const FixedDisplacement = ({
 	color = 'white',
 	scale = 1
 }: IFixedDisplacementProps): React.JSX.Element => {
-	const size = 1
+	const size = 0.2
 	const half = size / 2
 	const height = (size * Math.sqrt(3)) / 2
 
@@ -27,7 +27,7 @@ export const FixedDisplacement = ({
 	]
 
 	const base = size * 0.3
-	const offset = 0.1
+	const offset = 0.04
 	const baseLinePoints = [
 		[-half - base / 2, -height / 3 - offset, 0],
 		[half + base / 2, -height / 3 - offset, 0]
@@ -52,13 +52,13 @@ export const FixedDisplacement = ({
 					worldUnits
 					points={trianglePoints.flat()}
 					color={color}
-					lineWidth={0.05 * scale}
+					lineWidth={0.02 * scale}
 				/>
 				<Line
 					worldUnits
 					points={baseLinePoints.flat()}
 					color={color}
-					lineWidth={0.05 * scale}
+					lineWidth={0.02 * scale}
 				/>
 			</group>
 		</group>

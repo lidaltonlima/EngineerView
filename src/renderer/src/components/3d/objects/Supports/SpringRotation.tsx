@@ -20,7 +20,7 @@ export const SpringRotation = ({
 	textColor = 'white',
 	label = true
 }: ISpringRotationProps): React.JSX.Element => {
-	const size = 0.5
+	const size = 0.2
 
 	const pointsLine = [
 		[0, 0, 0],
@@ -61,16 +61,16 @@ export const SpringRotation = ({
 
 	return (
 		<group position={position} rotation={rotation} scale={scale}>
-			<Line worldUnits points={pointsLine.flat()} color={color} lineWidth={0.05 * scale} />
-			<Line worldUnits points={pointsSpiral.flat()} color={color} lineWidth={0.05 * scale} />
+			<Line worldUnits points={pointsLine.flat()} color={color} lineWidth={0.02 * scale} />
+			<Line worldUnits points={pointsSpiral.flat()} color={color} lineWidth={0.02 * scale} />
 			{label && (
-				<Billboard position={[0.6, 0, 0]}>
+				<Billboard position={[0.25, 0, 0]}>
 					<Text
 						rotation-z={labelRotation}
 						renderOrder={10}
 						anchorX={'left'}
 						font='/fonts/Inter-Regular.woff'
-						fontSize={0.3}
+						fontSize={0.1}
 					>
 						{value.toString()}
 						<meshBasicMaterial color={textColor} depthTest={false} />

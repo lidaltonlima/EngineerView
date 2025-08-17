@@ -13,7 +13,7 @@ export const FixedRotation = ({
 	scale = 1,
 	color = 'white'
 }: IFixedRotationProps): React.JSX.Element => {
-	const size = 0.5
+	const size = 0.1
 	const pointsLine = [
 		[0.0, 0.0, 0.0],
 		[2 * size, 0.0, 0.0]
@@ -40,8 +40,8 @@ export const FixedRotation = ({
 
 	return (
 		<group position={position} rotation={rotation}>
-			<Line worldUnits points={pointsLine.flat()} color={color} lineWidth={0.05 * scale} />
-			<Line worldUnits points={pointsSquare.flat()} color={color} lineWidth={0.05 * scale} />
+			<Line worldUnits points={pointsLine.flat()} color={color} lineWidth={0.02 * scale} />
+			<Line worldUnits points={pointsSquare.flat()} color={color} lineWidth={0.02 * scale} />
 		</group>
 	)
 }

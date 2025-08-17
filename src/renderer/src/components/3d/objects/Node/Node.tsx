@@ -11,11 +11,11 @@ export const Node = ({ node }: INodeProps): React.JSX.Element => {
 
 	return (
 		<Points key={node.name} limit={1} range={1}>
-			<pointsMaterial vertexColors size={0.5} />
+			<pointsMaterial vertexColors size={0.2} />
 			<Point
 				name={node.name}
 				position={position}
-				color={'red'}
+				color={'magenta'}
 				onClick={(event) => console.log(event.object.name)}
 			/>
 		</Points>

@@ -20,33 +20,48 @@ export const Moment = ({
 	const billboardPosition = new Vector3()
 	let anchorXLabel: 'right' | 'left' = 'left'
 	let rotationLabel = 0
+	const offsetLabel1 = 0.25
+	const offsetLabel2 = 0.35
+	const offsetNegativeLabel = 0.06
 	switch (direction) {
 		case 'x':
-			billboardPosition.set(0, 0.9, -1)
+			billboardPosition.set(0, offsetLabel1, -offsetLabel2)
 			break
 		case 'y':
-			billboardPosition.set(0.9, 0, 1.1)
+			billboardPosition.set(offsetLabel1, 0, offsetLabel2)
 			break
 		case 'z':
 			rotationLabel = Math.PI / 2
-			billboardPosition.set(-0.9, 1.1, 0)
+			billboardPosition.set(-offsetLabel1, offsetLabel2 - 0.05, 0)
 			break
 		case '-x':
-			billboardPosition.set(0, -0.9, 0.75)
+			billboardPosition.set(
+				0,
+				-offsetLabel1 - offsetNegativeLabel,
+				offsetLabel2 - offsetNegativeLabel
+			)
 			break
 		case '-y':
 			anchorXLabel = 'right'
-			billboardPosition.set(-0.9, 0, -1.1)
+			billboardPosition.set(
+				-offsetLabel1 - offsetNegativeLabel,
+				0,
+				-offsetLabel2 + offsetNegativeLabel
+			)
 			break
 		case '-z':
 			anchorXLabel = 'right'
 			rotationLabel = Math.PI / 2
-			billboardPosition.set(1, -0.8, 0)
+			billboardPosition.set(
+				offsetLabel1 + offsetNegativeLabel,
+				-offsetLabel2 + offsetNegativeLabel,
+				0
+			)
 	}
 
 	return (
 		<>
-			<CurvedArrow radius={1.3} color={arrowColor} direction={direction} />
+			<CurvedArrow radius={0.4} color={arrowColor} direction={direction} scale={0.35} />
 			{label && (
 				<Billboard position={billboardPosition}>
 					<Text
@@ -54,7 +69,7 @@ export const Moment = ({
 						renderOrder={10}
 						anchorX={anchorXLabel}
 						font='/fonts/Inter-Regular.woff'
-						fontSize={0.3}
+						fontSize={0.1}
 					>
 						{value.toString()}
 						<meshBasicMaterial color={textColor} depthTest={false} />
