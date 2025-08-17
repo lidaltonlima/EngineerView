@@ -4,6 +4,8 @@ import { Bar, NodalLoad, Node } from './components/3d/objects'
 import { DrawSupport } from './components/3d/utils'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
+import { Line } from '@react-three/drei'
+import { LocalAxesZUp } from './LocalAxesZUp'
 
 export const App = (): React.JSX.Element => {
 	const [structureData, setStructureData] = useState<IStructureData | null>()
@@ -26,6 +28,9 @@ export const App = (): React.JSX.Element => {
 		}
 	}, [structure])
 
+	const pointA = [0, 0, 0]
+	const pointB = [1, 1, 1]
+
 	return (
 		<Default3dScene>
 			{structureData?.bars.map((bar) => <Bar key={bar.name} bar={bar} />)}
@@ -46,6 +51,14 @@ export const App = (): React.JSX.Element => {
 					mz={nodalLoad.loads.Mz}
 				/>
 			))}
+			{/* <axesHelper /> */}
+			<Line
+				worldUnits
+				position={[-0.5, -0.5, -0.5]}
+				points={[pointA, pointB, [0, 1, 0], pointA].flat()}
+				lineWidth={0.01}
+			/>
+			<LocalAxesZUp />
 		</Default3dScene>
 	)
 }
