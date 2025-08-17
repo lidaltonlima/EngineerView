@@ -36,7 +36,21 @@
 			"end_node": "N2",
 			"section": "w150x13",
 			"material": "steel",
-			"rotation": 0
+			"rotation": 0,
+			"releases": {
+				"Dxi": false,
+				"Dyi": false,
+				"Dzi": false,
+				"Rxi": false,
+				"Ryi": false,
+				"Rzi": false,
+				"Dxj": false,
+				"Dyj": false,
+				"Dzj": false,
+				"Rxj": false,
+				"Ryj": false,
+				"Rzj": false
+			}
 		},
 		{
 			"name": "B2",
@@ -44,7 +58,21 @@
 			"end_node": "N3",
 			"section": "w150x13",
 			"material": "steel",
-			"rotation": 0
+			"rotation": 0,
+			"releases": {
+				"Dxi": true,
+				"Dyi": true,
+				"Dzi": true,
+				"Rxi": true,
+				"Ryi": true,
+				"Rzi": true,
+				"Dxj": true,
+				"Dyj": true,
+				"Dzj": true,
+				"Rxj": true,
+				"Ryj": true,
+				"Rzj": true
+			}
 		}
 	],
 

@@ -30,8 +30,20 @@
 			"section": "section_01",
 			"material": "material_01",
 			"rotation": 0,
-			"start_connection": "Fixed-Hinged-spring",
-			"end_connection": "Fixed-Hinged-spring"
+			"releases": {
+				"Dxi": false,
+				"Dyi": false,
+				"Dzi": false,
+				"Rxi": false,
+				"Ryi": false,
+				"Rzi": false,
+				"Dxj": false,
+				"Dyj": false,
+				"Dzj": false,
+				"Rxj": false,
+				"Ryj": false,
+				"Rzj": false
+			}
 		}
 	],
 

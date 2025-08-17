@@ -37,8 +37,23 @@ export interface IBarData {
 	section: string
 	material: string
 	rotation: number
-	start_connection: 'Fixed' | 'Hinged' | 'spring'
-	end_connection: 'Fixed' | 'Hinged' | 'spring'
+	releases: IReleasesData
+}
+
+// Releases ***************************************************************************************
+export interface IReleasesData {
+	Dxi: boolean
+	Dyi: boolean
+	Dzi: boolean
+	Rxi: boolean
+	Ryi: boolean
+	Rzi: boolean
+	Dxj: boolean
+	Dyj: boolean
+	Dzj: boolean
+	Rxj: boolean
+	Ryj: boolean
+	Rzj: boolean
 }
 
 // Supports ///////////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +70,7 @@ export interface ISupportData {
 }
 
 // Loads //////////////////////////////////////////////////////////////////////////////////////////
-export interface ILoadData {
+interface ILoadData {
 	name: string
 	nodes_loads: IPointLoadsData[]
 	bars_loads: IBarLoadsData[]
