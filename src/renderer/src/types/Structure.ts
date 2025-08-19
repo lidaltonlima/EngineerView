@@ -42,6 +42,7 @@ export interface IBarData {
 
 // Releases ***************************************************************************************
 export interface IReleasesData {
+	system: 'global' | 'local'
 	Dxi: boolean
 	Dyi: boolean
 	Dzi: boolean

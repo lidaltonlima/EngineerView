@@ -26,8 +26,6 @@ export const App = (): React.JSX.Element => {
 		}
 	}, [structure])
 
-	console.log('teste')
-
 	return (
 		<Default3dScene>
 			{structureData?.bars.map((bar) => <Bar key={bar.name} bar={bar} />)}

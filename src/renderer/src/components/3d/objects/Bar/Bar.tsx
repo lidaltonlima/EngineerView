@@ -1,9 +1,10 @@
 import { Line } from '@react-three/drei'
 import { useStructureContext } from '@renderer/contexts/Structure'
 import { IBarData } from '@renderer/types/Structure'
-import { Vector3 } from 'three'
 import { LocalAxes } from '../LocalAxes'
 import { degToRad } from 'three/src/math/MathUtils'
+import { Releases } from './Releases'
+import * as THREE from 'three'
 
 interface IBarProps {
 	bar: IBarData
@@ -12,8 +13,9 @@ interface IBarProps {
 export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 	const { structure } = useStructureContext()
 
-	const startPoint = new Vector3()
-	const endPoint = new Vector3()
+	const startPoint = new THREE.Vector3()
+	const endPoint = new THREE.Vector3()
+	const rotation = degToRad(bar.rotation)
 
 	for (const node of structure.nodes) {
 		if (node.name == bar.start_node) {
@@ -23,20 +25,20 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 		}
 	}
 
-	const middlePoint = new Vector3().subVectors(endPoint, startPoint)
+	const middlePoint = new THREE.Vector3().subVectors(endPoint, startPoint)
 	middlePoint.divideScalar(2)
 	middlePoint.addVectors(middlePoint, startPoint)
 
-	const direction = new Vector3().subVectors(endPoint, startPoint).normalize()
+	const direction = new THREE.Vector3().subVectors(endPoint, startPoint).normalize()
 
 	return (
 		<>
 			<Line
-				worldUnits
+				// worldUnits
 				name={bar.name}
 				points={[startPoint, endPoint]}
 				color={'orange'}
-				lineWidth={0.02}
+				lineWidth={2}
 			/>
 			<LocalAxes
 				direction={direction}
@@ -44,6 +46,13 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 				label
 				scale={0.25}
 				position={middlePoint}
+			/>
+			<Releases
+				releases={bar.releases}
+				direction={direction}
+				startPoint={startPoint}
+				endPoint={endPoint}
+				barRotation={rotation}
 			/>
 		</>
 	)

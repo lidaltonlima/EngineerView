@@ -11,7 +11,7 @@ export const Node = ({ node }: INodeProps): React.JSX.Element => {
 
 	return (
 		<Points key={node.name} limit={1} range={1}>
-			<pointsMaterial vertexColors size={0.2} />
+			<pointsMaterial vertexColors size={0.1} />
 			<Point
 				name={node.name}
 				position={position}
