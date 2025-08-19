@@ -1,11 +1,11 @@
+import { Line } from '@react-three/drei'
 import { useEffect, useState } from 'react'
 import { Default3dScene } from './components/3d'
 import { Bar, NodalLoad, Node } from './components/3d/objects'
 import { DrawSupport } from './components/3d/utils'
 import { useStructureContext } from './contexts/Structure'
+import { LocalAxes } from './LocalAxes'
 import { IStructureData } from './types/Structure'
-import { Line } from '@react-three/drei'
-import { LocalAxesZUp } from './LocalAxesZUp'
 
 export const App = (): React.JSX.Element => {
 	const [structureData, setStructureData] = useState<IStructureData | null>()
@@ -58,7 +58,7 @@ export const App = (): React.JSX.Element => {
 				points={[pointA, pointB, [0, 1, 0], pointA].flat()}
 				lineWidth={0.01}
 			/>
-			<LocalAxesZUp />
+			<LocalAxes />
 		</Default3dScene>
 	)
 }
