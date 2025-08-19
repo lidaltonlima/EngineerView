@@ -48,18 +48,8 @@ export const FixedDisplacement = ({
 	return (
 		<group position={position} rotation={rotation} scale={scale}>
 			<group position-x={half + offset} rotation={[0, 0, Math.PI / 2]}>
-				<Line
-					worldUnits
-					points={trianglePoints.flat()}
-					color={color}
-					lineWidth={0.02 * scale}
-				/>
-				<Line
-					worldUnits
-					points={baseLinePoints.flat()}
-					color={color}
-					lineWidth={0.02 * scale}
-				/>
+				<Line worldUnits points={trianglePoints.flat()} color={color} lineWidth={0.02 * scale} />
+				<Line worldUnits points={baseLinePoints.flat()} color={color} lineWidth={0.02 * scale} />
 			</group>
 		</group>
 	)

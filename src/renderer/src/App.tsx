@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Default3dScene } from './components/3d'
-import { Bar, NodalLoad, Node } from './components/3d/objects'
-import { DrawSupport } from './components/3d/utils'
+import { Bar, DrawSupport, NodalLoad, Node } from './components/3d/objects'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
 
@@ -35,9 +34,7 @@ export const App = (): React.JSX.Element => {
 				<NodalLoad
 					label
 					key={nodalLoad.node}
-					position={
-						structureData?.nodes.find((node) => node.name === nodalLoad.node)?.position
-					}
+					position={structureData?.nodes.find((node) => node.name === nodalLoad.node)?.position}
 					fx={nodalLoad.loads.Fx}
 					fy={nodalLoad.loads.Fy}
 					fz={nodalLoad.loads.Fz}

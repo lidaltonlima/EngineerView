@@ -78,7 +78,16 @@
 		}
 	],
 
-	"supports": [],
+	"supports": [
+		{
+			"node": "N1",
+			"supports": { "Dx": true, "Dy": true, "Dz": true, "Rx": true, "Ry": true, "Rz": true }
+		},
+		{
+			"node": "N3",
+			"supports": { "Dx": true, "Dy": true, "Dz": true, "Rx": true, "Ry": true, "Rz": false }
+		}
+	],
 
 	"loads": [
 		{

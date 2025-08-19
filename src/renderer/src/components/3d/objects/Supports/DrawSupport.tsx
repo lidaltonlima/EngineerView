@@ -5,6 +5,7 @@ import {
 	SpringRotation
 } from '@renderer/components/3d/objects/Supports'
 import { IStructureData, ISupportData } from '@renderer/types/Structure'
+import { FixedAll } from './FixedAll'
 
 export const DrawSupport = (
 	support: ISupportData,
@@ -25,6 +26,11 @@ export const DrawSupport = (
 	}
 
 	const drawings: React.JSX.Element[] = []
+
+	if (!Object.values(support.supports).some((value) => value === false)) {
+		drawings.push(<FixedAll key={'fixedAll'} />)
+		return drawings
+	}
 
 	for (const [key, value] of Object.entries(support.supports)) {
 		if (key === 'Dx') {
