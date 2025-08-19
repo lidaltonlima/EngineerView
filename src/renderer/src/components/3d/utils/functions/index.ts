@@ -12,3 +12,12 @@ export function linSpace(start: number, end: number, space: number): number[] {
 	}
 	return result
 }
+
+// /**
+//  * Convert degrees to radians.
+//  * @param graus The value in degrees.
+//  * @returns The value in radians.
+//  */
+// export function deg2Rad(graus: number): number {
+// 	return graus * (Math.PI / 180)
+// }

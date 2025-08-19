@@ -1,10 +1,10 @@
 import * as THREE from 'three'
 import { useEffect, useRef } from 'react'
-import { Axes } from './components/3d/objects'
+import { Axes } from '..'
 
 interface ILocalAxesCustomProps {
-	direction?: THREE.Vector3
-	rotation?: number
+	direction: THREE.Vector3
+	rotationAroundDirection?: number
 	yUp?: boolean
 	scale?: number
 	label?: boolean
@@ -13,8 +13,8 @@ interface ILocalAxesCustomProps {
 type ILocalAxesProps = ILocalAxesCustomProps & React.JSX.IntrinsicElements['group']
 
 export const LocalAxes = ({
-	direction = new THREE.Vector3(1, 1, 1),
-	rotation = 0,
+	direction,
+	rotationAroundDirection = 0,
 	yUp = false,
 	scale = 1,
 	label,
@@ -44,6 +44,7 @@ export const LocalAxes = ({
 			yDir.copy(new THREE.Vector3().crossVectors(zDir, xDir).normalize())
 		} else {
 			const zGlobal = new THREE.Vector3(0, 0, 1)
+			if (direction.x == 0 && direction.y == 0) zGlobal.set(-1, 0, 0)
 
 			// Y local = Z_global × X
 			yDir.copy(new THREE.Vector3().crossVectors(zGlobal, xDir).normalize())
@@ -60,8 +61,8 @@ export const LocalAxes = ({
 		axesRef.current.setRotationFromMatrix(matrixRotation)
 
 		// Rotation the helper around the axis
-		groupRef.current?.rotateOnAxis(xDir, rotation)
-	}, [direction, rotation, yUp])
+		groupRef.current?.quaternion.setFromAxisAngle(xDir, rotationAroundDirection)
+	}, [direction, rotationAroundDirection, yUp])
 
 	return (
 		<group {...props}>

@@ -1,5 +1,5 @@
 import { Billboard, Line, Text } from '@react-three/drei'
-import { linSpace } from '../../functions'
+import { linSpace } from '../../utils/functions'
 
 interface ISpringRotationProps {
 	value: number

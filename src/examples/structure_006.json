@@ -36,7 +36,7 @@
 			"end_node": "N2",
 			"section": "w150x13",
 			"material": "steel",
-			"rotation": 0,
+			"rotation": 45,
 			"releases": {
 				"Dxi": false,
 				"Dyi": false,

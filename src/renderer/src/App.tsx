@@ -1,10 +1,8 @@
-import { Line } from '@react-three/drei'
 import { useEffect, useState } from 'react'
 import { Default3dScene } from './components/3d'
 import { Bar, NodalLoad, Node } from './components/3d/objects'
 import { DrawSupport } from './components/3d/utils'
 import { useStructureContext } from './contexts/Structure'
-import { LocalAxes } from './LocalAxes'
 import { IStructureData } from './types/Structure'
 
 export const App = (): React.JSX.Element => {
@@ -28,8 +26,7 @@ export const App = (): React.JSX.Element => {
 		}
 	}, [structure])
 
-	const pointA = [0, 0, 0]
-	const pointB = [1, 1, 1]
+	console.log('teste')
 
 	return (
 		<Default3dScene>
@@ -51,14 +48,6 @@ export const App = (): React.JSX.Element => {
 					mz={nodalLoad.loads.Mz}
 				/>
 			))}
-			{/* <axesHelper /> */}
-			<Line
-				worldUnits
-				position={[-0.5, -0.5, -0.5]}
-				points={[pointA, pointB, [0, 1, 0], pointA].flat()}
-				lineWidth={0.01}
-			/>
-			<LocalAxes label />
 		</Default3dScene>
 	)
 }
