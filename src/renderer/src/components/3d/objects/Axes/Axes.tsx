@@ -1,46 +1,31 @@
-import { Billboard, Text } from '@react-three/drei'
-import { Arrow } from '../Arrow'
+import { Billboard, Line, Text } from '@react-three/drei'
 
-interface IAxesProps {
-	position?: [number, number, number]
-	rotation?: [number, number, number]
-	scale?: number
+interface IAxesCustomProps {
 	label?: boolean
+	scale?: number
 }
 
-// const initialPoint = new Vector3(0, 0, 0)
-// const endPoint = new Vector3(1, 1, 1)
-// const direction = new Vector3()
-// direction.subVectors(endPoint, initialPoint)
+type IAxesProps = IAxesCustomProps & React.JSX.IntrinsicElements['group']
 
-// const from = new Vector3(1, 0, 0) // eixo X
-// const to = direction.clone().normalize() // normaliza o vetor de destino
-// const quaternion = new Quaternion().setFromUnitVectors(from, to)
-
-export const Axes = ({
-	position = [0, 0, 0],
-	rotation = [0, 0, 0],
-	scale = 1,
-	label = false
-}: IAxesProps): React.JSX.Element => {
+export const Axes = ({ label = false, scale = 1, ...props }: IAxesProps): React.JSX.Element => {
 	return (
-		<group rotation={rotation} position={position} scale={scale}>
-			<Arrow />
-			<Arrow direction='y' color='green' />
-			<Arrow direction='z' color='blue' />
+		<group {...props} scale={scale}>
+			<Line worldUnits points={[0, 0, 0, 1, 0, 0]} lineWidth={0.1 * scale} color={'red'} />
+			<Line worldUnits points={[0, 0, 0, 0, 1, 0]} lineWidth={0.1 * scale} color={'green'} />
+			<Line worldUnits points={[0, 0, 0, 0, 0, 1]} lineWidth={0.1 * scale} color={'blue'} />
 			{label && (
 				<>
-					<Billboard position={[1.2, 0, 0]}>
+					<Billboard position={[1.3, 0, 0]}>
 						<Text fontSize={0.4} font={'/fonts/Inter-Bold.woff'}>
 							X
 						</Text>
 					</Billboard>
-					<Billboard position={[0, 1.2, 0]}>
+					<Billboard position={[0, 1.3, 0]}>
 						<Text fontSize={0.4} font={'/fonts/Inter-Bold.woff'}>
 							Y
 						</Text>
 					</Billboard>
-					<Billboard position={[0, 0, 1.2]}>
+					<Billboard position={[0, 0, 1.3]}>
 						<Text fontSize={0.4} font={'/fonts/Inter-Bold.woff'}>
 							Z
 						</Text>

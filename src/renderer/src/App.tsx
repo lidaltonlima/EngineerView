@@ -58,7 +58,7 @@ export const App = (): React.JSX.Element => {
 				points={[pointA, pointB, [0, 1, 0], pointA].flat()}
 				lineWidth={0.01}
 			/>
-			<LocalAxes />
+			<LocalAxes label />
 		</Default3dScene>
 	)
 }
