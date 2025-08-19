@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react'
-import { Arc } from '../Arc'
-import * as THREE from 'three'
 import { IReleasesData } from '@renderer/types/Structure'
+import { useEffect, useRef } from 'react'
+import * as THREE from 'three'
+import { RotationRelease } from './RotationRelease'
+import { DisplacementRelease } from './DisplacementRelease'
 
 interface IReleasesProps {
 	releases: IReleasesData
@@ -24,13 +25,13 @@ export const Releases = ({
 	const directionGroupAuxRef = useRef<THREE.Group>(null)
 
 	const radius = 0.1
-	const length = startPoint.distanceTo(endPoint)
+	const barLength = startPoint.distanceTo(endPoint)
 	const local = releases.system === 'local' ? true : false
 	const startPosition = direction.clone().normalize().multiplyScalar(radius)
 	const endPosition = direction
 		.clone()
 		.normalize()
-		.multiplyScalar(length - radius)
+		.multiplyScalar(barLength - radius)
 
 	useEffect(() => {
 		if (!directionGroupRef.current) return
@@ -68,60 +69,20 @@ export const Releases = ({
 					<group ref={directionGroupRef}>
 						<group position={startPoint}>
 							<group ref={groupStartRef} position-x={radius}>
-								{releases.Rxi && (
-									<Arc
-										worldUnits
-										rotation={[0, Math.PI / 2, Math.PI / 2]}
-										radius={radius}
-										color={'red'}
-										lineWidth={0.01}
-									/>
-								)}
-								{releases.Ryi && (
-									<Arc
-										worldUnits
-										rotation={[Math.PI / 2, 0, Math.PI / 2]}
-										radius={radius}
-										color={'green'}
-										lineWidth={0.01}
-									/>
-								)}
-								{releases.Rzi && (
-									<Arc
-										worldUnits
-										radius={radius}
-										color={'blue'}
-										lineWidth={0.01}
-									/>
-								)}
+								{releases.Dxi && <DisplacementRelease direction='x' />}
+								{releases.Dxi && <DisplacementRelease direction='y' />}
+								{releases.Dxi && <DisplacementRelease direction='z' />}
+								{releases.Rxi && <RotationRelease direction='x' radius={radius} />}
+								{releases.Ryi && <RotationRelease direction='y' radius={radius} />}
+								{releases.Rzi && <RotationRelease direction='z' radius={radius} />}
 							</group>
-							<group ref={groupEndRef} position-x={length - radius}>
-								{releases.Rxj && (
-									<Arc
-										worldUnits
-										rotation={[0, Math.PI / 2, Math.PI / 2]}
-										radius={radius}
-										color={'red'}
-										lineWidth={0.01}
-									/>
-								)}
-								{releases.Ryj && (
-									<Arc
-										worldUnits
-										rotation={[Math.PI / 2, 0, Math.PI / 2]}
-										radius={radius}
-										color={'green'}
-										lineWidth={0.01}
-									/>
-								)}
-								{releases.Rzj && (
-									<Arc
-										worldUnits
-										radius={radius}
-										color={'blue'}
-										lineWidth={0.01}
-									/>
-								)}
+							<group ref={groupEndRef} position-x={barLength - radius}>
+								{releases.Dxj && <DisplacementRelease direction='x' />}
+								{releases.Dxj && <DisplacementRelease direction='y' />}
+								{releases.Dxj && <DisplacementRelease direction='z' />}
+								{releases.Rxj && <RotationRelease direction='x' radius={radius} />}
+								{releases.Ryj && <RotationRelease direction='y' radius={radius} />}
+								{releases.Rzj && <RotationRelease direction='z' radius={radius} />}
 							</group>
 						</group>
 					</group>
@@ -130,50 +91,20 @@ export const Releases = ({
 			{!local && (
 				<>
 					<group ref={groupStartRef} position={startPosition}>
-						{releases.Rxi && (
-							<Arc
-								worldUnits
-								rotation={[0, Math.PI / 2, Math.PI / 2]}
-								radius={radius}
-								color={'red'}
-								lineWidth={0.01}
-							/>
-						)}
-						{releases.Ryi && (
-							<Arc
-								worldUnits
-								rotation={[Math.PI / 2, 0, Math.PI / 2]}
-								radius={radius}
-								color={'green'}
-								lineWidth={0.01}
-							/>
-						)}
-						{releases.Rzi && (
-							<Arc worldUnits radius={radius} color={'blue'} lineWidth={0.01} />
-						)}
+						{releases.Dxi && <DisplacementRelease direction='x' />}
+						{releases.Dxi && <DisplacementRelease direction='y' />}
+						{releases.Dxi && <DisplacementRelease direction='z' />}
+						{releases.Rxi && <RotationRelease direction='x' radius={radius} />}
+						{releases.Ryi && <RotationRelease direction='y' radius={radius} />}
+						{releases.Rzi && <RotationRelease direction='z' radius={radius} />}
 					</group>
 					<group ref={groupEndRef} position={endPosition}>
-						{releases.Rxj && (
-							<Arc
-								worldUnits
-								rotation={[0, Math.PI / 2, Math.PI / 2]}
-								radius={radius}
-								color={'red'}
-								lineWidth={0.01}
-							/>
-						)}
-						{releases.Ryj && (
-							<Arc
-								worldUnits
-								rotation={[Math.PI / 2, 0, Math.PI / 2]}
-								radius={radius}
-								color={'green'}
-								lineWidth={0.01}
-							/>
-						)}
-						{releases.Rzj && (
-							<Arc worldUnits radius={radius} color={'blue'} lineWidth={0.01} />
-						)}
+						{releases.Dxj && <DisplacementRelease direction='x' />}
+						{releases.Dxj && <DisplacementRelease direction='y' />}
+						{releases.Dxj && <DisplacementRelease direction='z' />}
+						{releases.Rxj && <RotationRelease direction='x' radius={radius} />}
+						{releases.Ryj && <RotationRelease direction='y' radius={radius} />}
+						{releases.Rzj && <RotationRelease direction='z' radius={radius} />}
 					</group>
 				</>
 			)}

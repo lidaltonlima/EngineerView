@@ -39,18 +39,18 @@
 			"rotation": 45,
 			"releases": {
 				"system": "global",
-				"Dxi": false,
-				"Dyi": false,
-				"Dzi": false,
+				"Dxi": true,
+				"Dyi": true,
+				"Dzi": true,
 				"Rxi": true,
 				"Ryi": true,
 				"Rzi": true,
-				"Dxj": false,
-				"Dyj": false,
-				"Dzj": false,
-				"Rxj": false,
-				"Ryj": false,
-				"Rzj": false
+				"Dxj": true,
+				"Dyj": true,
+				"Dzj": true,
+				"Rxj": true,
+				"Ryj": true,
+				"Rzj": true
 			}
 		},
 		{
@@ -68,12 +68,12 @@
 				"Rxi": true,
 				"Ryi": true,
 				"Rzi": true,
-				"Dxj": false,
-				"Dyj": false,
-				"Dzj": false,
-				"Rxj": false,
-				"Ryj": false,
-				"Rzj": false
+				"Dxj": true,
+				"Dyj": true,
+				"Dzj": true,
+				"Rxj": true,
+				"Ryj": true,
+				"Rzj": true
 			}
 		}
 	],
