@@ -16,15 +16,15 @@ export const FixedRotation = ({
 	const size = 0.1
 	const pointsLine = [
 		[0.0, 0.0, 0.0],
-		[2 * size, 0.0, 0.0]
+		[1.5 * size, 0.0, 0.0]
 	]
 
 	const pointsSquare = [
-		[2 * size, size, size],
-		[2 * size, -size, size],
-		[2 * size, -size, -size],
-		[2 * size, size, -size],
-		[2 * size, size, size]
+		[1.5 * size, size, size],
+		[1.5 * size, -size, size],
+		[1.5 * size, -size, -size],
+		[1.5 * size, size, -size],
+		[1.5 * size, size, size]
 	]
 
 	let rotation: [number, number, number] = [0, 0, 0]

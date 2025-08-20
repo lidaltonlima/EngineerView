@@ -28,11 +28,9 @@ export const SpringDisplacement = ({
 		[2 * size, -size, 0.0],
 		[3 * size, size, 0.0],
 		[4 * size, -size, 0.0],
-		[5 * size, size, 0.0],
-		[6 * size, -size, 0.0],
-		[7 * size, 0.0, 0.0],
-		[7 * size, 2 * size, 0.0],
-		[7 * size, -2 * size, 0.0]
+		[5 * size, 0.0, 0.0],
+		[5 * size, 2 * size, 0.0],
+		[5 * size, -2 * size, 0.0]
 	]
 
 	let anchorXLabel: 'right' | 'left' = 'left'

@@ -20,7 +20,7 @@ export const SpringRotation = ({
 	textColor = 'white',
 	label = true
 }: ISpringRotationProps): React.JSX.Element => {
-	const size = 0.2
+	const size = 0.15
 
 	const pointsLine = [
 		[0, 0, 0],
