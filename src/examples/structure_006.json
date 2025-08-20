@@ -81,11 +81,11 @@
 	"supports": [
 		{
 			"node": "N1",
-			"supports": { "Dx": true, "Dy": true, "Dz": true, "Rx": true, "Ry": true, "Rz": true }
+			"supports": { "Dx": true, "Dy": true, "Dz": true, "Rx": false, "Ry": false, "Rz": false }
 		},
 		{
 			"node": "N3",
-			"supports": { "Dx": true, "Dy": true, "Dz": true, "Rx": true, "Ry": true, "Rz": false }
+			"supports": { "Dx": true, "Dy": true, "Dz": true, "Rx": true, "Ry": true, "Rz": true }
 		}
 	],
 

@@ -6,6 +6,7 @@ import {
 } from '@renderer/components/3d/objects/Supports'
 import { IStructureData, ISupportData } from '@renderer/types/Structure'
 import { FixedAll } from './FixedAll'
+import { FixedAllDisplacement } from './FixedAllDisplacement'
 
 export const DrawSupport = (
 	support: ISupportData,
@@ -28,7 +29,21 @@ export const DrawSupport = (
 	const drawings: React.JSX.Element[] = []
 
 	if (!Object.values(support.supports).some((value) => value === false)) {
-		drawings.push(<FixedAll key={'fixedAll'} />)
+		drawings.push(<FixedAll key={'DrawSupport-fixedAll'} position={basePoint} />)
+		return drawings
+	}
+
+	if (
+		support.supports.Dx &&
+		support.supports.Dy &&
+		support.supports.Dz &&
+		!support.supports.Rx &&
+		!support.supports.Ry &&
+		!support.supports.Rz
+	) {
+		drawings.push(
+			<FixedAllDisplacement key={'DrawSupport-OnlyDisplacement'} position={basePoint} />
+		)
 		return drawings
 	}
 

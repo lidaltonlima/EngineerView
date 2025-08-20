@@ -43,6 +43,7 @@ export const App = (): React.JSX.Element => {
 					mz={nodalLoad.loads.Mz}
 				/>
 			))}
+			<axesHelper />
 		</Default3dScene>
 	)
 }
