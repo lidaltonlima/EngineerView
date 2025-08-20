@@ -85,7 +85,7 @@
 		},
 		{
 			"node": "N3",
-			"supports": { "Dx": true, "Dy": true, "Dz": true, "Rx": true, "Ry": true, "Rz": true }
+			"supports": { "Dx": 1e3, "Dy": true, "Dz": true, "Rx": true, "Ry": true, "Rz": 10e6 }
 		}
 	],
 

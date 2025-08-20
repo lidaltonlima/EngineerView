@@ -32,8 +32,8 @@ export const App = (): React.JSX.Element => {
 			{structureData?.supports.map((support) => DrawSupport(support, structure))}
 			{structureData?.loads[0].nodes_loads.map((nodalLoad) => (
 				<NodalLoad
-					label
 					key={nodalLoad.node}
+					label
 					position={structureData?.nodes.find((node) => node.name === nodalLoad.node)?.position}
 					fx={nodalLoad.loads.Fx}
 					fy={nodalLoad.loads.Fy}

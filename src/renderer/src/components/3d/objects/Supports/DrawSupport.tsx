@@ -14,6 +14,7 @@ export const DrawSupport = (
 ): React.JSX.Element[] => {
 	let basePoint: [number, number, number] = [0, 0, 0]
 	let isError = true
+	let isFixedAllDisplacement = false
 
 	if (structure) {
 		for (const node of structure.nodes) {
@@ -28,27 +29,30 @@ export const DrawSupport = (
 
 	const drawings: React.JSX.Element[] = []
 
-	if (!Object.values(support.supports).some((value) => value === false)) {
+	if (
+		!Object.values(support.supports).some((value) => value === false) &&
+		!Object.values(support.supports).some((value) => typeof value === 'number')
+	) {
 		drawings.push(<FixedAll key={'DrawSupport-fixedAll'} position={basePoint} />)
 		return drawings
 	}
 
 	if (
+		typeof support.supports.Dx === 'boolean' &&
+		typeof support.supports.Dy === 'boolean' &&
+		typeof support.supports.Dz === 'boolean' &&
 		support.supports.Dx &&
 		support.supports.Dy &&
-		support.supports.Dz &&
-		!support.supports.Rx &&
-		!support.supports.Ry &&
-		!support.supports.Rz
+		support.supports.Dz
 	) {
 		drawings.push(
 			<FixedAllDisplacement key={'DrawSupport-OnlyDisplacement'} position={basePoint} />
 		)
-		return drawings
+		isFixedAllDisplacement = true
 	}
 
 	for (const [key, value] of Object.entries(support.supports)) {
-		if (key === 'Dx') {
+		if (key === 'Dx' && !isFixedAllDisplacement) {
 			if (typeof value === 'boolean' && value) {
 				drawings.push(
 					<FixedDisplacement
@@ -70,7 +74,7 @@ export const DrawSupport = (
 					/>
 				)
 			}
-		} else if (key === 'Dy') {
+		} else if (key === 'Dy' && !isFixedAllDisplacement) {
 			if (typeof value === 'boolean' && value) {
 				drawings.push(
 					<FixedDisplacement
@@ -92,7 +96,7 @@ export const DrawSupport = (
 					/>
 				)
 			}
-		} else if (key === 'Dz') {
+		} else if (key === 'Dz' && !isFixedAllDisplacement) {
 			if (typeof value === 'boolean' && value) {
 				drawings.push(
 					<FixedDisplacement
