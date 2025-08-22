@@ -10,6 +10,7 @@ interface IReleasesProps {
 	startPoint: THREE.Vector3
 	endPoint: THREE.Vector3
 	barRotation: number
+	rotate_releases: boolean
 }
 
 export const Releases = ({
@@ -17,7 +18,8 @@ export const Releases = ({
 	direction,
 	startPoint,
 	endPoint,
-	barRotation
+	barRotation,
+	rotate_releases
 }: IReleasesProps): React.JSX.Element => {
 	const groupStartRef = useRef<THREE.Group>(null)
 	const groupEndRef = useRef<THREE.Group>(null)
@@ -26,12 +28,6 @@ export const Releases = ({
 
 	const radius = 0.1
 	const barLength = startPoint.distanceTo(endPoint)
-	const local = releases.system === 'local' ? true : false
-	const startPosition = direction.clone().normalize().multiplyScalar(radius)
-	const endPosition = direction
-		.clone()
-		.normalize()
-		.multiplyScalar(barLength - radius)
 
 	useEffect(() => {
 		if (!directionGroupRef.current) return
@@ -59,55 +55,36 @@ export const Releases = ({
 		directionGroupRef.current.setRotationFromMatrix(matrixRotation)
 
 		// Rotation the group around the axis
-		directionGroupAuxRef.current?.quaternion.setFromAxisAngle(xDir, barRotation)
-	}, [direction, barRotation])
+		directionGroupAuxRef.current?.quaternion.setFromAxisAngle(
+			xDir,
+			rotate_releases ? barRotation : 0
+		)
+	}, [direction, barRotation, rotate_releases])
 
 	return (
 		<>
-			{local && (
+			<group position={startPoint}>
 				<group ref={directionGroupAuxRef}>
 					<group ref={directionGroupRef}>
-						<group position={startPoint}>
-							<group ref={groupStartRef} position-x={radius}>
-								{releases.Dxi && <DisplacementRelease direction='x' />}
-								{releases.Dxi && <DisplacementRelease direction='y' />}
-								{releases.Dxi && <DisplacementRelease direction='z' />}
-								{releases.Rxi && <RotationRelease direction='x' radius={radius} />}
-								{releases.Ryi && <RotationRelease direction='y' radius={radius} />}
-								{releases.Rzi && <RotationRelease direction='z' radius={radius} />}
-							</group>
-							<group ref={groupEndRef} position-x={barLength - radius}>
-								{releases.Dxj && <DisplacementRelease direction='x' />}
-								{releases.Dxj && <DisplacementRelease direction='y' />}
-								{releases.Dxj && <DisplacementRelease direction='z' />}
-								{releases.Rxj && <RotationRelease direction='x' radius={radius} />}
-								{releases.Ryj && <RotationRelease direction='y' radius={radius} />}
-								{releases.Rzj && <RotationRelease direction='z' radius={radius} />}
-							</group>
+						<group ref={groupStartRef} position-x={radius}>
+							{releases.Dxi && <DisplacementRelease direction='x' />}
+							{releases.Dyi && <DisplacementRelease direction='y' />}
+							{releases.Dzi && <DisplacementRelease direction='z' />}
+							{releases.Rxi && <RotationRelease direction='x' radius={radius} />}
+							{releases.Ryi && <RotationRelease direction='y' radius={radius} />}
+							{releases.Rzi && <RotationRelease direction='z' radius={radius} />}
+						</group>
+						<group ref={groupEndRef} position-x={barLength - radius}>
+							{releases.Dxj && <DisplacementRelease direction='x' />}
+							{releases.Dyj && <DisplacementRelease direction='y' />}
+							{releases.Dzj && <DisplacementRelease direction='z' />}
+							{releases.Rxj && <RotationRelease direction='x' radius={radius} />}
+							{releases.Ryj && <RotationRelease direction='y' radius={radius} />}
+							{releases.Rzj && <RotationRelease direction='z' radius={radius} />}
 						</group>
 					</group>
 				</group>
-			)}
-			{!local && (
-				<>
-					<group ref={groupStartRef} position={startPosition}>
-						{releases.Dxi && <DisplacementRelease direction='x' />}
-						{releases.Dxi && <DisplacementRelease direction='y' />}
-						{releases.Dxi && <DisplacementRelease direction='z' />}
-						{releases.Rxi && <RotationRelease direction='x' radius={radius} />}
-						{releases.Ryi && <RotationRelease direction='y' radius={radius} />}
-						{releases.Rzi && <RotationRelease direction='z' radius={radius} />}
-					</group>
-					<group ref={groupEndRef} position={endPosition}>
-						{releases.Dxj && <DisplacementRelease direction='x' />}
-						{releases.Dxj && <DisplacementRelease direction='y' />}
-						{releases.Dxj && <DisplacementRelease direction='z' />}
-						{releases.Rxj && <RotationRelease direction='x' radius={radius} />}
-						{releases.Ryj && <RotationRelease direction='y' radius={radius} />}
-						{releases.Rzj && <RotationRelease direction='z' radius={radius} />}
-					</group>
-				</>
-			)}
+			</group>
 		</>
 	)
 }

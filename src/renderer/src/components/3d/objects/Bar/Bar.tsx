@@ -53,6 +53,7 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 				startPoint={startPoint}
 				endPoint={endPoint}
 				barRotation={rotation}
+				rotate_releases={bar.rotate_releases}
 			/>
 		</>
 	)

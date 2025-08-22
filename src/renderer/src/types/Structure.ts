@@ -36,13 +36,13 @@ export interface IBarData {
 	end_node: string
 	section: string
 	material: string
+	rotate_releases: boolean
 	rotation: number
 	releases: IReleasesData
 }
 
 // Releases ***************************************************************************************
 export interface IReleasesData {
-	system: 'global' | 'local'
 	Dxi: boolean
 	Dyi: boolean
 	Dzi: boolean

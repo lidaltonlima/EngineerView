@@ -92,7 +92,12 @@
 	"loads": [
 		{
 			"name": "L1",
-			"nodes_loads": [],
+			"nodes_loads": [
+				{
+					"node": "N1",
+					"loads": { "Fx": 100, "Fy": 100, "Fz": 100, "Mx": 200, "My": 200, "Mz": 200 }
+				}
+			],
 			"bars_loads": {
 				"points": {
 					"bar": "B1",
@@ -108,7 +113,7 @@
 					}
 				},
 				"distributed": {
-					"bar": "B1",
+					"bar": "B2",
 					"system": "local",
 					"loads": {
 						"Fx": 100,
