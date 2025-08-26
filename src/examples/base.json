@@ -31,7 +31,6 @@
 			"material": "material_01",
 			"rotation": 0,
 			"releases": {
-				"system": "local-global",
 				"Dxi": false,
 				"Dyi": false,
 				"Dzi": false,

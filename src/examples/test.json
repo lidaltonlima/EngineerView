@@ -2,12 +2,7 @@
 	"materials": [
 		{
 			"name": "steel",
-			"properties": {
-				"E": 2e11,
-				"G": 7.692308e10,
-				"ni": 0.3,
-				"rho": 7850
-			}
+			"properties": { "E": 2e11, "G": 7.692308e10, "ni": 0.3, "rho": 7850 }
 		}
 	],
 
@@ -38,7 +33,6 @@
 			"material": "steel",
 			"rotation": 45,
 			"releases": {
-				"system": "global",
 				"Dxi": true,
 				"Dyi": true,
 				"Dzi": true,
@@ -61,7 +55,6 @@
 			"material": "steel",
 			"rotation": 0,
 			"releases": {
-				"system": "local",
 				"Dxi": true,
 				"Dyi": true,
 				"Dzi": true,
@@ -94,7 +87,7 @@
 			"name": "L1",
 			"nodes_loads": [
 				{
-					"node": "N1",
+					"node": "N2",
 					"loads": { "Fx": 100, "Fy": 100, "Fz": 100, "Mx": 200, "My": 200, "Mz": 200 }
 				}
 			],
