@@ -67,32 +67,20 @@ export const Releases = ({
 				<group ref={directionGroupAuxRef}>
 					<group ref={directionGroupRef}>
 						<group ref={groupStartRef} position-x={radius}>
-							{releases.some((value) => value === 'Dxi') && <DisplacementRelease direction='x' />}
-							{releases.some((value) => value === 'Dyi') && <DisplacementRelease direction='y' />}
-							{releases.some((value) => value === 'Dzi') && <DisplacementRelease direction='z' />}
-							{releases.some((value) => value === 'Rxi') && (
-								<RotationRelease direction='x' radius={radius} />
-							)}
-							{releases.some((value) => value === 'Ryi') && (
-								<RotationRelease direction='y' radius={radius} />
-							)}
-							{releases.some((value) => value === 'Rzi') && (
-								<RotationRelease direction='z' radius={radius} />
-							)}
+							{releases.includes('Dxi') && <DisplacementRelease direction='x' />}
+							{releases.includes('Dyi') && <DisplacementRelease direction='y' />}
+							{releases.includes('Dzi') && <DisplacementRelease direction='z' />}
+							{releases.includes('Rxi') && <RotationRelease direction='x' radius={radius} />}
+							{releases.includes('Ryi') && <RotationRelease direction='y' radius={radius} />}
+							{releases.includes('Rzi') && <RotationRelease direction='z' radius={radius} />}
 						</group>
 						<group ref={groupEndRef} position-x={barLength - radius}>
-							{releases.some((value) => value === 'Dxj') && <DisplacementRelease direction='x' />}
-							{releases.some((value) => value === 'Dyj') && <DisplacementRelease direction='y' />}
-							{releases.some((value) => value === 'Dzj') && <DisplacementRelease direction='z' />}
-							{releases.some((value) => value === 'Rxj') && (
-								<RotationRelease direction='x' radius={radius} />
-							)}
-							{releases.some((value) => value === 'Ryj') && (
-								<RotationRelease direction='y' radius={radius} />
-							)}
-							{releases.some((value) => value === 'Rzj') && (
-								<RotationRelease direction='z' radius={radius} />
-							)}
+							{releases.includes('Dxj') && <DisplacementRelease direction='x' />}
+							{releases.includes('Dyj') && <DisplacementRelease direction='y' />}
+							{releases.includes('Dzj') && <DisplacementRelease direction='z' />}
+							{releases.includes('Rxj') && <RotationRelease direction='x' radius={radius} />}
+							{releases.includes('Ryj') && <RotationRelease direction='y' radius={radius} />}
+							{releases.includes('Rzj') && <RotationRelease direction='z' radius={radius} />}
 						</group>
 					</group>
 				</group>
