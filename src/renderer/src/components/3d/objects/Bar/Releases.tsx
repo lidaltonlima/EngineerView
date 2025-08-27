@@ -10,7 +10,6 @@ interface IReleasesProps {
 	startPoint: THREE.Vector3
 	endPoint: THREE.Vector3
 	barRotation: number
-	rotate_releases: boolean
 }
 
 export const Releases = ({
@@ -18,8 +17,7 @@ export const Releases = ({
 	direction,
 	startPoint,
 	endPoint,
-	barRotation,
-	rotate_releases
+	barRotation
 }: IReleasesProps): React.JSX.Element => {
 	const groupStartRef = useRef<THREE.Group>(null)
 	const groupEndRef = useRef<THREE.Group>(null)
@@ -55,11 +53,8 @@ export const Releases = ({
 		directionGroupRef.current.setRotationFromMatrix(matrixRotation)
 
 		// Rotation the group around the axis
-		directionGroupAuxRef.current?.quaternion.setFromAxisAngle(
-			xDir,
-			rotate_releases ? barRotation : 0
-		)
-	}, [direction, barRotation, rotate_releases])
+		directionGroupAuxRef.current?.quaternion.setFromAxisAngle(xDir, barRotation)
+	}, [direction, barRotation])
 
 	return (
 		<>
