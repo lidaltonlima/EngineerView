@@ -38,24 +38,23 @@ export interface IBarData {
 	material: string
 	rotate_releases: boolean
 	rotation: number
-	releases: IReleasesData
+	releases: IReleasesData[]
 }
 
 // Releases ***************************************************************************************
-export interface IReleasesData {
-	Dxi: boolean
-	Dyi: boolean
-	Dzi: boolean
-	Rxi: boolean
-	Ryi: boolean
-	Rzi: boolean
-	Dxj: boolean
-	Dyj: boolean
-	Dzj: boolean
-	Rxj: boolean
-	Ryj: boolean
-	Rzj: boolean
-}
+export type IReleasesData =
+	| 'Dxi'
+	| 'Dyi'
+	| 'Dzi'
+	| 'Rxi'
+	| 'Ryi'
+	| 'Rzi'
+	| 'Dxj'
+	| 'Dyj'
+	| 'Dzj'
+	| 'Rxj'
+	| 'Ryj'
+	| 'Rzj'
 
 // Supports ///////////////////////////////////////////////////////////////////////////////////////
 export interface ISupportData {

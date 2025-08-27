@@ -5,7 +5,7 @@ import { RotationRelease } from './RotationRelease'
 import { DisplacementRelease } from './DisplacementRelease'
 
 interface IReleasesProps {
-	releases: IReleasesData
+	releases: IReleasesData[]
 	direction: THREE.Vector3
 	startPoint: THREE.Vector3
 	endPoint: THREE.Vector3
@@ -67,20 +67,32 @@ export const Releases = ({
 				<group ref={directionGroupAuxRef}>
 					<group ref={directionGroupRef}>
 						<group ref={groupStartRef} position-x={radius}>
-							{releases.Dxi && <DisplacementRelease direction='x' />}
-							{releases.Dyi && <DisplacementRelease direction='y' />}
-							{releases.Dzi && <DisplacementRelease direction='z' />}
-							{releases.Rxi && <RotationRelease direction='x' radius={radius} />}
-							{releases.Ryi && <RotationRelease direction='y' radius={radius} />}
-							{releases.Rzi && <RotationRelease direction='z' radius={radius} />}
+							{releases.some((value) => value === 'Dxi') && <DisplacementRelease direction='x' />}
+							{releases.some((value) => value === 'Dyi') && <DisplacementRelease direction='y' />}
+							{releases.some((value) => value === 'Dzi') && <DisplacementRelease direction='z' />}
+							{releases.some((value) => value === 'Rxi') && (
+								<RotationRelease direction='x' radius={radius} />
+							)}
+							{releases.some((value) => value === 'Ryi') && (
+								<RotationRelease direction='y' radius={radius} />
+							)}
+							{releases.some((value) => value === 'Rzi') && (
+								<RotationRelease direction='z' radius={radius} />
+							)}
 						</group>
 						<group ref={groupEndRef} position-x={barLength - radius}>
-							{releases.Dxj && <DisplacementRelease direction='x' />}
-							{releases.Dyj && <DisplacementRelease direction='y' />}
-							{releases.Dzj && <DisplacementRelease direction='z' />}
-							{releases.Rxj && <RotationRelease direction='x' radius={radius} />}
-							{releases.Ryj && <RotationRelease direction='y' radius={radius} />}
-							{releases.Rzj && <RotationRelease direction='z' radius={radius} />}
+							{releases.some((value) => value === 'Dxj') && <DisplacementRelease direction='x' />}
+							{releases.some((value) => value === 'Dyj') && <DisplacementRelease direction='y' />}
+							{releases.some((value) => value === 'Dzj') && <DisplacementRelease direction='z' />}
+							{releases.some((value) => value === 'Rxj') && (
+								<RotationRelease direction='x' radius={radius} />
+							)}
+							{releases.some((value) => value === 'Ryj') && (
+								<RotationRelease direction='y' radius={radius} />
+							)}
+							{releases.some((value) => value === 'Rzj') && (
+								<RotationRelease direction='z' radius={radius} />
+							)}
 						</group>
 					</group>
 				</group>
