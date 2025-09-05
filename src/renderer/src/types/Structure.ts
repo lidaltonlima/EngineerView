@@ -36,7 +36,6 @@ export interface IBarData {
 	end_node: string
 	section: string
 	material: string
-	rotate_releases: boolean
 	rotation: number
 	releases: IReleasesData[]
 }
@@ -70,33 +69,43 @@ export interface ISupportData {
 }
 
 // Loads //////////////////////////////////////////////////////////////////////////////////////////
-interface ILoadData {
+export interface ILoadData {
 	name: string
-	nodes_loads: IPointLoadsData[]
-	bars_loads: IBarLoadsData[]
+	nodes: IPointLoadsData[]
+	bars: IBarLoadsData
 }
 
 // Nodal loads ************************************************************************************
-interface IPointLoadsData {
+export interface IPointLoadsData {
 	node: string
 	loads: { Fx: number; Fy: number; Fz: number; Mx: number; My: number; Mz: number }
 }
 
 // Bar loads **************************************************************************************
-interface IBarLoadsData {
-	points: IBarPointLoadsData[]
+export interface IBarLoadsData {
+	point: IBarPointLoadsData[]
 	distributed: IBarDistributedLoadsData[]
 }
 
-interface IBarPointLoadsData {
+export interface IBarPointLoadsData {
+	name: string
 	bar: string
-	position: [number, number, number]
-	reference: 'local' | 'global'
+	position: number
+	system: 'local' | 'global'
 	loads: { Fx: number; Fy: number; Fz: number; Mx: number; My: number; Mz: number }
 }
 
-interface IBarDistributedLoadsData {
+export interface IBarDistributedLoadsData {
+	name: string
 	bar: string
-	reference: 'local' | 'global'
-	loads: { Fx: number; Fy: number; Fz: number; Mx: number; My: number; Mz: number }
+	position: [number, number] // start, end
+	system: 'local' | 'global'
+	loads: {
+		Fx: [number, number]
+		Fy: [number, number]
+		Fz: [number, number]
+		Mx: [number, number]
+		My: [number, number]
+		Mz: [number, number]
+	}
 }

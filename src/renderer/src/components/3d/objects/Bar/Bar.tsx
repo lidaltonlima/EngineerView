@@ -5,6 +5,7 @@ import { LocalAxes } from '../LocalAxes'
 import { degToRad } from 'three/src/math/MathUtils'
 import { Releases } from './Releases'
 import * as THREE from 'three'
+import { Loads } from './Loads'
 
 interface IBarProps {
 	bar: IBarData
@@ -53,8 +54,23 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 				startPoint={startPoint}
 				endPoint={endPoint}
 				barRotation={rotation}
-				rotate_releases={bar.rotate_releases}
 			/>
+			{structure.loads.map((load) => {
+				return load.bars.point.map((barPointLoad) => {
+					if (barPointLoad.bar == bar.name)
+						return (
+							<Loads
+								key={barPointLoad.name}
+								direction={direction}
+								xPosition={barPointLoad.position}
+								rotationAroundDirection={rotation}
+								position={startPoint}
+								system={barPointLoad.system}
+							/>
+						)
+					return null
+				})
+			})}
 		</>
 	)
 }

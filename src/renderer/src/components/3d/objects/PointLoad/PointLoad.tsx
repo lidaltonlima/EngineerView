@@ -14,7 +14,7 @@ interface INodalLoadCustomProps {
 
 type INodalLoadProps = INodalLoadCustomProps & React.JSX.IntrinsicElements['group']
 
-export const NodalLoad = ({
+export const PointLoad = ({
 	fx = 0,
 	fy = 0,
 	fz = 0,

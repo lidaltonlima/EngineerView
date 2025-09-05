@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Default3dScene } from './components/3d'
-import { Bar, DrawSupport, NodalLoad, Node } from './components/3d/objects'
+import { Bar, DrawSupport, PointLoad, Node } from './components/3d/objects'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
 
@@ -30,8 +30,8 @@ export const App = (): React.JSX.Element => {
 			{structureData?.bars.map((bar) => <Bar key={bar.name} bar={bar} />)}
 			{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
 			{structureData?.supports.map((support) => DrawSupport(support, structure))}
-			{structureData?.loads[0].nodes_loads.map((nodalLoad) => (
-				<NodalLoad
+			{structureData?.loads[0].nodes.map((nodalLoad) => (
+				<PointLoad
 					key={nodalLoad.node}
 					label
 					position={structureData?.nodes.find((node) => node.name === nodalLoad.node)?.position}
