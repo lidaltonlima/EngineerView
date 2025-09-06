@@ -109,3 +109,5 @@ export interface IBarDistributedLoadsData {
 		Mz: [number, number]
 	}
 }
+
+export type forcesType = 'Fx' | 'Fy' | 'Fz' | 'Mx' | 'My' | 'Mz'

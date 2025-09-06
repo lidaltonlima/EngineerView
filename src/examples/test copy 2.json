@@ -69,17 +69,25 @@
 				{
 					"name": "FN1",
 					"node": "none",
-					"loads": { "Fx": -1e3, "Fy": -2e3, "Fz": -3e3, "Mx": -4e3, "My": -5e3, "Mz": -6e3 }
+					"loads": { "Fx": 1e3, "Fy": 2e3, "Fz": 3e3, "Mx": 4e3, "My": 5e3, "Mz": 6e3 }
 				}
 			],
 			"bars": {
-				"point": [],
+				"point": [
+					{
+						"name": "FB1",
+						"bar": "none",
+						"system": "local",
+						"position": 1.5,
+						"loads": { "Fx": 1e3, "Fy": -2e3, "Fz": 3e3, "Mx": -4e3, "My": 5e3, "Mz": -6e3 }
+					}
+				],
 				"distributed": [
 					{
 						"name": "FDB1",
 						"bar": "B1",
-						"system": "local",
-						"position": [0, 5],
+						"system": "global",
+						"position": [0.5, 3.5],
 						"loads": {
 							"Fx": [1e3, 3e3],
 							"Fy": [1e3, 3e3],
@@ -92,10 +100,10 @@
 					{
 						"name": "FDB2",
 						"bar": "B2",
-						"system": "local",
-						"position": [0.5, 3],
+						"system": "global",
+						"position": [0.5, 3.5],
 						"loads": {
-							"Fx": [-3e3, 3e3],
+							"Fx": [1e3, 3e3],
 							"Fy": [1e3, 3e3],
 							"Fz": [1e3, 3e3],
 							"Mx": [1e3, 3e3],
@@ -106,15 +114,15 @@
 					{
 						"name": "FDB3",
 						"bar": "B3",
-						"system": "local",
-						"position": [3.5, 4.5],
+						"system": "global",
+						"position": [0.5, 3.5],
 						"loads": {
-							"Fx": [0, 3e3],
-							"Fy": [2e3, 4e3],
-							"Fz": [-3e3, 7e3],
-							"Mx": [3e3, 4e3],
-							"My": [5e3, 1e3],
-							"Mz": [-3e3, 3e3]
+							"Fx": [1e3, 3e3],
+							"Fy": [1e3, 3e3],
+							"Fz": [1e3, 3e3],
+							"Mx": [1e3, 3e3],
+							"My": [1e3, 3e3],
+							"Mz": [1e3, 3e3]
 						}
 					}
 				]

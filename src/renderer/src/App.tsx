@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Default3dScene } from './components/3d'
-import { Bar, DrawSupport, PointLoad, Node } from './components/3d/objects'
+import { Bar, DrawSupport, Node, PointLoad } from './components/3d/objects'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
 

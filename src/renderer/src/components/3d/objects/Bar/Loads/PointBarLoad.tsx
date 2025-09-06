@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { useEffect, useRef } from 'react'
-import { PointLoad } from '../PointLoad'
+import { PointLoad } from '../../PointLoad'
 
 interface ILocalLoadsProps {
 	direction: THREE.Vector3
@@ -8,17 +8,30 @@ interface ILocalLoadsProps {
 	rotationAroundDirection?: number
 	system?: 'global' | 'local'
 
+	fx?: number
+	fy?: number
+	fz?: number
+	mx?: number
+	my?: number
+	mz?: number
+
 	label?: boolean
 	yUp?: boolean
 }
 
 type ILoadsProps = ILocalLoadsProps & React.JSX.IntrinsicElements['group']
 
-export const Loads = ({
+export const PointBarLoad = ({
 	direction,
 	xPosition,
 	rotationAroundDirection = 0,
-	system = 'global',
+	system = 'local',
+	fx = 0,
+	fy = 0,
+	fz = 0,
+	mx = 0,
+	my = 0,
+	mz = 0,
 	label = true,
 	yUp = false,
 	...props
@@ -79,12 +92,12 @@ export const Loads = ({
 							<PointLoad
 								label={label}
 								position={new THREE.Vector3(xPosition, 0, 0)}
-								fx={1}
-								fy={2}
-								fz={3}
-								mx={4}
-								my={5}
-								mz={6}
+								fx={fx}
+								fy={fy}
+								fz={fz}
+								mx={mx}
+								my={my}
+								mz={mz}
 							/>
 						</group>
 					</group>
@@ -95,12 +108,12 @@ export const Loads = ({
 					<PointLoad
 						label={label}
 						position={direction.clone().multiplyScalar(xPosition)}
-						fx={1}
-						fy={2}
-						fz={3}
-						mx={4}
-						my={5}
-						mz={6}
+						fx={fx}
+						fy={fy}
+						fz={fz}
+						mx={mx}
+						my={my}
+						mz={mz}
 					/>
 				</group>
 			)}
