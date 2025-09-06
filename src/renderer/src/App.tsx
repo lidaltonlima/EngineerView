@@ -43,6 +43,13 @@ export const App = (): React.JSX.Element => {
 					mz={nodalLoad.loads.Mz}
 				/>
 			))}
+			{/* <DistributedBarLoad
+				name='test'
+				direction={new Vector3(1, 0, 0)}
+				xPositions={[0, 4]}
+				loads={[3e3, -1e3]}
+				forceDirection='Fz'
+			/> */}
 			<axesHelper />
 		</Default3dScene>
 	)

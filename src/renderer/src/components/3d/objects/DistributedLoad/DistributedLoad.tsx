@@ -1,8 +1,12 @@
+/**
+ * Distributed Load in bars
+ */
 import { Billboard, Line, Text } from '@react-three/drei'
-import { createLineFunction } from '../../utils/functions/space2d'
+import { createLinearFunction, rootLinear } from '../../utils/functions/space2d'
 import { linSpace } from '../../utils/functions'
 import { Arrow } from '../Arrow'
 import { forcesType } from '@renderer/types/Structure'
+import React from 'react'
 
 interface ILinearLoadCustomProps {
 	name: string
@@ -12,7 +16,8 @@ interface ILinearLoadCustomProps {
 
 	height?: number
 
-	arrowColor?: string
+	positiveArrowColor?: string
+	negativeArrowColor?: string
 	textColor?: string
 }
 
@@ -24,7 +29,8 @@ export const DistributedLoad = ({
 	loads,
 	xPositions,
 	height = 1,
-	arrowColor = 'white',
+	positiveArrowColor = 'white',
+	negativeArrowColor = 'magenta',
 	textColor = 'white',
 	...props
 }: ILinearLoadProps): React.JSX.Element => {
@@ -34,8 +40,9 @@ export const DistributedLoad = ({
 	const xPositionsOfArrows = linSpace(xPositions[0], xPositions[1], numberOfArrows)
 	const y = [loads[0] * scaleToHeight, loads[1] * scaleToHeight]
 	const x = xPositions
-	const linearFunction = createLineFunction([x[0], y[0]], [x[1], y[1]])
+	const linearFunction = createLinearFunction([x[0], y[0]], [x[1], y[1]])
 
+	// Rotation for adjust the load to the bar direction
 	const rotation: [number, number, number] = [0, 0, 0]
 	switch (forceDirection) {
 		case 'Fy':
@@ -45,17 +52,52 @@ export const DistributedLoad = ({
 			break
 	}
 
+	let lines: React.JSX.Element = <></>
+	if (loads[0] <= 0 && loads[1] <= 0) {
+		lines = (
+			<Line
+				worldUnits
+				points={[x[0], y[0], 0, x[1], y[1], 0]}
+				lineWidth={0.02}
+				color={negativeArrowColor}
+			/>
+		)
+	} else if (loads[0] >= 0 && loads[1] >= 0) {
+		lines = (
+			<Line
+				worldUnits
+				points={[x[0], y[0], 0, x[1], y[1], 0]}
+				lineWidth={0.02}
+				color={positiveArrowColor}
+			/>
+		)
+	} else {
+		const root = rootLinear([x[0], y[0]], [x[1], y[1]])
+		lines = (
+			<>
+				<Line
+					worldUnits
+					points={[x[0], y[0], 0, root, 0, 0]}
+					lineWidth={0.02}
+					color={loads[0] < 0 ? negativeArrowColor : positiveArrowColor}
+				/>
+				<Line
+					worldUnits
+					points={[root, 0, 0, x[1], y[1], 0]}
+					lineWidth={0.02}
+					color={loads[1] < 0 ? negativeArrowColor : positiveArrowColor}
+				/>
+			</>
+		)
+	}
+
 	return (
 		<group {...props}>
 			{(forceDirection === 'Fy' || forceDirection === 'Fz') && (
 				<group rotation={rotation}>
 					<group rotation-x={Math.PI}>
-						<Line
-							worldUnits
-							points={[x[0], y[0], 0, x[1], y[1], 0]}
-							lineWidth={0.02}
-							color={arrowColor}
-						/>
+						{lines}
+
 						{xPositionsOfArrows.map((xPos) => {
 							const yPos = linearFunction(xPos)
 							if (Math.abs(yPos) < 0.1) return null
@@ -66,7 +108,7 @@ export const DistributedLoad = ({
 									position={[xPos, yPos, 0]}
 									length={Math.abs(yPos)}
 									scale={0.3}
-									color={arrowColor}
+									color={yPos < 0 ? negativeArrowColor : positiveArrowColor}
 								/>
 							)
 						})}
@@ -94,20 +136,21 @@ export const DistributedLoad = ({
 								return (
 									<group key={`${name}-${xPos}-${forceDirection}`}>
 										<Arrow
-											direction={'x'}
-											position={[xPos, 0, 0]}
-											length={loads[0] < 0 ? 0.05 : -0.01}
+											direction={loads[0] < 0 ? '-x' : 'x'}
+											position={[xPos - 0.01 - (loads[0] < 0 ? 0.05 : 0), 0, 0]}
+											length={0}
 											scale={0.2 * 0.5}
-											color={arrowColor}
+											color={loads[0] < 0 ? negativeArrowColor : positiveArrowColor}
 											notLine
 										/>
 										<Arrow
-											direction={'-x'}
-											position={[xPos, 0, 0]}
-											length={loads[0] < 0 ? 0.05 : -0.01}
+											direction={loads[0] < 0 ? 'x' : '-x'}
+											position={[xPos + 0.01 + (loads[0] < 0 ? 0.05 : 0), 0, 0]}
+											length={0}
 											scale={0.2 * 0.5}
-											color={arrowColor}
+											color={loads[0] < 0 ? positiveArrowColor : negativeArrowColor}
 											notLine
+											endBase
 										/>
 									</group>
 								)
@@ -124,7 +167,7 @@ export const DistributedLoad = ({
 								position={[xPos, 0, 0]}
 								length={0}
 								scale={(Math.abs(yPos) + 0.2) * 0.5}
-								color={arrowColor}
+								color={yPos < 0 ? negativeArrowColor : positiveArrowColor}
 								notLine
 								endBase
 							/>

@@ -81,7 +81,7 @@
 						"system": "local",
 						"position": [0, 5],
 						"loads": {
-							"Fx": [1e3, 3e3],
+							"Fx": [-1e3, -3e3],
 							"Fy": [1e3, 3e3],
 							"Fz": [1e3, 3e3],
 							"Mx": [1e3, 3e3],
@@ -95,7 +95,7 @@
 						"system": "local",
 						"position": [0.5, 3],
 						"loads": {
-							"Fx": [-3e3, 3e3],
+							"Fx": [3e3, -3e3],
 							"Fy": [1e3, 3e3],
 							"Fz": [1e3, 3e3],
 							"Mx": [1e3, 3e3],

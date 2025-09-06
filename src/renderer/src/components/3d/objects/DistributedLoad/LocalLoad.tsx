@@ -1,5 +1,5 @@
 import { Billboard, Line, Text } from '@react-three/drei'
-import { createLineFunction } from '../../utils/functions/space2d'
+import { createLinearFunction } from '../../utils/functions/space2d'
 import { linSpace } from '../../utils/functions'
 import { Arrow } from '../Arrow'
 
@@ -33,7 +33,7 @@ export const LinearLoad = ({
 	const xPositionsOfArrows = linSpace(xPositions[0], xPositions[1], numberOfArrows)
 	const y = [loads[0] * scaleToHeight, loads[1] * scaleToHeight]
 	const x = xPositions
-	const linearFunction = createLineFunction([x[0], y[0]], [x[1], y[1]])
+	const linearFunction = createLinearFunction([x[0], y[0]], [x[1], y[1]])
 
 	const rotation: [number, number, number] = [0, 0, 0]
 	switch (direction) {

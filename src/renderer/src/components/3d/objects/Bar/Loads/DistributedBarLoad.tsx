@@ -31,16 +31,20 @@ export const DistributedBarLoad = ({
 	const groupRef1 = useRef<THREE.AxesHelper>(null)
 	const groupRef2 = useRef<THREE.Group>(null)
 
-	let arrowColor: string = 'white'
+	let positiveArrowColor: string = 'white'
+	let negativeArrowColor: string = 'white'
 	switch (forceDirection) {
 		case 'Fx':
-			arrowColor = 'red'
+			positiveArrowColor = 'red'
+			negativeArrowColor = '#ff6666'
 			break
 		case 'Fy':
-			arrowColor = 'green'
+			positiveArrowColor = 'green'
+			negativeArrowColor = '#00e600'
 			break
 		case 'Fz':
-			arrowColor = 'blue'
+			positiveArrowColor = 'blue'
+			negativeArrowColor = '#6666ff'
 			break
 		case 'Mx':
 			break
@@ -106,7 +110,8 @@ export const DistributedBarLoad = ({
 								forceDirection={forceDirection}
 								loads={loads}
 								xPositions={xPositions}
-								arrowColor={arrowColor}
+								positiveArrowColor={positiveArrowColor}
+								negativeArrowColor={negativeArrowColor}
 							/>
 						</group>
 					</group>
