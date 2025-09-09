@@ -2,13 +2,13 @@
  * Distributed Load in bars
  */
 import { Billboard, Line, Text } from '@react-three/drei'
-import { createLinearFunction, rootLinear } from '../../utils/functions/space2d'
-import { linSpace } from '../../utils/functions'
-import { Arrow } from '../Arrow'
+import { linSpace } from '@renderer/utils/functions'
+import { createLinearFunction, rootLinear } from '@renderer/utils/functions/space2d'
 import { forcesType } from '@renderer/types/Structure'
 import React from 'react'
+import { Arrow } from '../../../Arrow'
 
-interface ILinearLoadCustomProps {
+interface IDistributedLoad1DCustomProps {
 	name: string
 	forceDirection?: forcesType
 	loads: [number, number]
@@ -21,9 +21,9 @@ interface ILinearLoadCustomProps {
 	textColor?: string
 }
 
-type ILinearLoadProps = ILinearLoadCustomProps & React.JSX.IntrinsicElements['group']
+type IDistributedLoad1DProps = IDistributedLoad1DCustomProps & React.JSX.IntrinsicElements['group']
 
-export const DistributedLoad = ({
+export const DistributedLoad1D = ({
 	name,
 	forceDirection = 'Fx',
 	loads,
@@ -33,7 +33,7 @@ export const DistributedLoad = ({
 	negativeArrowColor = 'magenta',
 	textColor = 'white',
 	...props
-}: ILinearLoadProps): React.JSX.Element => {
+}: IDistributedLoad1DProps): React.JSX.Element => {
 	let numberOfArrows = Math.max(Math.ceil((xPositions[1] - xPositions[0]) / 0.3), 3)
 	numberOfArrows = numberOfArrows % 2 === 0 ? numberOfArrows - 1 : numberOfArrows
 	const scaleToHeight = height / Math.max(Math.abs(loads[0]), Math.abs(loads[1]))

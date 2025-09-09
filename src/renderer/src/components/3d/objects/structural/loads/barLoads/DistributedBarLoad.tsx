@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 import { useEffect, useRef } from 'react'
-import { DistributedLoad } from '../../DistributedLoad'
+import { DistributedLoad1D } from '../DistributedLoad1D'
 import { forcesType } from '@renderer/types/Structure'
 
-interface ILocalLoadsProps {
+interface IDistributedBarLoadCustomProps {
 	name: string
 	direction: THREE.Vector3
 	xPositions: [number, number]
@@ -15,9 +15,10 @@ interface ILocalLoadsProps {
 	yUp?: boolean
 }
 
-type ILoadsProps = ILocalLoadsProps & React.JSX.IntrinsicElements['group']
+type IBarDistributedLoadProps = IDistributedBarLoadCustomProps &
+	React.JSX.IntrinsicElements['group']
 
-export const DistributedBarLoad = ({
+export const BarDistributedLoad = ({
 	name,
 	direction,
 	forceDirection,
@@ -27,7 +28,7 @@ export const DistributedBarLoad = ({
 	system = 'local',
 	yUp = false,
 	...props
-}: ILoadsProps): React.JSX.Element => {
+}: IBarDistributedLoadProps): React.JSX.Element => {
 	const groupRef1 = useRef<THREE.AxesHelper>(null)
 	const groupRef2 = useRef<THREE.Group>(null)
 
@@ -104,7 +105,7 @@ export const DistributedBarLoad = ({
 				<group {...props}>
 					<group ref={groupRef2}>
 						<group ref={groupRef1}>
-							<DistributedLoad
+							<DistributedLoad1D
 								key={`${Math.random()}`}
 								name={name}
 								forceDirection={forceDirection}

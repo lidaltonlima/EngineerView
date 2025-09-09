@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import { RotationRelease } from './RotationRelease'
 import { DisplacementRelease } from './DisplacementRelease'
 
-interface IReleasesProps {
+interface IBarReleaseProps {
 	releases: IReleasesData[]
 	direction: THREE.Vector3
 	startPoint: THREE.Vector3
@@ -12,13 +12,13 @@ interface IReleasesProps {
 	barRotation: number
 }
 
-export const Releases = ({
+export const BarRelease = ({
 	releases,
 	direction,
 	startPoint,
 	endPoint,
 	barRotation
-}: IReleasesProps): React.JSX.Element => {
+}: IBarReleaseProps): React.JSX.Element => {
 	const groupStartRef = useRef<THREE.Group>(null)
 	const groupEndRef = useRef<THREE.Group>(null)
 	const directionGroupRef = useRef<THREE.Group>(null)

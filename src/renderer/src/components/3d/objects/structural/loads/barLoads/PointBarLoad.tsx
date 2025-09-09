@@ -1,33 +1,49 @@
 import * as THREE from 'three'
 import { useEffect, useRef } from 'react'
-import { Axes } from '..'
+import { PointLoad } from '../PointLoad'
 
-interface ILocalAxesCustomProps {
+interface IBarPointLoadCustomProps {
 	direction: THREE.Vector3
+	xPosition: number
 	rotationAroundDirection?: number
-	yUp?: boolean
-	scale?: number
+	system?: 'global' | 'local'
+
+	fx?: number
+	fy?: number
+	fz?: number
+	mx?: number
+	my?: number
+	mz?: number
+
 	label?: boolean
+	yUp?: boolean
 }
 
-type ILocalAxesProps = ILocalAxesCustomProps & React.JSX.IntrinsicElements['group']
+type IBarPointLoadProps = IBarPointLoadCustomProps & React.JSX.IntrinsicElements['group']
 
-export const LocalAxes = ({
+export const PointBarLoad = ({
 	direction,
+	xPosition,
 	rotationAroundDirection = 0,
+	system = 'local',
+	fx = 0,
+	fy = 0,
+	fz = 0,
+	mx = 0,
+	my = 0,
+	mz = 0,
+	label = true,
 	yUp = false,
-	scale = 1,
-	label,
 	...props
-}: ILocalAxesProps): React.JSX.Element => {
-	const axesRef = useRef<THREE.AxesHelper>(null)
-	const groupRef = useRef<THREE.Group>(null)
+}: IBarPointLoadProps): React.JSX.Element => {
+	const groupRef1 = useRef<THREE.AxesHelper>(null)
+	const groupRef2 = useRef<THREE.Group>(null)
 
 	useEffect(() => {
-		if (!axesRef.current) return
+		if (!groupRef1.current) return
 
 		// Origen of helper
-		const pos = axesRef.current.position.clone()
+		const pos = groupRef1.current.position.clone()
 
 		// Vector X local -> direction to the point
 		const xDir = new THREE.Vector3().subVectors(direction, pos).normalize()
@@ -58,20 +74,49 @@ export const LocalAxes = ({
 		matrixRotation.makeBasis(xDir, yDir, zDir)
 
 		// Apply to helper
-		axesRef.current.setRotationFromMatrix(matrixRotation)
+		groupRef1.current.setRotationFromMatrix(matrixRotation)
 
 		// Rotation the helper around the axis
 		const rotation = direction.equals(new THREE.Vector3(0, 0, -1))
 			? rotationAroundDirection + Math.PI
 			: rotationAroundDirection
-		groupRef.current?.quaternion.setFromAxisAngle(xDir, rotation)
+		groupRef2.current?.quaternion.setFromAxisAngle(xDir, rotation)
 	}, [direction, rotationAroundDirection, yUp])
 
 	return (
-		<group {...props}>
-			<group ref={groupRef}>
-				<Axes ref={axesRef} label={label} scale={scale} />
-			</group>
-		</group>
+		<>
+			{system === 'local' && (
+				<group {...props}>
+					<group ref={groupRef2}>
+						<group ref={groupRef1}>
+							<PointLoad
+								label={label}
+								position={new THREE.Vector3(xPosition, 0, 0)}
+								fx={fx}
+								fy={fy}
+								fz={fz}
+								mx={mx}
+								my={my}
+								mz={mz}
+							/>
+						</group>
+					</group>
+				</group>
+			)}
+			{system === 'global' && (
+				<group {...props}>
+					<PointLoad
+						label={label}
+						position={direction.clone().multiplyScalar(xPosition)}
+						fx={fx}
+						fy={fy}
+						fz={fz}
+						mx={mx}
+						my={my}
+						mz={mz}
+					/>
+				</group>
+			)}
+		</>
 	)
 }

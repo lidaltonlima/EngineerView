@@ -1,4 +1,4 @@
-import { Arc } from '../Arc'
+import { Arc } from '../../../Arc'
 
 interface IRotationReleaseProps {
 	direction: 'x' | 'y' | 'z'

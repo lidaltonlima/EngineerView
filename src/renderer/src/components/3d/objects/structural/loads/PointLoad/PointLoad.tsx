@@ -1,7 +1,7 @@
 import { Force } from './Force'
 import { Moment } from './Moment'
 
-interface INodalLoadCustomProps {
+interface IPointLoadCustomProps {
 	fx?: number
 	fy?: number
 	fz?: number
@@ -12,7 +12,7 @@ interface INodalLoadCustomProps {
 	label?: boolean
 }
 
-type INodalLoadProps = INodalLoadCustomProps & React.JSX.IntrinsicElements['group']
+type IPointLoadProps = IPointLoadCustomProps & React.JSX.IntrinsicElements['group']
 
 export const PointLoad = ({
 	fx = 0,
@@ -23,7 +23,7 @@ export const PointLoad = ({
 	mz = 0,
 	label = false,
 	...props
-}: INodalLoadProps): React.JSX.Element => {
+}: IPointLoadProps): React.JSX.Element => {
 	return (
 		<group {...props}>
 			{/* Positive values */}

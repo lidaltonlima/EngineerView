@@ -5,7 +5,7 @@ import { Point, Points } from '@react-three/drei'
 import { useStructureContext } from '@renderer/contexts/Structure'
 import { INodeData } from '@renderer/types/Structure'
 import { Vector3 } from 'three'
-import { PointLoad } from '../PointLoad'
+import { PointLoad } from '../../loads'
 
 interface INodeProps {
 	node: INodeData

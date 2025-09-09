@@ -1,6 +1,6 @@
 import { Billboard, Text } from '@react-three/drei'
-import { Arrow } from '../Arrow'
 import { Vector3 } from 'three'
+import { Arrow } from '../../../Arrow'
 
 interface IForceProps {
 	direction: 'x' | 'y' | 'z' | '-x' | '-y' | '-z'

@@ -78,22 +78,16 @@
 				}
 			],
 			"bars": {
-				"point": [],
-				"distributed": [
+				"point": [
 					{
-						"name": "FDB1",
+						"name": "FB1",
 						"bar": "B1",
 						"system": "local",
-						"position": [0, 5],
-						"loads": {
-							"Fx": [-1e3, -3e3],
-							"Fy": [1e3, 3e3],
-							"Fz": [1e3, 3e3],
-							"Mx": [1e3, 3e3],
-							"My": [1e3, 3e3],
-							"Mz": [1e3, 3e3]
-						}
-					},
+						"position": 1.5,
+						"loads": { "Fx": 1e3, "Fy": -2e3, "Fz": 3e3, "Mx": -4e3, "My": 5e3, "Mz": -6e3 }
+					}
+				],
+				"distributed": [
 					{
 						"name": "FDB2",
 						"bar": "B2",

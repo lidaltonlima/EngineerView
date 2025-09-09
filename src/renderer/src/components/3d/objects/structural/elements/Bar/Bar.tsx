@@ -1,12 +1,11 @@
 import { Line } from '@react-three/drei'
 import { useStructureContext } from '@renderer/contexts/Structure'
 import { forcesType, IBarData } from '@renderer/types/Structure'
-import { LocalAxes } from '../LocalAxes'
-import { degToRad } from 'three/src/math/MathUtils'
-import { Releases } from './Releases'
 import * as THREE from 'three'
-import { PointBarLoad } from './Loads'
-import { DistributedBarLoad } from './Loads/DistributedBarLoad'
+import { degToRad } from 'three/src/math/MathUtils'
+import { BarDistributedLoad, PointBarLoad } from '../../loads'
+import { LocalAxes } from '../../others/LocalAxes'
+import { BarRelease } from '../../others'
 
 interface IBarProps {
 	bar: IBarData
@@ -49,13 +48,14 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 				scale={0.25}
 				position={middlePoint}
 			/>
-			<Releases
+			<BarRelease
 				releases={bar.releases}
 				direction={direction}
 				startPoint={startPoint}
 				endPoint={endPoint}
 				barRotation={rotation}
 			/>
+			{/* Point Loads */}
 			{structure.loads.map((load) => {
 				return load.bars.point.map((barPointLoad) => {
 					if (barPointLoad.bar == bar.name)
@@ -78,13 +78,14 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 					return null
 				})
 			})}
+			{/* Distributed Loads */}
 			{structure.loads.map((load) => {
 				return load.bars.distributed.map((barDistributedLoad) => {
 					if (barDistributedLoad.bar == bar.name) {
 						return Object.entries(barDistributedLoad.loads).map(([objectKey, objectValue]) => {
 							const key = objectKey as forcesType
 							return (
-								<DistributedBarLoad
+								<BarDistributedLoad
 									key={`${barDistributedLoad.name}-${key}-${Math.random()}`}
 									name={barDistributedLoad.name}
 									direction={direction}

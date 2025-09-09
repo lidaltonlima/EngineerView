@@ -1,12 +1,10 @@
-import {
-	FixedDisplacement,
-	FixedRotation,
-	SpringDisplacement,
-	SpringRotation
-} from '@renderer/components/3d/objects/Supports'
 import { IStructureData, ISupportData } from '@renderer/types/Structure'
 import { FixedAll } from './FixedAll'
 import { FixedAllDisplacement } from './FixedAllDisplacement'
+import { FixedDisplacement } from './FixedDisplacement'
+import { FixedRotation } from './FixedRotation'
+import { SpringDisplacement } from './SpringDisplacement'
+import { SpringRotation } from './SpringRotation'
 
 export const DrawSupport = (
 	support: ISupportData,

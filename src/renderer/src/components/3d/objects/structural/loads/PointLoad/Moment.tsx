@@ -1,6 +1,6 @@
 import { Billboard, Text } from '@react-three/drei'
 import { Vector3 } from 'three'
-import { CurvedArrow } from '../CurvedArrow'
+import { CurvedArrow } from '../../../CurvedArrow'
 
 interface IMomentProps {
 	direction: 'x' | 'y' | 'z' | '-x' | '-y' | '-z'

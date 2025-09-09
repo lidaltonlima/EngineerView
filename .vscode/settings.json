@@ -29,7 +29,9 @@
       "workspace": "app",
       "workspaces": "app",
       "popupcontainer": "container",
-      "tabcontainer": "container"
+      "tabcontainer": "container",
+			"structural": "delta",
+			"loads": "download"
   },
   "cSpell.words": [
     "drei",
