@@ -77,6 +77,7 @@ export interface ILoadData {
 
 // Nodal loads ************************************************************************************
 export interface IPointLoadsData {
+	name: string
 	node: string
 	loads: { Fx: number; Fy: number; Fz: number; Mx: number; My: number; Mz: number }
 }

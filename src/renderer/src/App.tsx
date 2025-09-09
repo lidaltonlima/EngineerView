@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Default3dScene } from './components/3d'
-import { Bar, DrawSupport, Node, PointLoad } from './components/3d/objects'
+import { Bar, DrawSupport, Node } from './components/3d/objects'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
 
@@ -30,26 +30,6 @@ export const App = (): React.JSX.Element => {
 			{structureData?.bars.map((bar) => <Bar key={bar.name} bar={bar} />)}
 			{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
 			{structureData?.supports.map((support) => DrawSupport(support, structure))}
-			{structureData?.loads[0].nodes.map((nodalLoad) => (
-				<PointLoad
-					key={nodalLoad.node}
-					label
-					position={structureData?.nodes.find((node) => node.name === nodalLoad.node)?.position}
-					fx={nodalLoad.loads.Fx}
-					fy={nodalLoad.loads.Fy}
-					fz={nodalLoad.loads.Fz}
-					mx={nodalLoad.loads.Mx}
-					my={nodalLoad.loads.My}
-					mz={nodalLoad.loads.Mz}
-				/>
-			))}
-			{/* <DistributedBarLoad
-				name='test'
-				direction={new Vector3(1, 0, 0)}
-				xPositions={[0, 4]}
-				loads={[3e3, -1e3]}
-				forceDirection='Fz'
-			/> */}
 			<axesHelper />
 		</Default3dScene>
 	)

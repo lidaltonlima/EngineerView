@@ -68,7 +68,12 @@
 			"nodes": [
 				{
 					"name": "FN1",
-					"node": "none",
+					"node": "N2",
+					"loads": { "Fx": -1e3, "Fy": -2e3, "Fz": -3e3, "Mx": -4e3, "My": -5e3, "Mz": -6e3 }
+				},
+				{
+					"name": "FN2",
+					"node": "N3",
 					"loads": { "Fx": -1e3, "Fy": -2e3, "Fz": -3e3, "Mx": -4e3, "My": -5e3, "Mz": -6e3 }
 				}
 			],
