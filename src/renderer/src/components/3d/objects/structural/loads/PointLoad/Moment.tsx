@@ -5,14 +5,19 @@ import { CurvedArrow } from '../../../CurvedArrow'
 interface IMomentProps {
 	direction: 'x' | 'y' | 'z' | '-x' | '-y' | '-z'
 	value: number
+	radius?: number
+	scale?: number
 	arrowColor?: string
 	textColor?: string
+
 	label?: boolean
 }
 
 export const Moment = ({
 	direction,
 	value,
+	radius = 0.4,
+	scale = 0.35,
 	arrowColor = 'white',
 	textColor = 'white',
 	label = false
@@ -20,9 +25,9 @@ export const Moment = ({
 	const billboardPosition = new Vector3()
 	let anchorXLabel: 'right' | 'left' = 'left'
 	let rotationLabel = 0
-	const offsetLabel1 = 0.25
-	const offsetLabel2 = 0.35
-	const offsetNegativeLabel = 0.06
+	const offsetLabel1 = 0.25 * (radius / 0.4)
+	const offsetLabel2 = 0.35 * (radius / 0.4)
+	const offsetNegativeLabel = 0.06 * (radius / 0.4)
 	switch (direction) {
 		case 'x':
 			billboardPosition.set(0, offsetLabel1, -offsetLabel2)
@@ -61,7 +66,7 @@ export const Moment = ({
 
 	return (
 		<>
-			<CurvedArrow radius={0.4} color={arrowColor} direction={direction} scale={0.35} />
+			<CurvedArrow radius={radius} color={arrowColor} direction={direction} scale={scale} />
 			{label && (
 				<Billboard position={billboardPosition}>
 					<Text

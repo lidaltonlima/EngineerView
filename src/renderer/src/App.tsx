@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Default3dScene } from './components/3d'
+import { Bar, DrawSupport, Node } from './components/3d/objects/structural/elements'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
-import { Bar, DrawSupport, Node } from './components/3d/objects/structural/elements'
 
 export const App = (): React.JSX.Element => {
 	const [structureData, setStructureData] = useState<IStructureData | null>()

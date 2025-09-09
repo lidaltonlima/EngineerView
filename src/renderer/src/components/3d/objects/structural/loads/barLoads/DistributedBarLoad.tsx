@@ -36,22 +36,19 @@ export const BarDistributedLoad = ({
 	let negativeArrowColor: string = 'white'
 	switch (forceDirection) {
 		case 'Fx':
+		case 'Mx':
 			positiveArrowColor = 'red'
 			negativeArrowColor = '#ff6666'
 			break
 		case 'Fy':
+		case 'My':
 			positiveArrowColor = 'green'
 			negativeArrowColor = '#00e600'
 			break
 		case 'Fz':
+		case 'Mz':
 			positiveArrowColor = 'blue'
 			negativeArrowColor = '#6666ff'
-			break
-		case 'Mx':
-			break
-		case 'My':
-			break
-		case 'Mz':
 			break
 	}
 

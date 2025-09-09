@@ -2,11 +2,13 @@
  * Distributed Load in bars
  */
 import { Billboard, Line, Text } from '@react-three/drei'
+import { forcesType } from '@renderer/types/Structure'
 import { linSpace } from '@renderer/utils/functions'
 import { createLinearFunction, rootLinear } from '@renderer/utils/functions/space2d'
-import { forcesType } from '@renderer/types/Structure'
 import React from 'react'
 import { Arrow } from '../../../Arrow'
+import { CurvedArrow } from '../../../CurvedArrow'
+import { Moment } from '../PointLoad/Moment'
 
 interface IDistributedLoad1DCustomProps {
 	name: string
@@ -30,12 +32,17 @@ export const DistributedLoad1D = ({
 	xPositions,
 	height = 1,
 	positiveArrowColor = 'white',
-	negativeArrowColor = 'magenta',
+	negativeArrowColor = 'white',
 	textColor = 'white',
 	...props
 }: IDistributedLoad1DProps): React.JSX.Element => {
-	let numberOfArrows = Math.max(Math.ceil((xPositions[1] - xPositions[0]) / 0.3), 3)
+	let numberOfArrows = Math.ceil((xPositions[1] - xPositions[0]) / 0.3)
+	numberOfArrows =
+		forceDirection === 'Mx' || forceDirection === 'My' || forceDirection === 'Mz'
+			? Math.ceil(numberOfArrows / 2)
+			: numberOfArrows
 	numberOfArrows = numberOfArrows % 2 === 0 ? numberOfArrows - 1 : numberOfArrows
+	numberOfArrows = Math.max(numberOfArrows, 3)
 	const scaleToHeight = height / Math.max(Math.abs(loads[0]), Math.abs(loads[1]))
 	const xPositionsOfArrows = linSpace(xPositions[0], xPositions[1], numberOfArrows)
 	const y = [loads[0] * scaleToHeight, loads[1] * scaleToHeight]
@@ -52,8 +59,9 @@ export const DistributedLoad1D = ({
 			break
 	}
 
+	// Create the line of the distributed load in Fy or Fz direction
 	let lines: React.JSX.Element = <></>
-	if (loads[0] <= 0 && loads[1] <= 0) {
+	if (loads[0] <= 0 && loads[1] <= 0 && forceDirection !== 'Fx') {
 		lines = (
 			<Line
 				worldUnits
@@ -93,6 +101,7 @@ export const DistributedLoad1D = ({
 
 	return (
 		<group {...props}>
+			{/* Forces ///////////////////////////////////////////////////////////////////////////////*/}
 			{(forceDirection === 'Fy' || forceDirection === 'Fz') && (
 				<group rotation={rotation}>
 					<group rotation-x={Math.PI}>
@@ -185,6 +194,115 @@ export const DistributedLoad1D = ({
 							<meshBasicMaterial color={textColor} depthTest={false} />
 						</Text>
 					</Billboard>
+				</>
+			)}
+			{/* Moments //////////////////////////////////////////////////////////////////////////////*/}
+			{(forceDirection === 'Mx' || forceDirection === 'My' || forceDirection === 'Mz') && (
+				<>
+					{xPositionsOfArrows.map((xPos) => {
+						const yPos = linearFunction(xPos)
+						if (loads[0] !== 0 && loads[1] !== 0 && Math.abs(yPos) < 0.00001)
+							if (Math.abs(loads[0]) === Math.abs(loads[1]))
+								return (
+									<group key={`${name}-${xPos}-${forceDirection}`}>
+										<CurvedArrow
+											direction={
+												loads[0] < 0
+													? forceDirection === 'Mx'
+														? '-x'
+														: forceDirection === 'My'
+															? '-y'
+															: '-z'
+													: forceDirection === 'Mx'
+														? 'x'
+														: forceDirection === 'My'
+															? 'y'
+															: 'z'
+											}
+											position={[xPos - 0.01, 0, 0]}
+											radius={(Math.abs(yPos) + 0.1) * 0.5}
+											scale={0.2 * 0.5}
+											color={loads[0] < 0 ? negativeArrowColor : positiveArrowColor}
+										/>
+										<CurvedArrow
+											direction={
+												loads[0] < 0
+													? forceDirection === 'Mx'
+														? 'x'
+														: forceDirection === 'My'
+															? 'y'
+															: 'z'
+													: forceDirection === 'Mx'
+														? '-x'
+														: forceDirection === 'My'
+															? '-y'
+															: '-z'
+											}
+											position={[xPos + 0.01, 0, 0]}
+											radius={(Math.abs(yPos) + 0.1) * 0.5}
+											scale={0.2 * 0.5}
+											color={loads[0] < 0 ? positiveArrowColor : negativeArrowColor}
+										/>
+									</group>
+								)
+							else return null
+
+						let direction: 'x' | '-x' | 'y' | '-y' | 'z' | '-z' =
+							yPos < 0
+								? forceDirection === 'Mx'
+									? '-x'
+									: forceDirection === 'My'
+										? '-y'
+										: '-z'
+								: forceDirection === 'Mx'
+									? 'x'
+									: forceDirection === 'My'
+										? 'y'
+										: 'z'
+						if (yPos === 0)
+							if (Math.abs(loads[0]) >= Math.abs(loads[1]))
+								direction =
+									loads[0] < 0
+										? forceDirection === 'Mx'
+											? '-x'
+											: forceDirection === 'My'
+												? '-y'
+												: '-z'
+										: forceDirection === 'Mx'
+											? 'x'
+											: forceDirection === 'My'
+												? 'y'
+												: 'z'
+							else
+								direction =
+									loads[0] < 0
+										? forceDirection === 'Mx'
+											? '-x'
+											: forceDirection === 'My'
+												? '-y'
+												: '-z'
+										: forceDirection === 'Mx'
+											? 'x'
+											: forceDirection === 'My'
+												? 'y'
+												: 'z'
+						return (
+							<group key={`${name}-${forceDirection}-${xPos}`} position={[xPos, 0, 0]}>
+								<Moment
+									direction={direction}
+									value={xPositionsOfArrows[0] === xPos ? loads[0] : loads[1]}
+									scale={(Math.abs(yPos) + 0.1) * 0.3}
+									radius={(Math.abs(yPos) + 0.1) * 0.3}
+									arrowColor={yPos < 0 ? negativeArrowColor : positiveArrowColor}
+									textColor={textColor}
+									label={
+										xPositionsOfArrows[0] === xPos ||
+										xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos
+									}
+								/>
+							</group>
+						)
+					})}
 				</>
 			)}
 		</group>
