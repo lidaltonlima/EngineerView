@@ -28,8 +28,8 @@ export const App = (): React.JSX.Element => {
 		}
 	}, [structure])
 
-	const initialPoint = new Vector3(0, 0, 0)
-	const finalPoint = new Vector3(3, 10, 0)
+	const initialPoint = new Vector3(0, 1, 2)
+	const finalPoint = new Vector3(0, -3, -4)
 
 	return (
 		<Default3dScene>
@@ -42,7 +42,7 @@ export const App = (): React.JSX.Element => {
 				forceDirection='Fz'
 				system='global'
 				loads={[-1, -3]}
-				xPositions={[0, 3]}
+				xPositions={[1, 3]}
 				barPoints={[initialPoint, finalPoint]}
 			/>
 			<Line points={[initialPoint, finalPoint]} color='orange' lineWidth={4} />
