@@ -1,5 +1,5 @@
 import { Line, LineProps } from '@react-three/drei'
-import { linSpace } from '../../../../utils/functions'
+import { linSpace } from '@renderer/utils/functions/others'
 
 interface IArcCustomProps {
 	radius?: number

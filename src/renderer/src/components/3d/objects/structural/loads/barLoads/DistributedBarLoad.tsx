@@ -6,11 +6,12 @@ import { forcesType } from '@renderer/types/Structure'
 interface IDistributedBarLoadCustomProps {
 	name: string
 	direction: THREE.Vector3
+	forceDirection: forcesType
 	xPositions: [number, number]
 	loads: [number, number]
-	forceDirection: forcesType
+	system: 'global' | 'local'
 	rotationAroundDirection?: number
-	system?: 'global' | 'local'
+	barPoints: [THREE.Vector3, THREE.Vector3]
 
 	yUp?: boolean
 }
@@ -24,9 +25,10 @@ export const BarDistributedLoad = ({
 	forceDirection,
 	loads,
 	xPositions,
+	system,
 	rotationAroundDirection = 0,
-	system = 'local',
 	yUp = false,
+	barPoints,
 	...props
 }: IBarDistributedLoadProps): React.JSX.Element => {
 	const groupRef1 = useRef<THREE.AxesHelper>(null)
@@ -108,8 +110,10 @@ export const BarDistributedLoad = ({
 								forceDirection={forceDirection}
 								loads={loads}
 								xPositions={xPositions}
+								system={system}
 								positiveArrowColor={positiveArrowColor}
 								negativeArrowColor={negativeArrowColor}
+								barPoints={barPoints}
 							/>
 						</group>
 					</group>

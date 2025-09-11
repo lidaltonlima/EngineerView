@@ -93,7 +93,9 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 									forceDirection={key}
 									xPositions={barDistributedLoad.position}
 									position={startPoint}
+									system={barDistributedLoad.system}
 									rotationAroundDirection={rotation}
+									barPoints={[startPoint, endPoint]}
 								/>
 							)
 						})
