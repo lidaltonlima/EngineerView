@@ -191,21 +191,32 @@ export const LoadGlobalSystem = ({
 		switch (forceDirection) {
 			case 'Fx':
 				if (barPoints[0].x === barPoints[1].x) {
-					lines = (
-						<Line
-							worldUnits
-							points={[
-								-y[0],
-								x[0],
-								linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b,
-								-y[1],
-								x[1],
-								linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
-							]}
-							lineWidth={0.02}
-							color={loads[0] >= 0 && loads[1] >= 0 ? positiveArrowColor : negativeArrowColor}
-						/>
-					)
+					if (barPoints[0].y === barPoints[1].y) {
+						lines = (
+							<Line
+								worldUnits
+								points={[-y[0], 0, x[0], -y[1], 0, x[1]]}
+								lineWidth={0.02}
+								color={loads[0] >= 0 && loads[1] >= 0 ? positiveArrowColor : negativeArrowColor}
+							/>
+						)
+					} else {
+						lines = (
+							<Line
+								worldUnits
+								points={[
+									-y[0],
+									x[0],
+									linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b,
+									-y[1],
+									x[1],
+									linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+								]}
+								lineWidth={0.02}
+								color={loads[0] >= 0 && loads[1] >= 0 ? positiveArrowColor : negativeArrowColor}
+							/>
+						)
+					}
 				} else {
 					lines = (
 						<Line
@@ -226,21 +237,32 @@ export const LoadGlobalSystem = ({
 				break
 			case 'Fy':
 				if (barPoints[0].x === barPoints[1].x) {
-					lines = (
-						<Line
-							worldUnits
-							points={[
-								0,
-								x[0] - y[0],
-								linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b,
-								0,
-								x[1] - y[1],
-								linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
-							]}
-							lineWidth={0.02}
-							color={loads[0] >= 0 && loads[1] >= 0 ? positiveArrowColor : negativeArrowColor}
-						/>
-					)
+					if (barPoints[0].y === barPoints[1].y) {
+						lines = (
+							<Line
+								worldUnits
+								points={[0, -y[0], x[0], 0, -y[1], x[1]]}
+								lineWidth={0.02}
+								color={loads[0] >= 0 && loads[1] >= 0 ? positiveArrowColor : negativeArrowColor}
+							/>
+						)
+					} else {
+						lines = (
+							<Line
+								worldUnits
+								points={[
+									0,
+									x[0] - y[0],
+									linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b,
+									0,
+									x[1] - y[1],
+									linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+								]}
+								lineWidth={0.02}
+								color={loads[0] >= 0 && loads[1] >= 0 ? positiveArrowColor : negativeArrowColor}
+							/>
+						)
+					}
 				} else {
 					lines = (
 						<Line
@@ -261,21 +283,23 @@ export const LoadGlobalSystem = ({
 				break
 			case 'Fz':
 				if (barPoints[0].x === barPoints[1].x) {
-					lines = (
-						<Line
-							worldUnits
-							points={[
-								0,
-								x[0],
-								-y[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b,
-								0,
-								x[1],
-								-y[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
-							]}
-							lineWidth={0.02}
-							color={loads[0] >= 0 && loads[1] >= 0 ? positiveArrowColor : negativeArrowColor}
-						/>
-					)
+					if (!(barPoints[0].y === barPoints[1].y)) {
+						lines = (
+							<Line
+								worldUnits
+								points={[
+									0,
+									x[0],
+									-y[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b,
+									0,
+									x[1],
+									-y[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+								]}
+								lineWidth={0.02}
+								color={loads[0] >= 0 && loads[1] >= 0 ? positiveArrowColor : negativeArrowColor}
+							/>
+						)
+					}
 				} else {
 					lines = (
 						<Line
@@ -300,36 +324,55 @@ export const LoadGlobalSystem = ({
 		switch (forceDirection) {
 			case 'Fx':
 				if (barPoints[0].x === barPoints[1].x) {
-					lines = (
-						<>
-							<Line
-								worldUnits
-								points={[
-									-y[0],
-									x[0],
-									linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b,
-									0,
-									root,
-									linearFunctionBarXZ(root) - parametersLinearBarXZ.b
-								]}
-								lineWidth={0.02}
-								color={loads[0] < 0 ? negativeArrowColor : positiveArrowColor}
-							/>
-							<Line
-								worldUnits
-								points={[
-									0,
-									root,
-									linearFunctionBarXZ(root) - parametersLinearBarXZ.b,
-									-y[1],
-									x[1],
-									linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
-								]}
-								lineWidth={0.02}
-								color={loads[1] < 0 ? negativeArrowColor : positiveArrowColor}
-							/>
-						</>
-					)
+					if (barPoints[0].y === barPoints[1].y) {
+						lines = (
+							<>
+								<Line
+									worldUnits
+									points={[-y[0], 0, x[0], 0, 0, root]}
+									lineWidth={0.02}
+									color={loads[0] < 0 ? negativeArrowColor : positiveArrowColor}
+								/>
+								<Line
+									worldUnits
+									points={[0, 0, root, -y[1], 0, x[1]]}
+									lineWidth={0.02}
+									color={loads[1] < 0 ? negativeArrowColor : positiveArrowColor}
+								/>
+							</>
+						)
+					} else {
+						lines = (
+							<>
+								<Line
+									worldUnits
+									points={[
+										-y[0],
+										x[0],
+										linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b,
+										0,
+										root,
+										linearFunctionBarXZ(root) - parametersLinearBarXZ.b
+									]}
+									lineWidth={0.02}
+									color={loads[0] < 0 ? negativeArrowColor : positiveArrowColor}
+								/>
+								<Line
+									worldUnits
+									points={[
+										0,
+										root,
+										linearFunctionBarXZ(root) - parametersLinearBarXZ.b,
+										-y[1],
+										x[1],
+										linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+									]}
+									lineWidth={0.02}
+									color={loads[1] < 0 ? negativeArrowColor : positiveArrowColor}
+								/>
+							</>
+						)
+					}
 				} else {
 					lines = (
 						<>
@@ -365,36 +408,55 @@ export const LoadGlobalSystem = ({
 				break
 			case 'Fy':
 				if (barPoints[0].x === barPoints[1].x) {
-					lines = (
-						<>
-							<Line
-								worldUnits
-								points={[
-									0,
-									x[0] - linearFunctionLoad(x[0]),
-									linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b,
-									0,
-									root,
-									linearFunctionBarXZ(root) - parametersLinearBarXZ.b
-								]}
-								lineWidth={0.02}
-								color={loads[0] < 0 ? negativeArrowColor : positiveArrowColor}
-							/>
-							<Line
-								worldUnits
-								points={[
-									0,
-									root,
-									linearFunctionBarXZ(root) - parametersLinearBarXZ.b,
-									0,
-									x[1] - linearFunctionLoad(x[1]),
-									linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
-								]}
-								lineWidth={0.02}
-								color={loads[1] < 0 ? negativeArrowColor : positiveArrowColor}
-							/>
-						</>
-					)
+					if (barPoints[0].y === barPoints[1].y) {
+						lines = (
+							<>
+								<Line
+									worldUnits
+									points={[0, -y[0], x[0], 0, 0, root]}
+									lineWidth={0.02}
+									color={loads[0] < 0 ? negativeArrowColor : positiveArrowColor}
+								/>
+								<Line
+									worldUnits
+									points={[0, 0, root, 0, -y[1], x[1]]}
+									lineWidth={0.02}
+									color={loads[1] < 0 ? negativeArrowColor : positiveArrowColor}
+								/>
+							</>
+						)
+					} else {
+						lines = (
+							<>
+								<Line
+									worldUnits
+									points={[
+										0,
+										x[0] - linearFunctionLoad(x[0]),
+										linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b,
+										0,
+										root,
+										linearFunctionBarXZ(root) - parametersLinearBarXZ.b
+									]}
+									lineWidth={0.02}
+									color={loads[0] < 0 ? negativeArrowColor : positiveArrowColor}
+								/>
+								<Line
+									worldUnits
+									points={[
+										0,
+										root,
+										linearFunctionBarXZ(root) - parametersLinearBarXZ.b,
+										0,
+										x[1] - linearFunctionLoad(x[1]),
+										linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+									]}
+									lineWidth={0.02}
+									color={loads[1] < 0 ? negativeArrowColor : positiveArrowColor}
+								/>
+							</>
+						)
+					}
 				} else {
 					lines = (
 						<>
@@ -430,36 +492,38 @@ export const LoadGlobalSystem = ({
 				break
 			case 'Fz':
 				if (barPoints[0].x === barPoints[1].x) {
-					lines = (
-						<>
-							<Line
-								worldUnits
-								points={[
-									0,
-									x[0],
-									-y[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b,
-									0,
-									root,
-									linearFunctionBarXZ(root) - parametersLinearBarXZ.b
-								]}
-								lineWidth={0.02}
-								color={loads[0] < 0 ? negativeArrowColor : positiveArrowColor}
-							/>
-							<Line
-								worldUnits
-								points={[
-									0,
-									root,
-									linearFunctionBarXZ(root) - parametersLinearBarXZ.b,
-									0,
-									x[1],
-									-y[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
-								]}
-								lineWidth={0.02}
-								color={loads[1] < 0 ? negativeArrowColor : positiveArrowColor}
-							/>
-						</>
-					)
+					if (!(barPoints[0].y === barPoints[1].y)) {
+						lines = (
+							<>
+								<Line
+									worldUnits
+									points={[
+										0,
+										x[0],
+										-y[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b,
+										0,
+										root,
+										linearFunctionBarXZ(root) - parametersLinearBarXZ.b
+									]}
+									lineWidth={0.02}
+									color={loads[0] < 0 ? negativeArrowColor : positiveArrowColor}
+								/>
+								<Line
+									worldUnits
+									points={[
+										0,
+										root,
+										linearFunctionBarXZ(root) - parametersLinearBarXZ.b,
+										0,
+										x[1],
+										-y[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+									]}
+									lineWidth={0.02}
+									color={loads[1] < 0 ? negativeArrowColor : positiveArrowColor}
+								/>
+							</>
+						)
+					}
 				} else {
 					lines = (
 						<>
@@ -500,24 +564,45 @@ export const LoadGlobalSystem = ({
 	switch (forceDirection) {
 		case 'Fx':
 			if (barPoints[0].x === barPoints[1].x) {
-				arrows = (
-					<>
-						{xPositionsOfArrows.map((xPos) => {
-							const yPos = linearFunctionLoad(xPos)
-							if (Math.abs(yPos) < 0.1) return null
-							return (
-								<Arrow
-									key={`${name}-${forceDirection}-${xPos}`}
-									direction={yPos >= 0 ? 'x' : '-x'}
-									position={[-yPos, xPos, linearFunctionBarXZ(xPos) - parametersLinearBarXZ.b]}
-									length={Math.abs(yPos)}
-									scale={0.3}
-									color={yPos < 0 ? negativeArrowColor : positiveArrowColor}
-								/>
-							)
-						})}
-					</>
-				)
+				if (barPoints[0].y === barPoints[1].y) {
+					arrows = (
+						<>
+							{xPositionsOfArrows.map((xPos) => {
+								const yPos = linearFunctionLoad(xPos)
+								if (Math.abs(yPos) < 0.1) return null
+								return (
+									<Arrow
+										key={`${name}-${forceDirection}-${xPos}`}
+										direction={yPos >= 0 ? 'x' : '-x'}
+										position={[-yPos, 0, xPos]}
+										length={Math.abs(yPos)}
+										scale={0.3}
+										color={yPos < 0 ? negativeArrowColor : positiveArrowColor}
+									/>
+								)
+							})}
+						</>
+					)
+				} else {
+					arrows = (
+						<>
+							{xPositionsOfArrows.map((xPos) => {
+								const yPos = linearFunctionLoad(xPos)
+								if (Math.abs(yPos) < 0.1) return null
+								return (
+									<Arrow
+										key={`${name}-${forceDirection}-${xPos}`}
+										direction={yPos >= 0 ? 'x' : '-x'}
+										position={[-yPos, xPos, linearFunctionBarXZ(xPos) - parametersLinearBarXZ.b]}
+										length={Math.abs(yPos)}
+										scale={0.3}
+										color={yPos < 0 ? negativeArrowColor : positiveArrowColor}
+									/>
+								)
+							})}
+						</>
+					)
+				}
 			} else {
 				arrows = (
 					<>
@@ -545,24 +630,45 @@ export const LoadGlobalSystem = ({
 			break
 		case 'Fy':
 			if (barPoints[0].x === barPoints[1].x) {
-				arrows = (
-					<>
-						{xPositionsOfArrows.map((xPos) => {
-							const yPos = linearFunctionLoad(xPos)
-							if (Math.abs(yPos) < 0.1) return null
-							return (
-								<Arrow
-									key={`${name}-${forceDirection}-${xPos}`}
-									direction={yPos >= 0 ? 'y' : '-y'}
-									position={[0, xPos - yPos, linearFunctionBarXZ(xPos) - parametersLinearBarXZ.b]}
-									length={Math.abs(yPos)}
-									scale={0.3}
-									color={yPos < 0 ? negativeArrowColor : positiveArrowColor}
-								/>
-							)
-						})}
-					</>
-				)
+				if (barPoints[0].y === barPoints[1].y) {
+					arrows = (
+						<>
+							{xPositionsOfArrows.map((xPos) => {
+								const yPos = linearFunctionLoad(xPos)
+								if (Math.abs(yPos) < 0.1) return null
+								return (
+									<Arrow
+										key={`${name}-${forceDirection}-${xPos}`}
+										direction={yPos >= 0 ? 'y' : '-y'}
+										position={[0, -yPos, xPos]}
+										length={Math.abs(yPos)}
+										scale={0.3}
+										color={yPos < 0 ? negativeArrowColor : positiveArrowColor}
+									/>
+								)
+							})}
+						</>
+					)
+				} else {
+					arrows = (
+						<>
+							{xPositionsOfArrows.map((xPos) => {
+								const yPos = linearFunctionLoad(xPos)
+								if (Math.abs(yPos) < 0.1) return null
+								return (
+									<Arrow
+										key={`${name}-${forceDirection}-${xPos}`}
+										direction={yPos >= 0 ? 'y' : '-y'}
+										position={[0, xPos - yPos, linearFunctionBarXZ(xPos) - parametersLinearBarXZ.b]}
+										length={Math.abs(yPos)}
+										scale={0.3}
+										color={yPos < 0 ? negativeArrowColor : positiveArrowColor}
+									/>
+								)
+							})}
+						</>
+					)
+				}
 			} else {
 				arrows = (
 					<>
@@ -590,25 +696,51 @@ export const LoadGlobalSystem = ({
 			break
 		case 'Fz':
 			if (barPoints[0].x === barPoints[1].x) {
-				arrows = (
-					<>
-						{lines}
-						{xPositionsOfArrows.map((xPos) => {
-							const yPos = linearFunctionLoad(xPos)
-							if (Math.abs(yPos) < 0.1) return null
-							return (
-								<Arrow
-									key={`${name}-${forceDirection}-${xPos}`}
-									direction={yPos >= 0 ? 'z' : '-z'}
-									position={[0, xPos, -yPos + linearFunctionBarXZ(xPos) - parametersLinearBarXZ.b]}
-									length={Math.abs(yPos)}
-									scale={0.3}
-									color={yPos < 0 ? negativeArrowColor : positiveArrowColor}
-								/>
-							)
-						})}
-					</>
-				)
+				if (barPoints[0].y === barPoints[1].y) {
+					arrows = (
+						<>
+							{lines}
+							{xPositionsOfArrows.map((xPos) => {
+								const yPos = linearFunctionLoad(xPos)
+								if (Math.abs(yPos) < 0.1) return null
+								return (
+									<Arrow
+										key={`${name}-${forceDirection}-${xPos}`}
+										direction={yPos >= 0 ? 'z' : '-z'}
+										position={[0, 0, xPos - yPos]}
+										length={Math.abs(yPos)}
+										scale={0.3}
+										color={yPos < 0 ? negativeArrowColor : positiveArrowColor}
+									/>
+								)
+							})}
+						</>
+					)
+				} else {
+					arrows = (
+						<>
+							{lines}
+							{xPositionsOfArrows.map((xPos) => {
+								const yPos = linearFunctionLoad(xPos)
+								if (Math.abs(yPos) < 0.1) return null
+								return (
+									<Arrow
+										key={`${name}-${forceDirection}-${xPos}`}
+										direction={yPos >= 0 ? 'z' : '-z'}
+										position={[
+											0,
+											xPos,
+											-yPos + linearFunctionBarXZ(xPos) - parametersLinearBarXZ.b
+										]}
+										length={Math.abs(yPos)}
+										scale={0.3}
+										color={yPos < 0 ? negativeArrowColor : positiveArrowColor}
+									/>
+								)
+							})}
+						</>
+					)
+				}
 			} else {
 				arrows = (
 					<>
