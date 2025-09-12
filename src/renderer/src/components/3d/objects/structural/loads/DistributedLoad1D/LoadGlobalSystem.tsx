@@ -103,7 +103,16 @@ export const LoadGlobalSystem = ({
 		matrix.multiply(rotationMatrix, [[0], [xPositions[0]], [0]])[0][0],
 		matrix.multiply(rotationMatrix, [[0], [xPositions[1]], [0]])[0][0]
 	]
-	const globalPositions = barPoints[0].x === barPoints[1].x ? globalYPositions : globalXPositions
+	const globalZPositions = [
+		matrix.multiply(rotationMatrix, [[0], [0], [xPositions[0]]])[0][0],
+		matrix.multiply(rotationMatrix, [[0], [0], [xPositions[1]]])[0][0]
+	]
+	const globalPositions =
+		barPoints[0].x === barPoints[1].x
+			? barPoints[0].y === barPoints[1].y
+				? globalZPositions
+				: globalYPositions
+			: globalXPositions
 
 	let numberOfArrows = Math.ceil(Math.abs(xPositions[1] - xPositions[0]) / 0.3)
 	numberOfArrows =
@@ -119,40 +128,60 @@ export const LoadGlobalSystem = ({
 	const linearFunctionLoad = space2D.createLinearFunction([x[0], y[0]], [x[1], y[1]])
 	const linearFunctionBarXY =
 		barPoints[0].x === barPoints[1].x
-			? space2D.createLinearFunction(
-					[barPoints[0].y, barPoints[0].x],
-					[barPoints[1].y, barPoints[1].x]
-				)
+			? barPoints[0].y === barPoints[1].y
+				? space2D.createLinearFunction(
+						[barPoints[0].z, barPoints[0].x],
+						[barPoints[1].z, barPoints[1].x]
+					)
+				: space2D.createLinearFunction(
+						[barPoints[0].y, barPoints[0].x],
+						[barPoints[1].y, barPoints[1].x]
+					)
 			: space2D.createLinearFunction(
 					[barPoints[0].x, barPoints[0].y],
 					[barPoints[1].x, barPoints[1].y]
 				)
 	const parametersLinearBarXY =
 		barPoints[0].x === barPoints[1].x
-			? space2D.parametersOfLinearFunction(
-					[barPoints[0].y, barPoints[0].x],
-					[barPoints[1].y, barPoints[1].x]
-				)
+			? barPoints[0].y === barPoints[1].y
+				? space2D.parametersOfLinearFunction(
+						[barPoints[0].z, barPoints[0].x],
+						[barPoints[1].z, barPoints[1].x]
+					)
+				: space2D.parametersOfLinearFunction(
+						[barPoints[0].y, barPoints[0].x],
+						[barPoints[1].y, barPoints[1].x]
+					)
 			: space2D.parametersOfLinearFunction(
 					[barPoints[0].x, barPoints[0].y],
 					[barPoints[1].x, barPoints[1].y]
 				)
 	const linearFunctionBarXZ =
 		barPoints[0].x === barPoints[1].x
-			? space2D.createLinearFunction(
-					[barPoints[0].y, barPoints[0].z],
-					[barPoints[1].y, barPoints[1].z]
-				)
+			? barPoints[0].y === barPoints[1].y
+				? space2D.createLinearFunction(
+						[barPoints[0].z, barPoints[0].y],
+						[barPoints[1].z, barPoints[1].y]
+					)
+				: space2D.createLinearFunction(
+						[barPoints[0].y, barPoints[0].z],
+						[barPoints[1].y, barPoints[1].z]
+					)
 			: space2D.createLinearFunction(
 					[barPoints[0].x, barPoints[0].z],
 					[barPoints[1].x, barPoints[1].z]
 				)
 	const parametersLinearBarXZ =
 		barPoints[0].x === barPoints[1].x
-			? space2D.parametersOfLinearFunction(
-					[barPoints[0].y, barPoints[0].z],
-					[barPoints[1].y, barPoints[1].z]
-				)
+			? barPoints[0].y === barPoints[1].y
+				? space2D.parametersOfLinearFunction(
+						[barPoints[0].z, barPoints[0].y],
+						[barPoints[1].z, barPoints[1].y]
+					)
+				: space2D.parametersOfLinearFunction(
+						[barPoints[0].y, barPoints[0].z],
+						[barPoints[1].y, barPoints[1].z]
+					)
 			: space2D.parametersOfLinearFunction(
 					[barPoints[0].x, barPoints[0].z],
 					[barPoints[1].x, barPoints[1].z]
@@ -309,7 +338,15 @@ export const LoadGlobalSystem = ({
 		<>
 			{/* Forces ///////////////////////////////////////////////////////////////////////////////*/}
 			{forceDirection === 'Fy' && (
-				<group rotation={rotation} position={barPoints[0]}>
+				<group
+					rotation={rotation}
+					position={barPoints[0]}
+					rotation-y={
+						barPoints[0].x === barPoints[1].x || barPoints[0].y === barPoints[1].y
+							? (Math.PI / 2) * (barPoints[0].y === barPoints[1].y ? -1 : 1)
+							: 0
+					}
+				>
 					<group rotation-x={Math.PI}>
 						{lines}
 
