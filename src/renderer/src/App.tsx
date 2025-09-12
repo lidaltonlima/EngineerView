@@ -28,8 +28,8 @@ export const App = (): React.JSX.Element => {
 		}
 	}, [structure])
 
-	const initialPoint = new Vector3(0, 0, 0)
-	const finalPoint = new Vector3(0, 3, 0)
+	const initialPoint = new Vector3(-1, -2, -3)
+	const finalPoint = new Vector3(1, 1, 1)
 
 	return (
 		<Default3dScene>
@@ -41,8 +41,8 @@ export const App = (): React.JSX.Element => {
 				name='Distributed Load'
 				forceDirection='Fx'
 				system='global'
-				loads={[3, 3]}
-				xPositions={[0, 2]}
+				loads={[-3, 1]}
+				xPositions={[1, 3]}
 				barPoints={[initialPoint, finalPoint]}
 			/>
 			<Line points={[initialPoint, finalPoint]} color='orange' lineWidth={4} />
