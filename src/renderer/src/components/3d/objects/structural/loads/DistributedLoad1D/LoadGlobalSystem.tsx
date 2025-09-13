@@ -8,7 +8,7 @@ import * as space2D from '@renderer/utils/functions/space2D'
 import { linSpace } from '@renderer/utils/functions/others'
 import * as matrix from '@renderer/utils/functions/matrix'
 import { Arrow } from '../../../Arrow'
-import { Line } from '@react-three/drei'
+import { Billboard, Line, Text } from '@react-three/drei'
 import { createRotationMatrix } from '@renderer/utils/functions/matrix'
 
 interface ILoadGlobalSystemProps {
@@ -33,7 +33,7 @@ export const LoadGlobalSystem = ({
 	height,
 	positiveArrowColor,
 	negativeArrowColor,
-	// textColor,
+	textColor,
 	barPoints
 }: ILoadGlobalSystemProps): React.JSX.Element => {
 	const rotationMatrix = createRotationMatrix(barPoints)
@@ -534,6 +534,40 @@ export const LoadGlobalSystem = ({
 									/>
 								)
 							})}
+							<Billboard
+								position={[
+									-y[0],
+									linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+									x[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[0]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
+							<Billboard
+								position={[
+									-y[1],
+									linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+									x[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[1]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
 						</>
 					)
 				} else {
@@ -553,6 +587,40 @@ export const LoadGlobalSystem = ({
 									/>
 								)
 							})}
+							<Billboard
+								position={[
+									-y[0],
+									x[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+									linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[0]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
+							<Billboard
+								position={[
+									-y[1],
+									x[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+									linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[1]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
 						</>
 					)
 				}
@@ -617,6 +685,40 @@ export const LoadGlobalSystem = ({
 									</group>
 								)
 							})}
+							<Billboard
+								position={[
+									x[0],
+									linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+									linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[0]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
+							<Billboard
+								position={[
+									x[1],
+									linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+									linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[1]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
 						</>
 					)
 				} else {
@@ -640,6 +742,40 @@ export const LoadGlobalSystem = ({
 									/>
 								)
 							})}
+							<Billboard
+								position={[
+									x[0] - y[0],
+									linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+									linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[0]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
+							<Billboard
+								position={[
+									x[1] - y[1],
+									linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+									linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[1]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
 						</>
 					)
 				}
@@ -665,6 +801,40 @@ export const LoadGlobalSystem = ({
 									</group>
 								)
 							})}
+							<Billboard
+								position={[
+									0,
+									-y[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+									x[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[0]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
+							<Billboard
+								position={[
+									0,
+									-y[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+									x[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[1]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
 						</>
 					)
 				} else {
@@ -728,6 +898,40 @@ export const LoadGlobalSystem = ({
 										</group>
 									)
 								})}
+								<Billboard
+									position={[
+										0,
+										x[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+										linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+									]}
+								>
+									<Text
+										renderOrder={10}
+										anchorX={'left'}
+										font='/fonts/Inter-Regular.woff'
+										fontSize={0.1}
+									>
+										{loads[0]}
+										<meshBasicMaterial color={textColor} depthTest={false} />
+									</Text>
+								</Billboard>
+								<Billboard
+									position={[
+										0,
+										x[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+										linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+									]}
+								>
+									<Text
+										renderOrder={10}
+										anchorX={'left'}
+										font='/fonts/Inter-Regular.woff'
+										fontSize={0.1}
+									>
+										{loads[1]}
+										<meshBasicMaterial color={textColor} depthTest={false} />
+									</Text>
+								</Billboard>
 							</>
 						)
 					} else {
@@ -751,6 +955,40 @@ export const LoadGlobalSystem = ({
 										/>
 									)
 								})}
+								<Billboard
+									position={[
+										0,
+										-y[0] + x[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+										linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+									]}
+								>
+									<Text
+										renderOrder={10}
+										anchorX={'left'}
+										font='/fonts/Inter-Regular.woff'
+										fontSize={0.1}
+									>
+										{loads[0]}
+										<meshBasicMaterial color={textColor} depthTest={false} />
+									</Text>
+								</Billboard>
+								<Billboard
+									position={[
+										0,
+										-y[1] + x[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+										linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+									]}
+								>
+									<Text
+										renderOrder={10}
+										anchorX={'left'}
+										font='/fonts/Inter-Regular.woff'
+										fontSize={0.1}
+									>
+										{loads[1]}
+										<meshBasicMaterial color={textColor} depthTest={false} />
+									</Text>
+								</Billboard>
 							</>
 						)
 					}
@@ -776,6 +1014,40 @@ export const LoadGlobalSystem = ({
 								/>
 							)
 						})}
+						<Billboard
+							position={[
+								x[0],
+								-y[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+								linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+							]}
+						>
+							<Text
+								renderOrder={10}
+								anchorX={'left'}
+								font='/fonts/Inter-Regular.woff'
+								fontSize={0.1}
+							>
+								{loads[0]}
+								<meshBasicMaterial color={textColor} depthTest={false} />
+							</Text>
+						</Billboard>
+						<Billboard
+							position={[
+								x[1],
+								-y[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+								linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+							]}
+						>
+							<Text
+								renderOrder={10}
+								anchorX={'left'}
+								font='/fonts/Inter-Regular.woff'
+								fontSize={0.1}
+							>
+								{loads[1]}
+								<meshBasicMaterial color={textColor} depthTest={false} />
+							</Text>
+						</Billboard>
 					</>
 				)
 			}
@@ -839,6 +1111,40 @@ export const LoadGlobalSystem = ({
 									</group>
 								)
 							})}
+							<Billboard
+								position={[
+									0,
+									linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+									x[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[0]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
+							<Billboard
+								position={[
+									0,
+									linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+									x[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[1]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
 						</>
 					)
 				} else {
@@ -863,6 +1169,40 @@ export const LoadGlobalSystem = ({
 									/>
 								)
 							})}
+							<Billboard
+								position={[
+									0,
+									x[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+									-y[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[0]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
+							<Billboard
+								position={[
+									0,
+									x[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+									-y[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+								]}
+							>
+								<Text
+									renderOrder={10}
+									anchorX={'left'}
+									font='/fonts/Inter-Regular.woff'
+									fontSize={0.1}
+								>
+									{loads[1]}
+									<meshBasicMaterial color={textColor} depthTest={false} />
+								</Text>
+							</Billboard>
 						</>
 					)
 				}
@@ -888,6 +1228,40 @@ export const LoadGlobalSystem = ({
 								/>
 							)
 						})}
+						<Billboard
+							position={[
+								x[0],
+								linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+								-y[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+							]}
+						>
+							<Text
+								renderOrder={10}
+								anchorX={'left'}
+								font='/fonts/Inter-Regular.woff'
+								fontSize={0.1}
+							>
+								{loads[0]}
+								<meshBasicMaterial color={textColor} depthTest={false} />
+							</Text>
+						</Billboard>
+						<Billboard
+							position={[
+								x[1],
+								linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+								-y[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+							]}
+						>
+							<Text
+								renderOrder={10}
+								anchorX={'left'}
+								font='/fonts/Inter-Regular.woff'
+								fontSize={0.1}
+							>
+								{loads[1]}
+								<meshBasicMaterial color={textColor} depthTest={false} />
+							</Text>
+						</Billboard>
 					</>
 				)
 			}
