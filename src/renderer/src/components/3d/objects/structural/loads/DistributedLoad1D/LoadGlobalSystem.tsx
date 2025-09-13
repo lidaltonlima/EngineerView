@@ -10,6 +10,7 @@ import * as matrix from '@renderer/utils/functions/matrix'
 import { Arrow } from '../../../Arrow'
 import { Billboard, Line, Text } from '@react-three/drei'
 import { createRotationMatrix } from '@renderer/utils/functions/matrix'
+import { DistributedForce } from './loadsStyle'
 
 interface ILoadGlobalSystemProps {
 	name: string
@@ -38,15 +39,15 @@ export const LoadGlobalSystem = ({
 }: ILoadGlobalSystemProps): React.JSX.Element => {
 	const rotationMatrix = createRotationMatrix(barPoints)
 
-	const globalXPositions = [
+	const globalXPositions: [number, number] = [
 		matrix.multiply(rotationMatrix, [[xPositions[0]], [0], [0]])[0][0],
 		matrix.multiply(rotationMatrix, [[xPositions[1]], [0], [0]])[0][0]
 	]
-	const globalYPositions = [
+	const globalYPositions: [number, number] = [
 		matrix.multiply(rotationMatrix, [[0], [xPositions[0]], [0]])[0][0],
 		matrix.multiply(rotationMatrix, [[0], [xPositions[1]], [0]])[0][0]
 	]
-	const globalZPositions = [
+	const globalZPositions: [number, number] = [
 		matrix.multiply(rotationMatrix, [[0], [0], [xPositions[0]]])[0][0],
 		matrix.multiply(rotationMatrix, [[0], [0], [xPositions[1]]])[0][0]
 	]
@@ -628,97 +629,13 @@ export const LoadGlobalSystem = ({
 				if (barPoints[0].y === barPoints[1].y && barPoints[0].z === barPoints[1].z) {
 					arrows = (
 						<>
-							{xPositionsOfArrows.map((xPos) => {
-								const yPos = linearFunctionLoad(xPos)
-								let direction: 'x' | '-x' = yPos < 0 ? '-x' : 'x'
-								if (yPos === 0)
-									if (Math.abs(loads[0]) >= Math.abs(loads[1]))
-										direction = loads[0] < 0 ? '-x' : 'x'
-									else direction = loads[1] < 0 ? '-x' : 'x'
-								return (
-									<group key={`${name}-${forceDirection}-${xPos}`}>
-										{yPos !== 0 && (
-											<Arrow
-												direction={yPos >= 0 ? 'x' : '-x'}
-												position={[
-													xPos - yPos,
-													linearFunctionBarXY(xPos) - parametersLinearBarXY.b,
-													linearFunctionBarXZ(xPos) - parametersLinearBarXZ.b
-												]}
-												length={Math.abs(yPos)}
-												scale={(Math.abs(yPos) + 0.2) * 0.5}
-												color={yPos < 0 ? negativeArrowColor : positiveArrowColor}
-												notLine
-											/>
-										)}
-										{((loads[0] > 0 && loads[1] < 0) || (loads[0] < 0 && loads[1] > 0)) &&
-										yPos === 0 ? (
-											<>
-												<Arrow
-													direction={loads[0] < 0 ? '-x' : 'x'}
-													position={[xPos - 0.01 - (loads[0] < 0 ? 0.05 : 0), 0, 0]}
-													length={0}
-													scale={0.2 * 0.5}
-													color={loads[0] < 0 ? negativeArrowColor : positiveArrowColor}
-													notLine
-												/>
-												<Arrow
-													direction={loads[0] < 0 ? 'x' : '-x'}
-													position={[xPos + 0.01 + (loads[0] < 0 ? 0.05 : 0), 0, 0]}
-													length={0}
-													scale={0.2 * 0.5}
-													color={loads[0] < 0 ? positiveArrowColor : negativeArrowColor}
-													notLine
-													endBase
-												/>
-											</>
-										) : yPos === 0 ? (
-											<Arrow
-												direction={direction}
-												position={[xPos, 0, 0]}
-												length={Math.abs(yPos)}
-												scale={(Math.abs(yPos) + 0.2) * 0.5}
-												color={direction === '-x' ? negativeArrowColor : positiveArrowColor}
-												notLine
-											/>
-										) : null}
-									</group>
-								)
-							})}
-							<Billboard
-								position={[
-									x[0],
-									linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
-									linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
-								]}
-							>
-								<Text
-									renderOrder={10}
-									anchorX={'left'}
-									font='/fonts/Inter-Regular.woff'
-									fontSize={0.1}
-								>
-									{loads[0]}
-									<meshBasicMaterial color={textColor} depthTest={false} />
-								</Text>
-							</Billboard>
-							<Billboard
-								position={[
-									x[1],
-									linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
-									linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
-								]}
-							>
-								<Text
-									renderOrder={10}
-									anchorX={'left'}
-									font='/fonts/Inter-Regular.woff'
-									fontSize={0.1}
-								>
-									{loads[1]}
-									<meshBasicMaterial color={textColor} depthTest={false} />
-								</Text>
-							</Billboard>
+							<DistributedForce
+								name={name}
+								forceDirection='Fx'
+								xPositions={xPositions}
+								loads={loads}
+								barPoints={barPoints}
+							/>
 						</>
 					)
 				} else {
