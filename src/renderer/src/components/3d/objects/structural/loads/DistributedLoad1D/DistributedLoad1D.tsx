@@ -10,13 +10,12 @@ import { Vector3 } from 'three'
 interface IDistributedLoad1DCustomProps {
 	name: string
 	forceDirection: forcesType
+	system: 'local' | 'global'
 	loads: [number, number]
 	xPositions: [number, number]
-	system: 'local' | 'global'
 	barPoints: [Vector3, Vector3]
 
 	size?: number
-
 	positiveArrowColor?: string
 	negativeArrowColor?: string
 	labelColor?: string
@@ -27,14 +26,14 @@ type IDistributedLoad1DProps = IDistributedLoad1DCustomProps & React.JSX.Intrins
 export const DistributedLoad1D = ({
 	name,
 	forceDirection,
+	system,
 	loads,
 	xPositions,
-	system,
+	barPoints,
 	size = 1,
 	positiveArrowColor = 'cyan',
 	negativeArrowColor = 'magenta',
 	labelColor = 'white',
-	barPoints,
 	...props
 }: IDistributedLoad1DProps): React.JSX.Element => {
 	if (loads[0] === 0 && loads[1] === 0) return <></>

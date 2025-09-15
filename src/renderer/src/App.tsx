@@ -1,11 +1,8 @@
-import { Line } from '@react-three/drei'
 import { useEffect, useState } from 'react'
-import { Vector3 } from 'three'
 import { Default3dScene } from './components/3d'
 import { Bar, DrawSupport, Node } from './components/3d/objects/structural/elements'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
-import { DistributedLoad1D } from './components/3d/objects/structural/loads'
 
 export const App = (): React.JSX.Element => {
 	const [structureData, setStructureData] = useState<IStructureData | null>()
@@ -28,8 +25,8 @@ export const App = (): React.JSX.Element => {
 		}
 	}, [structure])
 
-	const initialPoint = new Vector3(1, 1, 1)
-	const finalPoint = new Vector3(3, 2, 4)
+	// const initialPoint = new Vector3(1, 2, 4)
+	// const finalPoint = new Vector3(1, 2, 0)
 
 	return (
 		<Default3dScene>
@@ -37,15 +34,15 @@ export const App = (): React.JSX.Element => {
 			{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
 			{structureData?.supports.map((support) => DrawSupport(support, structure))}
 			<axesHelper />
-			<DistributedLoad1D
+			{/* <DistributedLoad1D
 				name='Distributed Load'
-				forceDirection='Mz'
+				forceDirection='Mx'
 				system='local'
 				loads={[-3, 1]}
 				xPositions={[0.5, 2]}
 				barPoints={[initialPoint, finalPoint]}
 			/>
-			<Line points={[initialPoint, finalPoint]} color='orange' lineWidth={4} />
+			<Line points={[initialPoint, finalPoint]} color='orange' lineWidth={4} /> */}
 		</Default3dScene>
 	)
 }

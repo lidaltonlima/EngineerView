@@ -102,7 +102,7 @@ export const BarDistributedLoad = ({
 		<>
 			{system === 'local' && (
 				<group {...props}>
-					<group ref={groupRef2}>
+					<group ref={groupRef2} position={barPoints[0]}>
 						<group ref={groupRef1}>
 							<DistributedLoad1D
 								key={`${Math.random()}`}
@@ -119,7 +119,21 @@ export const BarDistributedLoad = ({
 					</group>
 				</group>
 			)}
-			{system === 'global' && <group {...props}></group>}
+			{system === 'global' && (
+				<group {...props}>
+					<DistributedLoad1D
+						key={`${Math.random()}`}
+						name={name}
+						forceDirection={forceDirection}
+						loads={loads}
+						xPositions={xPositions}
+						system={system}
+						positiveArrowColor={positiveArrowColor}
+						negativeArrowColor={negativeArrowColor}
+						barPoints={barPoints}
+					/>
+				</group>
+			)}
 		</>
 	)
 }

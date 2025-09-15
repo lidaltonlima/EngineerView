@@ -86,16 +86,15 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 							const key = objectKey as forcesType
 							return (
 								<BarDistributedLoad
-									key={`${barDistributedLoad.name}-${key}-${Math.random()}`}
 									name={barDistributedLoad.name}
-									direction={direction}
-									loads={objectValue}
+									key={`${barDistributedLoad.name}-${key}-${Math.random()}`}
 									forceDirection={key}
-									xPositions={barDistributedLoad.position}
-									position={startPoint}
 									system={barDistributedLoad.system}
-									rotationAroundDirection={rotation}
+									loads={objectValue}
+									xPositions={barDistributedLoad.position}
 									barPoints={[startPoint, endPoint]}
+									direction={direction}
+									rotationAroundDirection={rotation}
 								/>
 							)
 						})

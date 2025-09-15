@@ -70,12 +70,12 @@
 				"point": [],
 				"distributed": [
 					{
-						"name": "FDB2",
-						"bar": "B2",
-						"system": "local",
+						"name": "FDB1",
+						"bar": "B1",
+						"system": "global",
 						"position": [0.5, 3],
 						"loads": {
-							"Fx": [0, 0],
+							"Fx": [1, 10],
 							"Fy": [0, 0],
 							"Fz": [0, 0],
 							"Mx": [0, 0],
