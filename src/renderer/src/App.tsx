@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Vector3 } from 'three'
 import { Default3dScene } from './components/3d'
 import { Bar, DrawSupport, Node } from './components/3d/objects/structural/elements'
-import { DistributedLoad1D } from './components/3d/objects/structural/loads'
+import { DistributedMoment } from './components/3d/objects/structural/loads/DistributedLoad1D/loadsStyle/DistributedMoment'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
 
@@ -29,7 +29,7 @@ export const App = (): React.JSX.Element => {
 	}, [structure])
 
 	const initialPoint = new Vector3(1, 1, 1)
-	const finalPoint = new Vector3(1, 1, 3)
+	const finalPoint = new Vector3(3, 2, 4)
 
 	return (
 		<Default3dScene>
@@ -37,21 +37,21 @@ export const App = (): React.JSX.Element => {
 			{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
 			{structureData?.supports.map((support) => DrawSupport(support, structure))}
 			<axesHelper />
-			<DistributedLoad1D
+			{/* <DistributedLoad1D
 				name='Distributed Load'
 				forceDirection='Fz'
 				system='global'
-				loads={[-3, 1]}
+				loads={[-3, -3]}
+				xPositions={[0.5, 2]}
+				barPoints={[initialPoint, finalPoint]}
+			/> */}
+			<DistributedMoment
+				name='name'
+				forceDirection='Mx'
+				loads={[-3, 3]}
 				xPositions={[0.5, 2]}
 				barPoints={[initialPoint, finalPoint]}
 			/>
-			{/* <DistributedForceLine
-				name='name'
-				forceDirection='Fz'
-				loads={[3, 1]}
-				xPositions={[0.5, 2.5]}
-				barPoints={[initialPoint, finalPoint]}
-			/> */}
 			<Line points={[initialPoint, finalPoint]} color='orange' lineWidth={4} />
 		</Default3dScene>
 	)

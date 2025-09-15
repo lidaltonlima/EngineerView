@@ -291,7 +291,7 @@ export const LoadLocalSystem = ({
 									scale={(Math.abs(yPos) + 0.1) * 0.3}
 									radius={(Math.abs(yPos) + 0.1) * 0.3}
 									arrowColor={yPos < 0 ? negativeArrowColor : positiveArrowColor}
-									textColor={textColor}
+									labelColor={textColor}
 									label={
 										xPositionsOfArrows[0] === xPos ||
 										xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos

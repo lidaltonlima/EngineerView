@@ -2,16 +2,18 @@ import { Billboard, Text } from '@react-three/drei'
 import { Vector3 } from 'three'
 import { CurvedArrow } from '../../../CurvedArrow'
 
-interface IMomentProps {
+interface IMomentCustomProps {
 	direction: 'x' | 'y' | 'z' | '-x' | '-y' | '-z'
 	value: number
 	radius?: number
 	scale?: number
 	arrowColor?: string
-	textColor?: string
+	labelColor?: string
 
 	label?: boolean
 }
+
+type IMomentProps = IMomentCustomProps & React.JSX.IntrinsicElements['group']
 
 export const Moment = ({
 	direction,
@@ -19,8 +21,9 @@ export const Moment = ({
 	radius = 0.4,
 	scale = 0.35,
 	arrowColor = 'white',
-	textColor = 'white',
-	label = false
+	labelColor = 'white',
+	label = false,
+	...props
 }: IMomentProps): React.JSX.Element => {
 	const billboardPosition = new Vector3()
 	let anchorXLabel: 'right' | 'left' = 'left'
@@ -65,7 +68,7 @@ export const Moment = ({
 	}
 
 	return (
-		<>
+		<group {...props}>
 			<CurvedArrow radius={radius} color={arrowColor} direction={direction} scale={scale} />
 			{label && (
 				<Billboard position={billboardPosition}>
@@ -77,10 +80,10 @@ export const Moment = ({
 						fontSize={0.1}
 					>
 						{value.toString()}
-						<meshBasicMaterial color={textColor} depthTest={false} />
+						<meshBasicMaterial color={labelColor} depthTest={false} />
 					</Text>
 				</Billboard>
 			)}
-		</>
+		</group>
 	)
 }
