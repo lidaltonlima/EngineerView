@@ -5,7 +5,7 @@ import { forcesType } from '@renderer/types/Structure'
 import React from 'react'
 import { LoadLocalSystem } from './LoadLocalSystem'
 import { LoadGlobalSystem } from './LoadGlobalSystem'
-import * as THREE from 'three'
+import { Vector3 } from 'three'
 
 interface IDistributedLoad1DCustomProps {
 	name: string
@@ -13,9 +13,9 @@ interface IDistributedLoad1DCustomProps {
 	loads: [number, number]
 	xPositions: [number, number]
 	system: 'local' | 'global'
-	barPoints: [THREE.Vector3, THREE.Vector3]
+	barPoints: [Vector3, Vector3]
 
-	height?: number
+	size?: number
 
 	positiveArrowColor?: string
 	negativeArrowColor?: string
@@ -30,7 +30,7 @@ export const DistributedLoad1D = ({
 	loads,
 	xPositions,
 	system,
-	height = 1,
+	size = 1,
 	positiveArrowColor = 'cyan',
 	negativeArrowColor = 'magenta',
 	labelColor = 'white',
@@ -47,10 +47,11 @@ export const DistributedLoad1D = ({
 					forceDirection={forceDirection}
 					loads={loads}
 					xPositions={xPositions}
-					height={height}
+					barPoints={[new Vector3(0, 0, 0), new Vector3(1, 0, 0)]}
+					size={size}
 					positiveArrowColor={positiveArrowColor}
 					negativeArrowColor={negativeArrowColor}
-					textColor={labelColor}
+					labelColor={labelColor}
 				/>
 			) : (
 				<LoadGlobalSystem
@@ -58,7 +59,7 @@ export const DistributedLoad1D = ({
 					forceDirection={forceDirection}
 					loads={loads}
 					xPositions={xPositions}
-					size={height}
+					size={size}
 					positiveArrowColor={positiveArrowColor}
 					negativeArrowColor={negativeArrowColor}
 					labelColor={labelColor}

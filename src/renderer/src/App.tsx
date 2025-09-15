@@ -45,13 +45,6 @@ export const App = (): React.JSX.Element => {
 				xPositions={[0.5, 2]}
 				barPoints={[initialPoint, finalPoint]}
 			/>
-			{/* <DistributedMoment
-				name='name'
-				forceDirection='Mx'
-				loads={[-3, 3]}
-				xPositions={[0.5, 2]}
-				barPoints={[initialPoint, finalPoint]}
-			/> */}
 			<Line points={[initialPoint, finalPoint]} color='orange' lineWidth={4} />
 		</Default3dScene>
 	)
