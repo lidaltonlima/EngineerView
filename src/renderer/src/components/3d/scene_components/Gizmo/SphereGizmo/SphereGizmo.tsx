@@ -47,10 +47,7 @@ export const SphereGizmo = ({
 			cameraLooking.current = '-x'
 		} else if (camera.rotation.z === 0 && camera.rotation.y === 0) {
 			cameraLooking.current = '-y'
-		} else if (
-			Math.abs(camera.rotation.x) > Math.PI - 0.001 &&
-			Math.abs(camera.rotation.y) === 0
-		) {
+		} else if (Math.abs(camera.rotation.x) > Math.PI - 0.001 && Math.abs(camera.rotation.y) === 0) {
 			cameraLooking.current = '-z'
 		} else {
 			cameraLooking.current = 'none'
