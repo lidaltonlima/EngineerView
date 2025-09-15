@@ -6,6 +6,7 @@ import React from 'react'
 import * as THREE from 'three'
 import { DistributedForceLine } from './loadsStyle/DistributedForceLine'
 import { DistributedForce } from './loadsStyle'
+import { DistributedMoment } from './loadsStyle/DistributedMoment'
 
 interface ILoadGlobalSystemProps {
 	name: string
@@ -18,7 +19,7 @@ interface ILoadGlobalSystemProps {
 
 	positiveArrowColor: string
 	negativeArrowColor: string
-	textColor: string
+	labelColor: string
 }
 
 export const LoadGlobalSystem = ({
@@ -29,7 +30,7 @@ export const LoadGlobalSystem = ({
 	size,
 	positiveArrowColor,
 	negativeArrowColor,
-	textColor,
+	labelColor,
 	barPoints
 }: ILoadGlobalSystemProps): React.JSX.Element => {
 	let load: React.JSX.Element = <></>
@@ -58,7 +59,7 @@ export const LoadGlobalSystem = ({
 						size={size}
 						positiveArrowColor={positiveArrowColor}
 						negativeArrowColor={negativeArrowColor}
-						textColor={textColor}
+						labelColor={labelColor}
 					/>
 				)
 			} else {
@@ -72,11 +73,27 @@ export const LoadGlobalSystem = ({
 						size={size}
 						positiveArrowColor={positiveArrowColor}
 						negativeArrowColor={negativeArrowColor}
-						textColor={textColor}
+						labelColor={labelColor}
 					/>
 				)
 			}
 			break
+		case 'Mx':
+		case 'My':
+		case 'Mz':
+			load = (
+				<DistributedMoment
+					name={name}
+					forceDirection={forceDirection}
+					loads={loads}
+					xPositions={xPositions}
+					barPoints={barPoints}
+					size={size}
+					positiveArrowColor={positiveArrowColor}
+					negativeArrowColor={negativeArrowColor}
+					labelColor={labelColor}
+				/>
+			)
 	}
 
 	return <group>{load}</group>

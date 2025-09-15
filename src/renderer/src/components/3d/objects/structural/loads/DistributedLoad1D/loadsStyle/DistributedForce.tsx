@@ -13,7 +13,7 @@ interface IDistributedForceProps {
 	barPoints: [Vector3, Vector3]
 
 	size?: number
-	textColor?: string
+	labelColor?: string
 	positiveArrowColor?: string
 	negativeArrowColor?: string
 }
@@ -27,7 +27,7 @@ export const DistributedForce = ({
 	size = 1,
 	positiveArrowColor = 'green',
 	negativeArrowColor = 'red',
-	textColor = 'cyan'
+	labelColor = 'cyan'
 }: IDistributedForceProps): React.JSX.Element => {
 	const rotationMatrix = matrix.createRotationMatrix(barPoints)
 
@@ -213,13 +213,13 @@ export const DistributedForce = ({
 					<Billboard position={[0, 0, x[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b]}>
 						<Text renderOrder={10} anchorX={'left'} font='/fonts/Inter-Regular.woff' fontSize={0.1}>
 							{loads[0]}
-							<meshBasicMaterial color={textColor} depthTest={false} />
+							<meshBasicMaterial color={labelColor} depthTest={false} />
 						</Text>
 					</Billboard>
 					<Billboard position={[0, 0, x[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b]}>
 						<Text renderOrder={10} anchorX={'left'} font='/fonts/Inter-Regular.woff' fontSize={0.1}>
 							{loads[1]}
-							<meshBasicMaterial color={textColor} depthTest={false} />
+							<meshBasicMaterial color={labelColor} depthTest={false} />
 						</Text>
 					</Billboard>
 				</>
@@ -306,7 +306,7 @@ export const DistributedForce = ({
 					>
 						<Text renderOrder={10} anchorX={'left'} font='/fonts/Inter-Regular.woff' fontSize={0.1}>
 							{loads[0]}
-							<meshBasicMaterial color={textColor} depthTest={false} />
+							<meshBasicMaterial color={labelColor} depthTest={false} />
 						</Text>
 					</Billboard>
 					<Billboard
@@ -318,7 +318,7 @@ export const DistributedForce = ({
 					>
 						<Text renderOrder={10} anchorX={'left'} font='/fonts/Inter-Regular.woff' fontSize={0.1}>
 							{loads[1]}
-							<meshBasicMaterial color={textColor} depthTest={false} />
+							<meshBasicMaterial color={labelColor} depthTest={false} />
 						</Text>
 					</Billboard>
 				</>
@@ -409,7 +409,7 @@ export const DistributedForce = ({
 				>
 					<Text renderOrder={10} anchorX={'left'} font='/fonts/Inter-Regular.woff' fontSize={0.1}>
 						{loads[0]}
-						<meshBasicMaterial color={textColor} depthTest={false} />
+						<meshBasicMaterial color={labelColor} depthTest={false} />
 					</Text>
 				</Billboard>
 				<Billboard
@@ -421,7 +421,7 @@ export const DistributedForce = ({
 				>
 					<Text renderOrder={10} anchorX={'left'} font='/fonts/Inter-Regular.woff' fontSize={0.1}>
 						{loads[1]}
-						<meshBasicMaterial color={textColor} depthTest={false} />
+						<meshBasicMaterial color={labelColor} depthTest={false} />
 					</Text>
 				</Billboard>
 			</>
