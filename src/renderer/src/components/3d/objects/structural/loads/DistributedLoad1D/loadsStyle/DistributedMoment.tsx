@@ -1,4 +1,3 @@
-import { Arrow } from '@renderer/components/3d/objects/Arrow'
 import { isClose, linSpace } from '@renderer/utils/functions/others'
 import * as space2D from '@renderer/utils/functions/space2D'
 import { Vector3 } from 'three'
@@ -158,11 +157,11 @@ export const DistributedMoment = ({
 										radius={(Math.abs(yPos) + 0.1) * 0.3}
 										scale={(Math.abs(yPos) + 0.1) * 0.3}
 										arrowColor={yPos < 0 ? negativeArrowColor : positiveArrowColor}
+										labelColor={yPos < 0 ? negativeLabelColor : positiveLabelColor}
 										label={
 											xPositionsOfArrows[0] === xPos ||
 											xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos
 										}
-										labelColor={positiveLabelColor}
 									/>
 								)}
 								{((loads[0] > 0 && loads[1] < 0) || (loads[0] < 0 && loads[1] > 0)) &&
@@ -211,6 +210,10 @@ export const DistributedMoment = ({
 										arrowColor={
 											direction === negativeDirection ? negativeArrowColor : positiveArrowColor
 										}
+										labelColor={
+											direction === negativeDirection ? negativeLabelColor : positiveLabelColor
+										}
+										label
 									/>
 								) : null}
 							</group>
@@ -243,11 +246,11 @@ export const DistributedMoment = ({
 										radius={(Math.abs(yPos) + 0.1) * 0.3}
 										scale={(Math.abs(yPos) + 0.1) * 0.3}
 										arrowColor={yPos < 0 ? negativeArrowColor : positiveArrowColor}
+										labelColor={yPos < 0 ? negativeLabelColor : positiveLabelColor}
 										label={
 											xPositionsOfArrows[0] === xPos ||
 											xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos
 										}
-										labelColor={positiveLabelColor}
 									/>
 								)}
 								{((loads[0] > 0 && loads[1] < 0) || (loads[0] < 0 && loads[1] > 0)) &&
@@ -279,15 +282,19 @@ export const DistributedMoment = ({
 										/>
 									</>
 								) : isClose(yPos, 0) ? (
-									<Arrow
+									<Moment
+										value={0}
 										direction={direction}
 										position={[0, xPos, linearFunctionBarXZ(xPos) - parametersLinearBarXZ.b]}
-										length={Math.abs(yPos)}
-										scale={(Math.abs(yPos) + 0.2) * 0.5}
-										color={
+										radius={0.1 * 0.3}
+										scale={0.1 * 0.3}
+										arrowColor={
 											direction === negativeDirection ? negativeArrowColor : positiveArrowColor
 										}
-										notLine
+										labelColor={
+											direction === negativeDirection ? negativeLabelColor : positiveLabelColor
+										}
+										label
 									/>
 								) : null}
 							</group>
@@ -321,11 +328,11 @@ export const DistributedMoment = ({
 									radius={(Math.abs(yPos) + 0.1) * 0.3}
 									scale={(Math.abs(yPos) + 0.1) * 0.3}
 									arrowColor={yPos < 0 ? negativeArrowColor : positiveArrowColor}
+									labelColor={yPos < 0 ? negativeLabelColor : positiveLabelColor}
 									label={
 										xPositionsOfArrows[0] === xPos ||
 										xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos
 									}
-									labelColor={yPos < 0 ? negativeLabelColor : positiveLabelColor}
 								/>
 							)}
 							{((loads[0] > 0 && loads[1] < 0) || (loads[0] < 0 && loads[1] > 0)) &&
