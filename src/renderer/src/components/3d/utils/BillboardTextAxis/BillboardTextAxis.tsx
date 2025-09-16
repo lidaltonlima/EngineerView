@@ -11,7 +11,6 @@ interface IBillboardTextAxisCustomProps {
 	anchorY?: 'top' | 'middle' | 'bottom'
 	offsetX?: number
 	offsetY?: number
-	textColor?: string
 
 	children: React.ReactNode
 }
@@ -27,7 +26,6 @@ export const BillboardTextAxis = ({
 	position = [0, 0, 0],
 	offsetX = 0,
 	offsetY = 0,
-	textColor = 'white',
 	anchorX = 'left',
 	anchorY = 'bottom',
 	children,
@@ -128,7 +126,6 @@ export const BillboardTextAxis = ({
 				{...textProps}
 			>
 				{children}
-				<meshBasicMaterial color={textColor} />
 			</Text>
 		</BillboardAxis>
 	)
