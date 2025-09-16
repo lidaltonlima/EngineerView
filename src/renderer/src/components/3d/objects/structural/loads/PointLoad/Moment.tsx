@@ -1,4 +1,4 @@
-import { Billboard, Text } from '@react-three/drei'
+import { BillboardTextAxis } from '@renderer/components/3d/utils'
 import { Vector3 } from 'three'
 import { CurvedArrow } from '../../../CurvedArrow'
 
@@ -27,62 +27,67 @@ export const Moment = ({
 }: IMomentProps): React.JSX.Element => {
 	const billboardPosition = new Vector3()
 	let anchorXLabel: 'right' | 'left' = 'left'
-	let rotationLabel = 0
-	const offsetLabel1 = 0.25 * (radius / 0.4)
-	const offsetLabel2 = 0.35 * (radius / 0.4)
-	const offsetNegativeLabel = 0.06 * (radius / 0.4)
+	let labelDirection: 'x' | 'y' | 'z' = 'x'
+	const offsetLabel1 = 0.28 * (radius / 0.4)
+	const offsetLabel2 = 0.3 * (radius / 0.4)
+	const offsetNegativeLabel = 0.03 * (radius / 0.4)
 	switch (direction) {
 		case 'x':
+			labelDirection = 'x'
 			billboardPosition.set(0, offsetLabel1, -offsetLabel2)
 			break
 		case 'y':
 			billboardPosition.set(offsetLabel1, 0, offsetLabel2)
+			labelDirection = 'y'
 			break
 		case 'z':
-			rotationLabel = Math.PI / 2
-			billboardPosition.set(-offsetLabel1, offsetLabel2 - 0.05, 0)
+			labelDirection = 'z'
+			billboardPosition.set(-offsetLabel1, offsetLabel2, 0)
 			break
 		case '-x':
-			billboardPosition.set(
-				0,
-				-offsetLabel1 - offsetNegativeLabel,
-				offsetLabel2 - offsetNegativeLabel
-			)
+			labelDirection = 'x'
+			anchorXLabel = 'right'
+			billboardPosition.set(0, -offsetLabel1, offsetLabel2 - offsetNegativeLabel)
 			break
 		case '-y':
+			labelDirection = 'y'
 			anchorXLabel = 'right'
-			billboardPosition.set(
-				-offsetLabel1 - offsetNegativeLabel,
-				0,
-				-offsetLabel2 + offsetNegativeLabel
-			)
+			billboardPosition.set(-offsetLabel1, 0, -offsetLabel2 + offsetNegativeLabel)
 			break
 		case '-z':
+			labelDirection = 'z'
 			anchorXLabel = 'right'
-			rotationLabel = Math.PI / 2
-			billboardPosition.set(
-				offsetLabel1 + offsetNegativeLabel,
-				-offsetLabel2 + offsetNegativeLabel,
-				0
-			)
+			billboardPosition.set(offsetLabel1, -offsetLabel2 + offsetNegativeLabel, 0)
 	}
 
 	return (
 		<group {...props}>
 			<CurvedArrow radius={radius} color={arrowColor} direction={direction} scale={scale} />
 			{label && (
-				<Billboard position={billboardPosition}>
-					<Text
-						rotation-z={rotationLabel}
-						renderOrder={10}
-						anchorX={anchorXLabel}
-						font='/fonts/Inter-Regular.woff'
-						fontSize={0.1}
-					>
-						{value.toString()}
-						<meshBasicMaterial color={labelColor} depthTest={false} />
-					</Text>
-				</Billboard>
+				// <Billboard position={billboardPosition}>
+				// 	<Text
+				// 		rotation-z={rotationLabel}
+				// 		renderOrder={10}
+				// 		anchorX={anchorXLabel}
+				// 		font='/fonts/Inter-Regular.woff'
+				// 		fontSize={0.1}
+				// 	>
+				// 		{value.toString()}
+				// 		<meshBasicMaterial color={labelColor} depthTest={false} />
+				// 	</Text>
+				// </Billboard>
+				<BillboardTextAxis
+					axis={labelDirection}
+					position={billboardPosition}
+					offsetX={0.03}
+					anchorX={anchorXLabel}
+					anchorY='middle'
+					font='/fonts/Inter-Regular.woff'
+					fontSize={0.1}
+					color={labelColor}
+				>
+					{value.toString()}
+				</BillboardTextAxis>
 			)}
 		</group>
 	)

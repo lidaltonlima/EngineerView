@@ -36,9 +36,15 @@ export const PointLoad = ({
 			{fz > 0 && (
 				<Force forceDirection='z' value={fz} label={label} arrowColor='blue' textColor='blue' />
 			)}
-			{mx > 0 && <Moment direction='x' value={mx} label={label} arrowColor='red' />}
-			{my > 0 && <Moment direction='y' value={my} label={label} arrowColor='green' />}
-			{mz > 0 && <Moment direction='z' value={mz} label={label} arrowColor='blue' />}
+			{mx > 0 && (
+				<Moment direction='x' value={mx} label={label} arrowColor='red' labelColor='red' />
+			)}
+			{my > 0 && (
+				<Moment direction='y' value={my} label={label} arrowColor='green' labelColor='green' />
+			)}
+			{mz > 0 && (
+				<Moment direction='z' value={mz} label={label} arrowColor='blue' labelColor='blue' />
+			)}
 			{/* Negative values */}
 			{fx < 0 && (
 				<Force
@@ -67,9 +73,15 @@ export const PointLoad = ({
 					textColor='#6666ff'
 				/>
 			)}
-			{mx < 0 && <Moment direction='-x' value={mx} label={label} arrowColor='#ff6666' />}
-			{my < 0 && <Moment direction='-y' value={my} label={label} arrowColor='#00e600' />}
-			{mz < 0 && <Moment direction='-z' value={mz} label={label} arrowColor='#6666ff' />}
+			{mx < 0 && (
+				<Moment direction='-x' value={mx} label={label} arrowColor='#ff6666' labelColor='#ff6666' />
+			)}
+			{my < 0 && (
+				<Moment direction='-y' value={my} label={label} arrowColor='#00e600' labelColor='#00e600' />
+			)}
+			{mz < 0 && (
+				<Moment direction='-z' value={mz} label={label} arrowColor='#6666ff' labelColor='#6666ff' />
+			)}
 			{/* Labels */}
 		</group>
 	)
