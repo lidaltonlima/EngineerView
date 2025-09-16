@@ -22,34 +22,34 @@ export const Force = ({
 }: IForceProps): React.JSX.Element => {
 	const billboardPosition = new Vector3()
 	let anchorXLabel: 'right' | 'left' = 'left'
-	const labelDirection = new Vector3(0, 0, 0)
+	let labelDirection: 'x' | 'y' | 'z' = 'x'
 	const offsetLabel = 0.2
 	switch (forceDirection) {
 		case 'x':
-			labelDirection.set(1, 0, 0)
+			labelDirection = 'x'
 			anchorXLabel = 'right'
 			billboardPosition.set(-offsetLabel, 0, 0)
 			break
 		case 'y':
-			labelDirection.set(0, 1, 0)
+			labelDirection = 'y'
 			anchorXLabel = 'right'
 			billboardPosition.set(0, -offsetLabel, 0)
 			break
 		case 'z':
-			labelDirection.set(0, 0, 1)
+			labelDirection = 'z'
 			anchorXLabel = 'right'
 			billboardPosition.set(0, 0, -offsetLabel)
 			break
 		case '-x':
-			labelDirection.set(1, 0, 0)
+			labelDirection = 'x'
 			billboardPosition.set(offsetLabel, 0, 0)
 			break
 		case '-y':
-			labelDirection.set(0, 1, 0)
+			labelDirection = 'y'
 			billboardPosition.set(0, offsetLabel, 0)
 			break
 		case '-z':
-			labelDirection.set(0, 0, 1)
+			labelDirection = 'z'
 			billboardPosition.set(0, 0, offsetLabel)
 	}
 
@@ -80,6 +80,7 @@ export const Force = ({
 					axis={labelDirection}
 					position={billboardPosition}
 					anchorX={anchorXLabel}
+					anchorY='bottom'
 					font='/fonts/Inter-Regular.woff'
 					fontSize={0.1}
 					color={textColor}

@@ -1,38 +1,19 @@
-import { Text, TextProps } from '@react-three/drei'
+import { Text } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import * as THREE from 'three'
 import { BillboardAxis } from '../BillboardAxis'
 
-interface IBillboardTextAxisCustomProps {
-	children: React.ReactNode
-	axis: 'x' | 'y' | 'z'
-	position?: [number, number, number] | THREE.Vector3
-	anchorX?: 'left' | 'center' | 'right'
-	anchorY?: 'top' | 'middle' | 'bottom'
-	offsetX?: number
-	offsetY?: number
+interface IBillboardTextAxisProps {
+	rotation?: THREE.Vector3 | [number, number, number]
 }
 
-type IBillboardTextAxisProps = IBillboardTextAxisCustomProps &
-	Omit<
-		TextProps,
-		'children' | 'rotation' | 'rotateX' | 'rotateY' | 'rotateZ' | 'anchorX' | 'anchorY' | 'position'
-	>
-
-export const BillboardTextAxis = ({
-	axis,
-	children,
-	position = [0, 0, 0],
-	anchorX = 'center',
-	anchorY = 'middle',
-	offsetX = 0,
-	offsetY = 0,
-	...textProps
+export const TestText = ({
+	rotation = [Math.PI / 2, 0, Math.PI / 2]
 }: IBillboardTextAxisProps): React.JSX.Element => {
-	const { camera } = useThree()
 	const groupRef = useRef<THREE.Group>(null!)
 	const textRef = useRef<THREE.Object3D>(null!)
+	const { camera } = useThree()
 	const textState: {
 		direction: 'up' | 'down'
 		facing: 'front' | 'back'
@@ -44,34 +25,6 @@ export const BillboardTextAxis = ({
 		isRotateDirection: false,
 		isRotationFacing: false
 	}
-	const [textBoxSize, setTextBoxSize] = useState<{ w: number; h: number }>({ w: 0, h: 0 })
-
-	const rotation = new THREE.Euler()
-	const axisToBillboard = new THREE.Vector3(0, 0, 0)
-
-	switch (axis) {
-		case 'x':
-			rotation.set(0, 0, 0)
-			axisToBillboard.set(1, 0, 0)
-			break
-		case 'y':
-			rotation.set(0, Math.PI, Math.PI / 2)
-			axisToBillboard.set(0, 1, 0)
-			break
-		case 'z':
-			rotation.set(Math.PI / 2, Math.PI, Math.PI / 2)
-			axisToBillboard.set(0, 0, 1)
-			break
-	}
-
-	useEffect(() => {
-		textRef.current?.position.setX(
-			(textBoxSize.w + offsetX) * (anchorX === 'left' ? 0.5 : anchorX === 'center' ? 0 : -0.5)
-		)
-		textRef.current?.position.setY(
-			(textBoxSize.h + offsetY) * (anchorY === 'bottom' ? 0.5 : anchorY === 'middle' ? 0 : -0.5)
-		)
-	}, [anchorX, anchorY, textBoxSize, offsetX, offsetY])
 
 	useFrame(() => {
 		if (!groupRef.current) return
@@ -112,7 +65,6 @@ export const BillboardTextAxis = ({
 		} else {
 			textState.facing = 'back'
 		}
-
 		// Rotation text to always face the camera
 		if (textState.direction === 'down' && !textState.isRotateDirection) {
 			textRef.current?.rotateZ(Math.PI)
@@ -132,24 +84,13 @@ export const BillboardTextAxis = ({
 	})
 
 	return (
-		<BillboardAxis axis={axisToBillboard} position={position}>
-			<group ref={groupRef} rotation={rotation}>
-				<Text
-					ref={textRef}
-					anchorX={'center'}
-					anchorY={'middle'}
-					{...textProps}
-					onSync={(mesh) => {
-						mesh.geometry.computeBoundingBox()
-						const box = mesh.geometry.boundingBox
-						if (box) {
-							const v = new THREE.Vector3()
-							box.getSize(v)
-							setTextBoxSize({ w: v.x, h: v.y })
-						}
-					}}
-				>
-					{children}
+		<BillboardAxis axis={new THREE.Vector3(0, 0, 1)} position={[1, 1, 1]}>
+			<group
+				ref={groupRef}
+				rotation={Array.isArray(rotation) ? rotation : [rotation.x, rotation.y, rotation.z]}
+			>
+				<Text ref={textRef} font='/fonts/Inter-Regular.woff'>
+					My Text
 				</Text>
 			</group>
 		</BillboardAxis>

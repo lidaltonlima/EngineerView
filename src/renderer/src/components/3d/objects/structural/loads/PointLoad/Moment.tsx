@@ -27,35 +27,35 @@ export const Moment = ({
 }: IMomentProps): React.JSX.Element => {
 	const billboardPosition = new Vector3()
 	let anchorXLabel: 'right' | 'left' = 'left'
-	const labelDirection = new Vector3(0, 0, 0)
+	let labelDirection: 'x' | 'y' | 'z' = 'x'
 	const offsetLabel1 = 0.28 * (radius / 0.4)
 	const offsetLabel2 = 0.3 * (radius / 0.4)
 	const offsetNegativeLabel = 0.03 * (radius / 0.4)
 	switch (direction) {
 		case 'x':
-			labelDirection.set(1, 0, 0)
+			labelDirection = 'x'
 			billboardPosition.set(0, offsetLabel1, -offsetLabel2)
 			break
 		case 'y':
 			billboardPosition.set(offsetLabel1, 0, offsetLabel2)
-			labelDirection.set(0, 1, 0)
+			labelDirection = 'y'
 			break
 		case 'z':
-			labelDirection.set(0, 0, 1)
+			labelDirection = 'z'
 			billboardPosition.set(-offsetLabel1, offsetLabel2, 0)
 			break
 		case '-x':
-			labelDirection.set(1, 0, 0)
+			labelDirection = 'x'
 			anchorXLabel = 'right'
 			billboardPosition.set(0, -offsetLabel1, offsetLabel2 - offsetNegativeLabel)
 			break
 		case '-y':
-			labelDirection.set(0, 1, 0)
+			labelDirection = 'y'
 			anchorXLabel = 'right'
 			billboardPosition.set(-offsetLabel1, 0, -offsetLabel2 + offsetNegativeLabel)
 			break
 		case '-z':
-			labelDirection.set(0, 0, 1)
+			labelDirection = 'z'
 			anchorXLabel = 'right'
 			billboardPosition.set(offsetLabel1, -offsetLabel2 + offsetNegativeLabel, 0)
 	}
