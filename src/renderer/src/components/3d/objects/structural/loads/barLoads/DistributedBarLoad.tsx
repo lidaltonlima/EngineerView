@@ -36,21 +36,29 @@ export const BarDistributedLoad = ({
 
 	let positiveArrowColor: string = 'white'
 	let negativeArrowColor: string = 'white'
+	let positiveLabelColor: string = 'white'
+	let negativeLabelColor: string = 'white'
 	switch (forceDirection) {
 		case 'Fx':
 		case 'Mx':
 			positiveArrowColor = 'red'
 			negativeArrowColor = '#ff6666'
+			positiveLabelColor = 'red'
+			negativeLabelColor = '#ff6666'
 			break
 		case 'Fy':
 		case 'My':
 			positiveArrowColor = 'green'
 			negativeArrowColor = '#00e600'
+			positiveLabelColor = 'green'
+			negativeLabelColor = '#00e600'
 			break
 		case 'Fz':
 		case 'Mz':
 			positiveArrowColor = 'blue'
 			negativeArrowColor = '#6666ff'
+			positiveLabelColor = 'blue'
+			negativeLabelColor = '#6666ff'
 			break
 	}
 
@@ -113,6 +121,8 @@ export const BarDistributedLoad = ({
 								system={system}
 								positiveArrowColor={positiveArrowColor}
 								negativeArrowColor={negativeArrowColor}
+								positiveLabelColor={positiveLabelColor}
+								negativeLabelColor={negativeLabelColor}
 								barPoints={barPoints}
 							/>
 						</group>
@@ -130,6 +140,8 @@ export const BarDistributedLoad = ({
 						system={system}
 						positiveArrowColor={positiveArrowColor}
 						negativeArrowColor={negativeArrowColor}
+						positiveLabelColor={positiveLabelColor}
+						negativeLabelColor={negativeLabelColor}
 						barPoints={barPoints}
 					/>
 				</group>

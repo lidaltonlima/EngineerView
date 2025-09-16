@@ -19,7 +19,8 @@ interface ILoadGlobalSystemProps {
 
 	positiveArrowColor: string
 	negativeArrowColor: string
-	labelColor: string
+	positiveLabelColor: string
+	negativeLabelColor: string
 }
 
 export const LoadGlobalSystem = ({
@@ -30,7 +31,8 @@ export const LoadGlobalSystem = ({
 	size,
 	positiveArrowColor,
 	negativeArrowColor,
-	labelColor,
+	positiveLabelColor,
+	negativeLabelColor,
 	barPoints
 }: ILoadGlobalSystemProps): React.JSX.Element => {
 	let load: React.JSX.Element = <></>
@@ -59,7 +61,7 @@ export const LoadGlobalSystem = ({
 						size={size}
 						positiveArrowColor={positiveArrowColor}
 						negativeArrowColor={negativeArrowColor}
-						labelColor={labelColor}
+						labelColor={positiveLabelColor}
 					/>
 				)
 			} else {
@@ -73,7 +75,7 @@ export const LoadGlobalSystem = ({
 						size={size}
 						positiveArrowColor={positiveArrowColor}
 						negativeArrowColor={negativeArrowColor}
-						labelColor={labelColor}
+						labelColor={positiveLabelColor}
 					/>
 				)
 			}
@@ -91,7 +93,8 @@ export const LoadGlobalSystem = ({
 					size={size}
 					positiveArrowColor={positiveArrowColor}
 					negativeArrowColor={negativeArrowColor}
-					labelColor={labelColor}
+					positiveLabelColor={positiveLabelColor}
+					negativeLabelColor={negativeLabelColor}
 				/>
 			)
 	}

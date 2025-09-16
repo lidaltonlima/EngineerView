@@ -13,7 +13,8 @@ interface IDistributedMomentProps {
 	barPoints: [Vector3, Vector3]
 
 	size?: number
-	labelColor?: string
+	positiveLabelColor?: string
+	negativeLabelColor?: string
 	positiveArrowColor?: string
 	negativeArrowColor?: string
 }
@@ -27,7 +28,8 @@ export const DistributedMoment = ({
 	size = 1,
 	positiveArrowColor = 'green',
 	negativeArrowColor = 'red',
-	labelColor = 'cyan'
+	positiveLabelColor = 'cyan',
+	negativeLabelColor = 'magenta'
 }: IDistributedMomentProps): React.JSX.Element => {
 	const rotationMatrix = matrix.createRotationMatrix(barPoints)
 
@@ -160,7 +162,7 @@ export const DistributedMoment = ({
 											xPositionsOfArrows[0] === xPos ||
 											xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos
 										}
-										labelColor={labelColor}
+										labelColor={positiveLabelColor}
 									/>
 								)}
 								{((loads[0] > 0 && loads[1] < 0) || (loads[0] < 0 && loads[1] > 0)) &&
@@ -245,7 +247,7 @@ export const DistributedMoment = ({
 											xPositionsOfArrows[0] === xPos ||
 											xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos
 										}
-										labelColor={labelColor}
+										labelColor={positiveLabelColor}
 									/>
 								)}
 								{((loads[0] > 0 && loads[1] < 0) || (loads[0] < 0 && loads[1] > 0)) &&
@@ -323,7 +325,7 @@ export const DistributedMoment = ({
 										xPositionsOfArrows[0] === xPos ||
 										xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos
 									}
-									labelColor={labelColor}
+									labelColor={yPos < 0 ? negativeLabelColor : positiveLabelColor}
 								/>
 							)}
 							{((loads[0] > 0 && loads[1] < 0) || (loads[0] < 0 && loads[1] > 0)) &&
@@ -367,6 +369,9 @@ export const DistributedMoment = ({
 									scale={0.1 * 0.3}
 									arrowColor={
 										direction === negativeDirection ? negativeArrowColor : positiveArrowColor
+									}
+									labelColor={
+										direction === negativeDirection ? negativeLabelColor : positiveLabelColor
 									}
 									label
 								/>

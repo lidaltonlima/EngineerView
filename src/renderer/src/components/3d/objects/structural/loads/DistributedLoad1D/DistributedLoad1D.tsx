@@ -18,7 +18,8 @@ interface IDistributedLoad1DCustomProps {
 	size?: number
 	positiveArrowColor?: string
 	negativeArrowColor?: string
-	labelColor?: string
+	positiveLabelColor?: string
+	negativeLabelColor?: string
 }
 
 type IDistributedLoad1DProps = IDistributedLoad1DCustomProps & React.JSX.IntrinsicElements['group']
@@ -33,7 +34,8 @@ export const DistributedLoad1D = ({
 	size = 1,
 	positiveArrowColor = 'cyan',
 	negativeArrowColor = 'magenta',
-	labelColor = 'white',
+	positiveLabelColor = 'cyan',
+	negativeLabelColor = 'magenta',
 	...props
 }: IDistributedLoad1DProps): React.JSX.Element => {
 	if (loads[0] === 0 && loads[1] === 0) return <></>
@@ -50,7 +52,7 @@ export const DistributedLoad1D = ({
 					size={size}
 					positiveArrowColor={positiveArrowColor}
 					negativeArrowColor={negativeArrowColor}
-					labelColor={labelColor}
+					labelColor={positiveLabelColor}
 				/>
 			) : (
 				<LoadGlobalSystem
@@ -61,7 +63,8 @@ export const DistributedLoad1D = ({
 					size={size}
 					positiveArrowColor={positiveArrowColor}
 					negativeArrowColor={negativeArrowColor}
-					labelColor={labelColor}
+					positiveLabelColor={positiveLabelColor}
+					negativeLabelColor={negativeLabelColor}
 					barPoints={barPoints}
 				/>
 			)}
