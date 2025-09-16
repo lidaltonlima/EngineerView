@@ -1,15 +1,18 @@
 import { Text, TextProps } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
-import { useRef } from 'react'
-import * as THREE from 'three'
+import { useState } from 'react'
+import { Vector3 } from 'three'
+import { BillboardAxis } from '../BillboardAxis'
 
 interface IBillboardTextAxisCustomProps {
-	axis: 'x' | 'y' | 'z'
+	axis: Vector3
+	position?: [number, number, number] | Vector3
 	anchorX?: 'left' | 'center' | 'right'
 	anchorY?: 'top' | 'middle' | 'bottom'
 	offsetX?: number
 	offsetY?: number
-	textColor?: string
+
+	children: React.ReactNode
 }
 
 type IBillboardTextAxisProps = IBillboardTextAxisCustomProps &
@@ -20,56 +23,106 @@ type IBillboardTextAxisProps = IBillboardTextAxisCustomProps &
 
 export const BillboardTextAxis = ({
 	axis,
-	textColor = 'white',
+	position = [0, 0, 0],
+	offsetX = 0,
+	offsetY = 0,
+	anchorX = 'left',
 	anchorY = 'bottom',
-	// offsetX = 0,
-	// offsetY = 0,
-	// anchorX = 'left',
+	children,
 	...textProps
 }: IBillboardTextAxisProps): React.JSX.Element => {
-	const rotationGroupRef = useRef<THREE.Group>(null!)
+	const [rotation, setRotation] = useState<[number, number, number]>([0, 0, 0])
+	const [anchor, setAnchor] = useState<'left' | 'center' | 'right'>(anchorX)
+	const [textPosition, setTextPosition] = useState<[number, number, number]>([0, 0, 0])
+
 	const { camera } = useThree()
 
-	// const [rotation, setRotation] = useState<[number, number, number]>([0, 0, 0])
-	// const [position, setPosition] = useState<[number, number, number]>([0, 0, 0])
-	// const [anchor, setAnchor] = useState<'left' | 'center' | 'right'>(anchorX)
 	useFrame(() => {
-		if (!rotationGroupRef.current) return
-
-		// Camera direction in local coordinates
-		const target = camera.position.clone()
-		rotationGroupRef.current.parent?.localToWorld(rotationGroupRef.current.position.clone())
-		const pos = rotationGroupRef.current.getWorldPosition(new THREE.Vector3())
-
-		// Look at camera but only allow rotation around axis
-		const look = new THREE.Vector3(
-			axis === 'x' ? pos.x : target.x,
-			axis === 'y' ? pos.y : target.y,
-			axis === 'z' ? pos.z : target.z
-		)
-		rotationGroupRef.current.lookAt(look)
-
-		// switch (axis) {
-		// 	case 'x':
-		// 		if (camera.rotation.x > 0) {
-		// 			setPosition([offsetX, offsetY, 0])
-		// 			setRotation([0, 0, 0])
-		// 			setAnchor(anchorX === 'left' ? 'left' : anchorX === 'right' ? 'right' : 'center')
-		// 		} else {
-		// 			setPosition([offsetX, -offsetY, 0])
-		// 			setRotation([0, 0, Math.PI])
-		// 			setAnchor(anchorX === 'left' ? 'right' : anchorX === 'right' ? 'left' : 'center')
-		// 		}
-		// 		break
-		// }
+		if (axis.x === 1 && axis.y === 0 && axis.z === 0) {
+			if (camera.rotation.x > 0) {
+				setTextPosition([
+					offsetX * (anchorX === 'left' || anchorX === 'center' ? 1 : -1),
+					offsetY,
+					0
+				])
+				setRotation([0, 0, 0])
+				switch (anchorX) {
+					case 'left':
+						setAnchor('left')
+						break
+					case 'right':
+						setAnchor('right')
+						break
+				}
+			} else {
+				setTextPosition([
+					offsetX * (anchorX === 'left' || anchorX === 'center' ? 1 : -1),
+					-offsetY,
+					0
+				])
+				setRotation([0, 0, Math.PI])
+				switch (anchorX) {
+					case 'left':
+						setAnchor('right')
+						break
+					case 'right':
+						setAnchor('left')
+						break
+				}
+			}
+		} else if (axis.x === 0 && axis.y === 1 && axis.z === 0) {
+			if (camera.rotation.y > 0) {
+				setTextPosition([
+					-offsetY,
+					offsetX * (anchorX === 'left' || anchorX === 'center' ? 1 : -1),
+					0
+				])
+				setRotation([0, Math.PI, Math.PI / 2])
+				switch (anchorX) {
+					case 'left':
+						setAnchor('left')
+						break
+					case 'right':
+						setAnchor('right')
+						break
+				}
+			} else {
+				setTextPosition([
+					offsetY,
+					offsetX * (anchorX === 'left' || anchorX === 'center' ? 1 : -1),
+					0
+				])
+				setRotation([0, Math.PI, -Math.PI / 2])
+				switch (anchorX) {
+					case 'left':
+						setAnchor('right')
+						break
+					case 'right':
+						setAnchor('left')
+						break
+				}
+			}
+		} else if (axis.x === 0 && axis.y === 0 && axis.z === 1) {
+			setTextPosition([
+				0,
+				-offsetY,
+				offsetX * (anchorX === 'left' || anchorX === 'center' ? 1 : -1)
+			])
+			setRotation([Math.PI / 2, Math.PI, Math.PI / 2])
+		}
 	})
 
 	return (
-		<group ref={rotationGroupRef}>
-			<Text anchorX={'center'} anchorY={anchorY} {...textProps}>
-				Test
-				<meshBasicMaterial color={textColor || 'blue'} depthTest={false} />
+		<BillboardAxis axis={axis} position={position}>
+			<Text
+				position={textPosition}
+				rotation={rotation}
+				anchorX={anchor}
+				anchorY={anchorY}
+				{...textProps}
+			>
+				{children}
 			</Text>
-		</group>
+		</BillboardAxis>
 	)
 }
