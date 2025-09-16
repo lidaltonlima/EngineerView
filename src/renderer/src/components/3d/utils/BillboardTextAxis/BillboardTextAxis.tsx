@@ -33,17 +33,7 @@ export const BillboardTextAxis = ({
 	const { camera } = useThree()
 	const groupRef = useRef<THREE.Group>(null!)
 	const textRef = useRef<THREE.Object3D>(null!)
-	const textState: {
-		direction: 'up' | 'down'
-		facing: 'front' | 'back'
-		isRotateDirection: boolean
-		isRotationFacing: boolean
-	} = {
-		direction: 'up',
-		facing: 'front',
-		isRotateDirection: false,
-		isRotationFacing: false
-	}
+	// Removed unused textState
 	const [textBoxSize, setTextBoxSize] = useState<{ w: number; h: number }>({ w: 0, h: 0 })
 
 	const rotation = new THREE.Euler()
@@ -74,60 +64,35 @@ export const BillboardTextAxis = ({
 	}, [anchorX, anchorY, textBoxSize, offsetX, offsetY])
 
 	useFrame(() => {
-		if (!groupRef.current) return
+		if (!groupRef.current || !textRef.current) return
+
+		// Reset text rotation every frame to avoid accumulation
+		textRef.current.rotation.set(0, 0, 0)
+
+		// Get the world quaternion of the text (including parent rotation)
+		const worldQuat = groupRef.current.getWorldQuaternion(new THREE.Quaternion())
 
 		// Get the text's up vector in world space
-		const textUp = new THREE.Vector3(0, 1, 0).applyQuaternion(
-			groupRef.current.getWorldQuaternion(new THREE.Quaternion())
-		)
-
+		const textUp = new THREE.Vector3(0, 1, 0).applyQuaternion(worldQuat)
 		// Get the camera's up vector in world space
 		const cameraUpWorld = new THREE.Vector3(0, 1, 0).applyQuaternion(camera.quaternion)
-
 		// If the text "up" and the camera "up" point in opposite directions → it's upside down
 		const dotUp = textUp.dot(cameraUpWorld)
-
 		if (dotUp < 0) {
-			textState.direction = 'down'
-		} else {
-			textState.direction = 'up'
+			textRef.current.rotation.z = Math.PI
 		}
 
 		// Get the text's forward vector in world space
-		const textForward = new THREE.Vector3(0, 0, 1).applyQuaternion(
-			groupRef.current.getWorldQuaternion(new THREE.Quaternion())
-		)
-
+		const textForward = new THREE.Vector3(0, 0, 1).applyQuaternion(worldQuat)
 		// Vector from text to camera
 		const toCamera = camera.position
 			.clone()
 			.sub(groupRef.current.getWorldPosition(new THREE.Vector3()))
 			.normalize()
-
 		// If the text's forward vector points toward the camera, it's front; otherwise, it's back
 		const dotForward = textForward.dot(toCamera)
-
-		if (dotForward > 0) {
-			textState.facing = 'front'
-		} else {
-			textState.facing = 'back'
-		}
-
-		// Rotation text to always face the camera
-		if (textState.direction === 'down' && !textState.isRotateDirection) {
-			textRef.current?.rotateZ(Math.PI)
-			textState.isRotateDirection = true
-		} else if (textState.direction === 'up' && textState.isRotateDirection) {
-			textRef.current?.rotateZ(Math.PI)
-			textState.isRotateDirection = false
-		}
-
-		if (textState.facing === 'back' && !textState.isRotationFacing) {
-			textRef.current?.rotateY(Math.PI)
-			textState.isRotationFacing = true
-		} else if (textState.facing === 'front' && textState.isRotationFacing) {
-			textRef.current?.rotateY(Math.PI)
-			textState.isRotationFacing = false
+		if (dotForward < 0) {
+			textRef.current.rotation.y = Math.PI
 		}
 	})
 
