@@ -52,7 +52,8 @@ export const DistributedLoad1D = ({
 					size={size}
 					positiveArrowColor={positiveArrowColor}
 					negativeArrowColor={negativeArrowColor}
-					labelColor={positiveLabelColor}
+					positiveLabelColor={positiveLabelColor}
+					negativeLabelColor={negativeLabelColor}
 				/>
 			) : (
 				<LoadGlobalSystem

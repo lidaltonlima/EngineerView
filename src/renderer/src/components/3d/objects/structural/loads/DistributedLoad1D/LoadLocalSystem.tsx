@@ -19,7 +19,8 @@ interface ILoadLocalSystemProps {
 
 	positiveArrowColor: string
 	negativeArrowColor: string
-	labelColor: string
+	positiveLabelColor: string
+	negativeLabelColor: string
 }
 
 export const LoadLocalSystem = ({
@@ -31,7 +32,8 @@ export const LoadLocalSystem = ({
 	barPoints,
 	positiveArrowColor,
 	negativeArrowColor,
-	labelColor
+	positiveLabelColor,
+	negativeLabelColor
 }: ILoadLocalSystemProps): React.JSX.Element => {
 	return (
 		<>
@@ -45,7 +47,7 @@ export const LoadLocalSystem = ({
 					barPoints={barPoints}
 					positiveArrowColor={positiveArrowColor}
 					negativeArrowColor={negativeArrowColor}
-					labelColor={labelColor}
+					labelColor={negativeLabelColor}
 					size={size}
 				/>
 			)}
@@ -58,7 +60,8 @@ export const LoadLocalSystem = ({
 					barPoints={barPoints}
 					positiveArrowColor={positiveArrowColor}
 					negativeArrowColor={negativeArrowColor}
-					labelColor={labelColor}
+					positiveLabelColor={positiveLabelColor}
+					negativeLabelColor={negativeLabelColor}
 					size={size}
 				/>
 			)}
@@ -72,7 +75,8 @@ export const LoadLocalSystem = ({
 					barPoints={barPoints}
 					positiveArrowColor={positiveArrowColor}
 					negativeArrowColor={negativeArrowColor}
-					positiveLabelColor={labelColor}
+					positiveLabelColor={positiveLabelColor}
+					negativeLabelColor={negativeLabelColor}
 					size={size}
 				/>
 			)}

@@ -75,7 +75,8 @@ export const LoadGlobalSystem = ({
 						size={size}
 						positiveArrowColor={positiveArrowColor}
 						negativeArrowColor={negativeArrowColor}
-						labelColor={positiveLabelColor}
+						positiveLabelColor={positiveLabelColor}
+						negativeLabelColor={negativeLabelColor}
 					/>
 				)
 			}

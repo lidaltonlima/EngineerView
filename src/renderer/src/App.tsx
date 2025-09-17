@@ -3,8 +3,6 @@ import { Default3dScene } from './components/3d'
 import { Bar, DrawSupport, Node } from './components/3d/objects/structural/elements'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
-import { DistributedMoment } from './components/3d/objects/structural/loads/DistributedLoad1D/loadsStyle/DistributedMoment'
-import { Vector3 } from 'three'
 
 export const App = (): React.JSX.Element => {
 	const [structureData, setStructureData] = useState<IStructureData | null>()
@@ -33,13 +31,13 @@ export const App = (): React.JSX.Element => {
 			{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
 			{structureData?.supports.map((support) => DrawSupport(support, structure))}
 			<axesHelper />
-			<DistributedMoment
-				name='Distributed Moment'
-				forceDirection='My'
-				loads={[-10, 10]}
-				xPositions={[0, 1]}
-				barPoints={[new Vector3(0, 0, 0), new Vector3(0, 1, 1)]}
-			/>
+			{/* <DistributedForceLine
+				name='Distributed Force'
+				forceDirection='Fy'
+				loads={[123, 156]}
+				xPositions={[0, 3]}
+				barPoints={[new Vector3(0, 0, 0), new Vector3(0, 0, 3)]}
+			/> */}
 		</Default3dScene>
 	)
 }
