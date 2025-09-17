@@ -1,9 +1,9 @@
-import { Billboard, Text } from '@react-three/drei'
 import { Arrow } from '@renderer/components/3d/objects/Arrow'
 import { isClose, linSpace } from '@renderer/utils/functions/others'
 import * as space2D from '@renderer/utils/functions/space2D'
 import { Vector3 } from 'three'
 import * as matrix from '@renderer/utils/functions/matrix'
+import { BillboardTextAxis } from '@renderer/components/3d/utils'
 
 interface IDistributedForceProps {
 	name: string
@@ -13,9 +13,10 @@ interface IDistributedForceProps {
 	barPoints: [Vector3, Vector3]
 
 	size?: number
-	labelColor?: string
 	positiveArrowColor?: string
 	negativeArrowColor?: string
+	positiveLabelColor?: string
+	negativeLabelColor?: string
 }
 
 export const DistributedForce = ({
@@ -27,7 +28,8 @@ export const DistributedForce = ({
 	size = 1,
 	positiveArrowColor = 'green',
 	negativeArrowColor = 'red',
-	labelColor = 'cyan'
+	positiveLabelColor = 'cyan',
+	negativeLabelColor = 'magenta'
 }: IDistributedForceProps): React.JSX.Element => {
 	const rotationMatrix = matrix.createRotationMatrix(barPoints)
 
@@ -207,21 +209,129 @@ export const DistributedForce = ({
 										notLine
 									/>
 								) : null}
+								{((loads[0] > 0 && loads[1] < 0) || (loads[0] < 0 && loads[1] > 0)) && (
+									<>
+										{xPositionsOfArrows[0] === xPos && (
+											<BillboardTextAxis
+												axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+												anchorX={loads[0] < 0 ? 'left' : 'right'}
+												anchorY='bottom'
+												position={[
+													0,
+													0,
+													x[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+												]}
+												font='/fonts/Inter-Regular.woff'
+												fontSize={0.1}
+												color={loads[0] < 0 ? negativeLabelColor : positiveLabelColor}
+												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+											>
+												{loads[0]}
+											</BillboardTextAxis>
+										)}
+										{xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos && (
+											<BillboardTextAxis
+												axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+												anchorX={loads[1] < 0 ? 'left' : 'right'}
+												anchorY='bottom'
+												position={[
+													0,
+													0,
+													x[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+												]}
+												font='/fonts/Inter-Regular.woff'
+												fontSize={0.1}
+												color={loads[1] < 0 ? negativeLabelColor : positiveLabelColor}
+												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+											>
+												{loads[1]}
+											</BillboardTextAxis>
+										)}
+									</>
+								)}
+								{loads[0] >= 0 && loads[1] >= 0 && (
+									<>
+										{xPositionsOfArrows[0] === xPos && (
+											<BillboardTextAxis
+												axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+												anchorX={'right'}
+												anchorY='bottom'
+												position={[
+													0,
+													0,
+													x[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+												]}
+												font='/fonts/Inter-Regular.woff'
+												fontSize={0.1}
+												color={positiveLabelColor}
+												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+											>
+												{loads[0]}
+											</BillboardTextAxis>
+										)}
+										{xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos && (
+											<BillboardTextAxis
+												axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+												anchorX={'right'}
+												anchorY='bottom'
+												position={[
+													0,
+													0,
+													x[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+												]}
+												font='/fonts/Inter-Regular.woff'
+												fontSize={0.1}
+												color={positiveLabelColor}
+												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+											>
+												{loads[1]}
+											</BillboardTextAxis>
+										)}
+									</>
+								)}
+								{loads[0] <= 0 && loads[1] <= 0 && (
+									<>
+										{xPositionsOfArrows[0] === xPos && (
+											<BillboardTextAxis
+												axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+												anchorX={'left'}
+												anchorY='bottom'
+												position={[
+													0,
+													0,
+													x[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+												]}
+												font='/fonts/Inter-Regular.woff'
+												fontSize={0.1}
+												color={negativeLabelColor}
+												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+											>
+												{loads[0]}
+											</BillboardTextAxis>
+										)}
+										{xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos && (
+											<BillboardTextAxis
+												axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+												anchorX={'left'}
+												anchorY='bottom'
+												position={[
+													0,
+													0,
+													x[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+												]}
+												font='/fonts/Inter-Regular.woff'
+												fontSize={0.1}
+												color={negativeLabelColor}
+												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+											>
+												{loads[1]}
+											</BillboardTextAxis>
+										)}
+									</>
+								)}
 							</group>
 						)
 					})}
-					<Billboard position={[0, 0, x[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b]}>
-						<Text renderOrder={10} anchorX={'left'} font='/fonts/Inter-Regular.woff' fontSize={0.1}>
-							{loads[0]}
-							<meshBasicMaterial color={labelColor} depthTest={false} />
-						</Text>
-					</Billboard>
-					<Billboard position={[0, 0, x[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b]}>
-						<Text renderOrder={10} anchorX={'left'} font='/fonts/Inter-Regular.woff' fontSize={0.1}>
-							{loads[1]}
-							<meshBasicMaterial color={labelColor} depthTest={false} />
-						</Text>
-					</Billboard>
 				</>
 			)
 		} else {
@@ -294,33 +404,129 @@ export const DistributedForce = ({
 										notLine
 									/>
 								) : null}
+								{((loads[0] > 0 && loads[1] < 0) || (loads[0] < 0 && loads[1] > 0)) && (
+									<>
+										{xPositionsOfArrows[0] === xPos && (
+											<BillboardTextAxis
+												axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+												anchorX={loads[0] < 0 ? 'left' : 'right'}
+												anchorY='bottom'
+												position={[
+													0,
+													x[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+													linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+												]}
+												font='/fonts/Inter-Regular.woff'
+												fontSize={0.1}
+												color={loads[0] < 0 ? negativeLabelColor : positiveLabelColor}
+												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+											>
+												{loads[0]}
+											</BillboardTextAxis>
+										)}
+										{xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos && (
+											<BillboardTextAxis
+												axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+												anchorX={loads[1] < 0 ? 'left' : 'right'}
+												anchorY='bottom'
+												position={[
+													0,
+													x[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+													linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+												]}
+												font='/fonts/Inter-Regular.woff'
+												fontSize={0.1}
+												color={loads[1] < 0 ? negativeLabelColor : positiveLabelColor}
+												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+											>
+												{loads[1]}
+											</BillboardTextAxis>
+										)}
+									</>
+								)}
+								{loads[0] >= 0 && loads[1] >= 0 && (
+									<>
+										{xPositionsOfArrows[0] === xPos && (
+											<BillboardTextAxis
+												axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+												anchorX={'right'}
+												anchorY='bottom'
+												position={[
+													0,
+													x[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+													linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+												]}
+												font='/fonts/Inter-Regular.woff'
+												fontSize={0.1}
+												color={positiveLabelColor}
+												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+											>
+												{loads[0]}
+											</BillboardTextAxis>
+										)}
+										{xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos && (
+											<BillboardTextAxis
+												axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+												anchorX={'right'}
+												anchorY='bottom'
+												position={[
+													0,
+													x[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+													linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+												]}
+												font='/fonts/Inter-Regular.woff'
+												fontSize={0.1}
+												color={positiveLabelColor}
+												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+											>
+												{loads[1]}
+											</BillboardTextAxis>
+										)}
+									</>
+								)}
+								{loads[0] <= 0 && loads[1] <= 0 && (
+									<>
+										{xPositionsOfArrows[0] === xPos && (
+											<BillboardTextAxis
+												axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+												anchorX={'left'}
+												anchorY='bottom'
+												position={[
+													0,
+													x[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+													linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+												]}
+												font='/fonts/Inter-Regular.woff'
+												fontSize={0.1}
+												color={negativeLabelColor}
+												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+											>
+												{loads[0]}
+											</BillboardTextAxis>
+										)}
+										{xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos && (
+											<BillboardTextAxis
+												axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+												anchorX={'left'}
+												anchorY='bottom'
+												position={[
+													0,
+													x[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+													linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+												]}
+												font='/fonts/Inter-Regular.woff'
+												fontSize={0.1}
+												color={negativeLabelColor}
+												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+											>
+												{loads[1]}
+											</BillboardTextAxis>
+										)}
+									</>
+								)}
 							</group>
 						)
 					})}
-					<Billboard
-						position={[
-							0,
-							x[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
-							linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
-						]}
-					>
-						<Text renderOrder={10} anchorX={'left'} font='/fonts/Inter-Regular.woff' fontSize={0.1}>
-							{loads[0]}
-							<meshBasicMaterial color={labelColor} depthTest={false} />
-						</Text>
-					</Billboard>
-					<Billboard
-						position={[
-							0,
-							x[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
-							linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
-						]}
-					>
-						<Text renderOrder={10} anchorX={'left'} font='/fonts/Inter-Regular.woff' fontSize={0.1}>
-							{loads[1]}
-							<meshBasicMaterial color={labelColor} depthTest={false} />
-						</Text>
-					</Billboard>
 				</>
 			)
 		}
@@ -397,33 +603,129 @@ export const DistributedForce = ({
 									endBase
 								/>
 							) : null}
+							{((loads[0] > 0 && loads[1] < 0) || (loads[0] < 0 && loads[1] > 0)) && (
+								<>
+									{xPositionsOfArrows[0] === xPos && (
+										<BillboardTextAxis
+											axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+											anchorX={loads[0] < 0 ? 'left' : 'right'}
+											anchorY='bottom'
+											position={[
+												x[0],
+												linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+												linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+											]}
+											font='/fonts/Inter-Regular.woff'
+											fontSize={0.1}
+											color={loads[0] < 0 ? negativeLabelColor : positiveLabelColor}
+											offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+										>
+											{loads[0]}
+										</BillboardTextAxis>
+									)}
+									{xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos && (
+										<BillboardTextAxis
+											axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+											anchorX={loads[1] < 0 ? 'left' : 'right'}
+											anchorY='bottom'
+											position={[
+												x[1],
+												linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+												linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+											]}
+											font='/fonts/Inter-Regular.woff'
+											fontSize={0.1}
+											color={loads[1] < 0 ? negativeLabelColor : positiveLabelColor}
+											offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+										>
+											{loads[1]}
+										</BillboardTextAxis>
+									)}
+								</>
+							)}
+							{loads[0] >= 0 && loads[1] >= 0 && (
+								<>
+									{xPositionsOfArrows[0] === xPos && (
+										<BillboardTextAxis
+											axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+											anchorX={'right'}
+											anchorY='bottom'
+											position={[
+												x[0],
+												linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+												linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+											]}
+											font='/fonts/Inter-Regular.woff'
+											fontSize={0.1}
+											color={positiveLabelColor}
+											offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+										>
+											{loads[0]}
+										</BillboardTextAxis>
+									)}
+									{xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos && (
+										<BillboardTextAxis
+											axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+											anchorX={'right'}
+											anchorY='bottom'
+											position={[
+												x[1],
+												linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+												linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+											]}
+											font='/fonts/Inter-Regular.woff'
+											fontSize={0.1}
+											color={positiveLabelColor}
+											offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+										>
+											{loads[1]}
+										</BillboardTextAxis>
+									)}
+								</>
+							)}
+							{loads[0] <= 0 && loads[1] <= 0 && (
+								<>
+									{xPositionsOfArrows[0] === xPos && (
+										<BillboardTextAxis
+											axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+											anchorX={'left'}
+											anchorY='bottom'
+											position={[
+												x[0],
+												linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
+												linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
+											]}
+											font='/fonts/Inter-Regular.woff'
+											fontSize={0.1}
+											color={negativeLabelColor}
+											offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+										>
+											{loads[0]}
+										</BillboardTextAxis>
+									)}
+									{xPositionsOfArrows[xPositionsOfArrows.length - 1] === xPos && (
+										<BillboardTextAxis
+											axis={forceDirection == 'Fx' ? 'x' : forceDirection == 'Fy' ? 'y' : 'z'}
+											anchorX={'left'}
+											anchorY='bottom'
+											position={[
+												x[1],
+												linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
+												linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
+											]}
+											font='/fonts/Inter-Regular.woff'
+											fontSize={0.1}
+											color={negativeLabelColor}
+											offsetY={(Math.abs(yPos) + 0.2) * 0.1}
+										>
+											{loads[1]}
+										</BillboardTextAxis>
+									)}
+								</>
+							)}
 						</group>
 					)
 				})}
-				<Billboard
-					position={[
-						x[0],
-						linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
-						linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
-					]}
-				>
-					<Text renderOrder={10} anchorX={'left'} font='/fonts/Inter-Regular.woff' fontSize={0.1}>
-						{loads[0]}
-						<meshBasicMaterial color={labelColor} depthTest={false} />
-					</Text>
-				</Billboard>
-				<Billboard
-					position={[
-						x[1],
-						linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
-						linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
-					]}
-				>
-					<Text renderOrder={10} anchorX={'left'} font='/fonts/Inter-Regular.woff' fontSize={0.1}>
-						{loads[1]}
-						<meshBasicMaterial color={labelColor} depthTest={false} />
-					</Text>
-				</Billboard>
 			</>
 		)
 	}

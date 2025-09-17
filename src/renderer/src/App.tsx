@@ -31,13 +31,6 @@ export const App = (): React.JSX.Element => {
 			{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
 			{structureData?.supports.map((support) => DrawSupport(support, structure))}
 			<axesHelper />
-			{/* <DistributedForceLine
-				name='Distributed Force'
-				forceDirection='Fy'
-				loads={[123, 156]}
-				xPositions={[0, 3]}
-				barPoints={[new Vector3(0, 0, 0), new Vector3(0, 0, 3)]}
-			/> */}
 		</Default3dScene>
 	)
 }

@@ -47,7 +47,8 @@ export const LoadLocalSystem = ({
 					barPoints={barPoints}
 					positiveArrowColor={positiveArrowColor}
 					negativeArrowColor={negativeArrowColor}
-					labelColor={negativeLabelColor}
+					positiveLabelColor={positiveLabelColor}
+					negativeLabelColor={negativeLabelColor}
 					size={size}
 				/>
 			)}
