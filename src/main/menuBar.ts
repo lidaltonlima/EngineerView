@@ -29,45 +29,27 @@ export const menuBarTemplate: (MenuItemConstructorOptions | MenuItem)[] = [
 						})
 				}
 			},
-			{
-				label: 'Exit',
-				role: 'quit'
-			}
+			{ label: 'Exit', accelerator: 'Alt+F4', role: 'quit' }
 		]
 	},
 	{
 		label: 'View',
 		submenu: [
-			{
-				label: 'Reload',
-				accelerator: 'Ctrl+R',
-				role: 'reload'
-			},
-			{
-				label: 'Force Reload',
-				accelerator: 'Ctrl+Shift+R',
-				role: 'forceReload'
-			},
+			{ label: 'Zoom In', accelerator: 'Ctrl+numAdd', role: 'zoomIn' },
+			{ label: 'Zoom Out', accelerator: 'Ctrl+numSub', role: 'zoomOut' },
+			{ label: 'Reset Zoom', accelerator: 'Ctrl+num0', role: 'resetZoom' },
 			{ type: 'separator' },
-			{
-				label: 'Toggle Full Screen',
-				accelerator: 'F11',
-				role: 'togglefullscreen'
-			}
+			{ label: 'Reload', accelerator: 'Ctrl+R', role: 'reload' },
+			{ label: 'Force Reload', accelerator: 'Ctrl+Shift+R', role: 'forceReload' },
+			{ type: 'separator' },
+			{ label: 'Toggle Full Screen', accelerator: 'F11', role: 'togglefullscreen' }
 		]
 	},
 	{
 		label: 'Window',
 		submenu: [
-			{
-				label: 'Minimize',
-				accelerator: 'Ctrl+M',
-				role: 'minimize'
-			},
-			{
-				label: 'Close',
-				accelerator: 'Ctrl+W'
-			}
+			{ label: 'Minimize', accelerator: 'Ctrl+M', role: 'minimize' },
+			{ label: 'Close', accelerator: 'Ctrl+W', role: 'close' }
 		]
 	}
 ]
