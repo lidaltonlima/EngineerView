@@ -29,7 +29,7 @@
 			"section": "w150x13",
 			"material": "steel",
 			"rotation": 90,
-			"releases": []
+			"releases": ["Rzi", "Rxi"]
 		},
 		{
 			"name": "B2",

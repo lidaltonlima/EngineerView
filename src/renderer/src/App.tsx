@@ -5,10 +5,16 @@ import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
 import { ResizableContainer } from './containers'
 import { Accordion } from './containers/Accordion'
+import { ViewEntities } from './contents'
+import { useSceneContext } from './contexts/Scene'
 
 export const App = (): React.JSX.Element => {
-	const [structureData, setStructureData] = useState<IStructureData | null>()
 	const { structure } = useStructureContext()
+	const { view } = useSceneContext()
+
+	const [structureData, setStructureData] = useState<IStructureData | null>()
+
+	const [viewSupports] = view.supports
 
 	useEffect(() => {
 		const disposeOpenFile = window.electron.ipcRenderer.on(
@@ -35,7 +41,8 @@ export const App = (): React.JSX.Element => {
 						<Default3dScene>
 							{structureData?.bars.map((bar) => <Bar key={bar.name} bar={bar} />)}
 							{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
-							{structureData?.supports.map((support) => DrawSupport(support, structure))}
+							{viewSupports &&
+								structureData?.supports.map((support) => DrawSupport(support, structure))}
 							<axesHelper />
 						</Default3dScene>
 					</div>
@@ -49,7 +56,7 @@ export const App = (): React.JSX.Element => {
 					fullHeight
 				>
 					<Accordion title='View' className='accordion'>
-						test
+						<ViewEntities />
 					</Accordion>
 				</ResizableContainer>
 			</main>

@@ -1,5 +1,5 @@
 /**
- * Interface for structure data
+ * Interfaces and types for structure data
  */
 export interface IStructureData {
 	materials: IMaterialData[]

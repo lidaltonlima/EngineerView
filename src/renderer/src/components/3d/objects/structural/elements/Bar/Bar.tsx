@@ -6,6 +6,7 @@ import { degToRad } from 'three/src/math/MathUtils'
 import { BarDistributedLoad, PointBarLoad } from '../../loads'
 import { LocalAxes } from '../../others/LocalAxes'
 import { BarRelease } from '../../others'
+import { useSceneContext } from '@renderer/contexts/Scene'
 
 interface IBarProps {
 	bar: IBarData
@@ -13,6 +14,14 @@ interface IBarProps {
 
 export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 	const { structure } = useStructureContext()
+	const { view } = useSceneContext()
+	const [viewBars] = view.bars
+	const [viewPointBarLoads] = view.barPointLoads
+	const [viewDistributedBarLoads] = view.barDistributedLoads
+	const [viewLocalAxes] = view.barLocalAxes
+	const [viewReleases] = view.barReleases
+
+	if (!viewBars) return <></>
 
 	const startPoint = new THREE.Vector3()
 	const endPoint = new THREE.Vector3()
@@ -34,74 +43,88 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 
 	return (
 		<>
-			<Line
-				// worldUnits
-				name={bar.name}
-				points={[startPoint, endPoint]}
-				color={'orange'}
-				lineWidth={2}
-			/>
-			<LocalAxes
-				direction={direction}
-				rotationAroundDirection={degToRad(bar.rotation)}
-				label
-				scale={0.25}
-				position={middlePoint}
-			/>
-			<BarRelease
-				releases={bar.releases}
-				direction={direction}
-				startPoint={startPoint}
-				endPoint={endPoint}
-				barRotation={rotation}
-			/>
-			{/* Point Loads */}
-			{structure.loads.map((load) => {
-				return load.bars.point.map((barPointLoad) => {
-					if (barPointLoad.bar == bar.name)
-						return (
-							<PointBarLoad
-								key={barPointLoad.name}
-								direction={direction}
-								xPosition={barPointLoad.position}
-								rotationAroundDirection={rotation}
-								position={startPoint}
-								system={barPointLoad.system}
-								fx={barPointLoad.loads.Fx}
-								fy={barPointLoad.loads.Fy}
-								fz={barPointLoad.loads.Fz}
-								mx={barPointLoad.loads.Mx}
-								my={barPointLoad.loads.My}
-								mz={barPointLoad.loads.Mz}
-							/>
-						)
-					return null
-				})
-			})}
-			{/* Distributed Loads */}
-			{structure.loads.map((load) => {
-				return load.bars.distributed.map((barDistributedLoad) => {
-					if (barDistributedLoad.bar == bar.name) {
-						return Object.entries(barDistributedLoad.loads).map(([objectKey, objectValue]) => {
-							const key = objectKey as forcesType
-							return (
-								<BarDistributedLoad
-									name={barDistributedLoad.name}
-									key={`${barDistributedLoad.name}-${key}-${Math.random()}`}
-									forceDirection={key}
-									system={barDistributedLoad.system}
-									loads={objectValue}
-									xPositions={barDistributedLoad.position}
-									barPoints={[startPoint, endPoint]}
-									direction={direction}
-									rotationAroundDirection={rotation}
-								/>
-							)
-						})
-					}
-					return null
-				})
-			})}
+			<>
+				<Line
+					// worldUnits
+					name={bar.name}
+					points={[startPoint, endPoint]}
+					color={'orange'}
+					lineWidth={2}
+				/>
+				{viewLocalAxes && (
+					<LocalAxes
+						direction={direction}
+						rotationAroundDirection={degToRad(bar.rotation)}
+						label
+						scale={0.25}
+						position={middlePoint}
+					/>
+				)}
+				{viewReleases && (
+					<BarRelease
+						releases={bar.releases}
+						direction={direction}
+						startPoint={startPoint}
+						endPoint={endPoint}
+						barRotation={rotation}
+					/>
+				)}
+				{viewPointBarLoads && (
+					<>
+						{structure.loads.map((load) => {
+							return load.bars.point.map((barPointLoad) => {
+								if (barPointLoad.bar == bar.name)
+									return (
+										<PointBarLoad
+											key={barPointLoad.name}
+											direction={direction}
+											xPosition={barPointLoad.position}
+											rotationAroundDirection={rotation}
+											position={startPoint}
+											system={barPointLoad.system}
+											fx={barPointLoad.loads.Fx}
+											fy={barPointLoad.loads.Fy}
+											fz={barPointLoad.loads.Fz}
+											mx={barPointLoad.loads.Mx}
+											my={barPointLoad.loads.My}
+											mz={barPointLoad.loads.Mz}
+										/>
+									)
+								return null
+							})
+						})}
+					</>
+				)}
+				{viewDistributedBarLoads && (
+					<>
+						{structure.loads.map((load) => {
+							return load.bars.distributed.map((barDistributedLoad) => {
+								if (barDistributedLoad.bar == bar.name) {
+									return Object.entries(barDistributedLoad.loads).map(
+										([objectKey, objectValue]) => {
+											const key = objectKey as forcesType
+											return (
+												<BarDistributedLoad
+													name={barDistributedLoad.name}
+													key={`${barDistributedLoad.name}-${key}-${Math.random()}`}
+													forceDirection={key}
+													system={barDistributedLoad.system}
+													loads={objectValue}
+													xPositions={barDistributedLoad.position}
+													barPoints={[startPoint, endPoint]}
+													direction={direction}
+													rotationAroundDirection={rotation}
+												/>
+											)
+										}
+									)
+								}
+								return null
+							})
+						})}
+					</>
+				)}
+			</>
 		</>
 	)
 }

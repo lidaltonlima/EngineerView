@@ -9,11 +9,11 @@ import {
 	ISupportData
 } from '@renderer/types/Structure'
 
-interface StructureProviderProps {
+interface IStructureProviderProps {
 	children: React.ReactNode
 }
 
-export const StructureProvider = ({ children }: StructureProviderProps): React.JSX.Element => {
+export const StructureProvider = ({ children }: IStructureProviderProps): React.JSX.Element => {
 	const materials: IMaterialData[] = []
 	const sections: ISectionData[] = []
 	const nodes: INodeData[] = []

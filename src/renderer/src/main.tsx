@@ -4,11 +4,14 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { App } from './App'
 import { StructureProvider } from './contexts/Structure'
+import { SceneProvider } from './contexts/Scene'
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<StructureProvider>
-			<App />
-		</StructureProvider>
+		<SceneProvider>
+			<StructureProvider>
+				<App />
+			</StructureProvider>
+		</SceneProvider>
 	</StrictMode>
 )
