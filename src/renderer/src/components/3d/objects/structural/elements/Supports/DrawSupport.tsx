@@ -5,11 +5,13 @@ import { FixedDisplacement } from './FixedDisplacement'
 import { FixedRotation } from './FixedRotation'
 import { SpringDisplacement } from './SpringDisplacement'
 import { SpringRotation } from './SpringRotation'
+import { IEntityData } from '@renderer/types/Entity'
+import { click } from '@renderer/core/select'
 
 export const DrawSupport = (
 	support: ISupportData,
 	structure: IStructureData
-): React.JSX.Element[] => {
+): React.JSX.Element => {
 	let basePoint: [number, number, number] = [0, 0, 0]
 	let isError = true
 	let isFixedAllDisplacement = false
@@ -32,7 +34,16 @@ export const DrawSupport = (
 		!Object.values(support.supports).some((value) => typeof value === 'number')
 	) {
 		drawings.push(<FixedAll key={'DrawSupport-fixedAll'} position={basePoint} />)
-		return drawings
+		return (
+			<group
+				key={`support-${support.node}`}
+				name={`support-${support.node}`}
+				userData={{ type: 'support', name: support.node } as IEntityData}
+				onClick={(event) => click(event, event.eventObject.userData)}
+			>
+				{drawings}
+			</group>
+		)
 	}
 
 	if (
@@ -182,5 +193,14 @@ export const DrawSupport = (
 		}
 	}
 
-	return drawings
+	return (
+		<group
+			key={`support-${support.node}`}
+			name={`support-${support.node}`}
+			userData={{ type: 'support', name: support.node } as IEntityData}
+			onClick={(event) => click(event, event.eventObject.userData)}
+		>
+			{drawings}
+		</group>
+	)
 }

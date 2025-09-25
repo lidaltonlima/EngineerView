@@ -7,6 +7,8 @@ import { BarDistributedLoad, PointBarLoad } from '../../loads'
 import { LocalAxes } from '../../others/LocalAxes'
 import { BarRelease } from '../../others'
 import { useSceneContext } from '@renderer/contexts/Scene'
+import { click } from '@renderer/core/select'
+import { IEntityData } from '@renderer/types/Entity'
 
 interface IBarProps {
 	bar: IBarData
@@ -46,10 +48,12 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 			<>
 				<Line
 					// worldUnits
-					name={bar.name}
+					name={`bar-${bar.name}`}
+					userData={{ type: 'bar', name: bar.name } as IEntityData}
 					points={[startPoint, endPoint]}
 					color={'orange'}
 					lineWidth={2}
+					onClick={(event) => click(event, event.object.userData)}
 				/>
 				{viewLocalAxes && (
 					<LocalAxes

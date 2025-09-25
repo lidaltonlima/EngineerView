@@ -7,6 +7,8 @@ import { INodeData } from '@renderer/types/Structure'
 import { Vector3 } from 'three'
 import { PointLoad } from '../../loads'
 import { useSceneContext } from '@renderer/contexts/Scene'
+import { click } from '@renderer/core/select'
+import { IEntityData } from '@renderer/types/Entity'
 
 interface INodeProps {
 	node: INodeData
@@ -29,10 +31,11 @@ export const Node = ({ node }: INodeProps): React.JSX.Element => {
 				<Points key={node.name} limit={1} range={1}>
 					<pointsMaterial vertexColors size={0.1} />
 					<Point
-						name={node.name}
+						name={`node-${node.name}`}
+						userData={{ type: 'node', name: node.name } as IEntityData}
 						position={position}
 						color={'magenta'}
-						onClick={(event) => console.log(event.object.name)}
+						onClick={(event) => click(event, event.object.userData)}
 					/>
 				</Points>
 				{viewNodalLoads &&
