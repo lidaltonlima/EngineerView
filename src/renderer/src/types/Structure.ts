@@ -8,6 +8,7 @@ export interface IStructureData {
 	bars: IBarData[]
 	supports: ISupportData[]
 	loads: ILoadData[]
+	results: IResultsData[]
 }
 
 // Material and Section ///////////////////////////////////////////////////////////////////////////
@@ -112,3 +113,53 @@ export interface IBarDistributedLoadsData {
 }
 
 export type forcesType = 'Fx' | 'Fy' | 'Fz' | 'Mx' | 'My' | 'Mz'
+
+// Results ////////////////////////////////////////////////////////////////////////////////////////
+export interface IResultsData {
+	load_case: string
+	displacements: IDisplacementResultsData[]
+	reactions: IReactionsData[]
+	extreme_forces: IExtremeForcesData[]
+}
+
+// Displacements **********************************************************************************
+export interface IDisplacementResultsData {
+	node: string
+	Dx: number
+	Dy: number
+	Dz: number
+	Rx: number
+	Ry: number
+	Rz: number
+}
+
+// Reactions **************************************************************************************
+export interface IReactionsData {
+	node: string
+	Fx: number
+	Fy: number
+	Fz: number
+	Mx: number
+	My: number
+	Mz: number
+}
+
+// Extreme Forces *********************************************************************************
+export interface IExtremeForcesData {
+	bar: string
+	// Start
+	Fxi: number
+	Fyi: number
+	Fzi: number
+	Mxi: number
+	Myi: number
+	Mzi: number
+
+	// End
+	Fxj: number
+	Fyj: number
+	Fzj: number
+	Mxj: number
+	Myj: number
+	Mzj: number
+}

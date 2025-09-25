@@ -4,6 +4,7 @@ import {
 	ILoadData,
 	IMaterialData,
 	INodeData,
+	IResultsData,
 	ISectionData,
 	IStructureData,
 	ISupportData
@@ -20,7 +21,8 @@ export const StructureProvider = ({ children }: IStructureProviderProps): React.
 	const bars: IBarData[] = []
 	const supports: ISupportData[] = []
 	const loads: ILoadData[] = []
-	const structure: IStructureData = { materials, sections, nodes, bars, supports, loads }
+	const results: IResultsData[] = []
+	const structure: IStructureData = { materials, sections, nodes, bars, supports, loads, results }
 
 	return (
 		<StructureContext.Provider

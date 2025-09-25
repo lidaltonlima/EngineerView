@@ -35,7 +35,7 @@ export const Node = ({ node }: INodeProps): React.JSX.Element => {
 						userData={{ type: 'node', name: node.name } as IEntityData}
 						position={position}
 						color={'magenta'}
-						onClick={(event) => click(event, event.object.userData)}
+						onClick={(event) => click(event, event.object.userData as IEntityData, structure)}
 					/>
 				</Points>
 				{viewNodalLoads &&

@@ -25,6 +25,9 @@ export const App = (): React.JSX.Element => {
 				structure.bars = data.bars
 				structure.supports = data.supports
 				structure.loads = data.loads
+				structure.materials = data.materials
+				structure.sections = data.sections
+				structure.results = data.results
 			}
 		)
 

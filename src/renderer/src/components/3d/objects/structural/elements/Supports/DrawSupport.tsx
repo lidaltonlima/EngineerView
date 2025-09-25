@@ -39,7 +39,7 @@ export const DrawSupport = (
 				key={`support-${support.node}`}
 				name={`support-${support.node}`}
 				userData={{ type: 'support', name: support.node } as IEntityData}
-				onClick={(event) => click(event, event.eventObject.userData)}
+				onClick={(event) => click(event, event.eventObject.userData as IEntityData, structure)}
 			>
 				{drawings}
 			</group>
@@ -198,7 +198,7 @@ export const DrawSupport = (
 			key={`support-${support.node}`}
 			name={`support-${support.node}`}
 			userData={{ type: 'support', name: support.node } as IEntityData}
-			onClick={(event) => click(event, event.eventObject.userData)}
+			onClick={(event) => click(event, event.eventObject.userData as IEntityData, structure)}
 		>
 			{drawings}
 		</group>

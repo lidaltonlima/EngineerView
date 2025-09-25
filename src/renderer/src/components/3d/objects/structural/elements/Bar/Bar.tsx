@@ -53,7 +53,7 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 					points={[startPoint, endPoint]}
 					color={'orange'}
 					lineWidth={2}
-					onClick={(event) => click(event, event.object.userData)}
+					onClick={(event) => click(event, event.object.userData as IEntityData, structure)}
 				/>
 				{viewLocalAxes && (
 					<LocalAxes
