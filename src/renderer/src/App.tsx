@@ -7,6 +7,7 @@ import { ResizableContainer } from './containers'
 import { Accordion } from './containers/Accordion'
 import { ViewEntities } from './contents'
 import { useSceneContext } from './contexts/Scene'
+import { LineArrow } from './components/3d/objects'
 
 export const App = (): React.JSX.Element => {
 	const { structure } = useStructureContext()
@@ -47,6 +48,7 @@ export const App = (): React.JSX.Element => {
 							{viewSupports &&
 								structureData?.supports.map((support) => DrawSupport(support, structure))}
 							<axesHelper />
+							<LineArrow />
 						</Default3dScene>
 					</div>
 				</div>

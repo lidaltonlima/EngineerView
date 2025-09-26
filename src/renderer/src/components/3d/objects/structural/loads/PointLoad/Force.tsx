@@ -64,18 +64,6 @@ export const Force = ({
 				length={0.35}
 			/>
 			{label && (
-				// <Billboard position={billboardPosition}>
-				// 	<Text
-				// 		rotation-z={labelRotation}
-				// 		renderOrder={10}
-				// 		anchorX={anchorXLabel}
-				// 		font='/fonts/Inter-Regular.woff'
-				// 		fontSize={0.1}
-				// 	>
-				// 		{value.toString()}
-				// 		<meshBasicMaterial color={textColor} depthTest={false} />
-				// 	</Text>
-				// </Billboard>
 				<BillboardTextAxis
 					axis={labelDirection}
 					position={billboardPosition}
