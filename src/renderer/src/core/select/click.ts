@@ -8,6 +8,10 @@ export const click = (
 	structureData: IStructureData
 ): void => {
 	event.stopPropagation()
+	if (!structureData.results) {
+		window.alert('No results available. Please open a calculated structure.')
+		return
+	}
 	if (useData.type === 'node') {
 		console.log(
 			structureData.results
@@ -15,6 +19,4 @@ export const click = (
 				?.displacements.find((displacement) => displacement.node === useData.name)
 		)
 	}
-	// console.log(useData)
-	// console.log(structureData)
 }
