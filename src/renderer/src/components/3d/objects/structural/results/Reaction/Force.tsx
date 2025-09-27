@@ -1,6 +1,6 @@
-import { Vector3 } from 'three'
-import { Arrow } from '../../../Arrow'
 import { BillboardTextAxis } from '@renderer/components/3d/utils'
+import { LineArrow } from '../../../LineArrow'
+import { Vector3 } from 'three'
 
 interface IForceCustomProps {
 	direction: 'x' | 'y' | 'z' | '-x' | '-y' | '-z'
@@ -23,45 +23,53 @@ export const Force = ({
 	const billboardPosition = new Vector3()
 	let anchorXLabel: 'right' | 'left' = 'left'
 	let labelDirection: 'x' | 'y' | 'z' = 'x'
+	const arrowDirection = new Vector3(0, 0, 0)
 	const offsetLabel = 0.2
 	switch (direction) {
 		case 'x':
 			labelDirection = 'x'
 			anchorXLabel = 'right'
 			billboardPosition.set(-offsetLabel, 0, 0)
+			arrowDirection.set(1, 0, 0)
 			break
 		case 'y':
 			labelDirection = 'y'
 			anchorXLabel = 'right'
 			billboardPosition.set(0, -offsetLabel, 0)
+			arrowDirection.set(0, 1, 0)
 			break
 		case 'z':
 			labelDirection = 'z'
 			anchorXLabel = 'right'
 			billboardPosition.set(0, 0, -offsetLabel)
+			arrowDirection.set(0, 0, 1)
 			break
 		case '-x':
 			labelDirection = 'x'
 			billboardPosition.set(offsetLabel, 0, 0)
+			arrowDirection.set(-1, 0, 0)
 			break
 		case '-y':
 			labelDirection = 'y'
 			billboardPosition.set(0, offsetLabel, 0)
+			arrowDirection.set(0, -1, 0)
 			break
 		case '-z':
 			labelDirection = 'z'
 			billboardPosition.set(0, 0, offsetLabel)
+			arrowDirection.set(0, 0, -1)
 	}
 
 	return (
 		<group {...groupProps}>
-			<Arrow
-				renderOrder={9}
-				endBase
-				color={arrowColor}
-				direction={direction}
-				scale={0.4}
+			<LineArrow
+				direction={arrowDirection}
 				length={0.35}
+				arrowSize={0.15}
+				lineWidth={0.015}
+				worldUnits
+				color={arrowColor}
+				endBase
 			/>
 			{label && (
 				<BillboardTextAxis

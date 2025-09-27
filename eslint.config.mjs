@@ -46,7 +46,8 @@ export default tseslint.config(
 						'transparent',
 						'fog',
 						'depthTest',
-						'userData'
+						'userData',
+						'quaternion'
 					]
 				}
 			]

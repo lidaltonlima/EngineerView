@@ -7,17 +7,21 @@ interface ILineArrowCustomProps {
 	direction?: Vector3
 	length?: number
 	arrowSize?: number
+
 	endBase?: boolean
+	notLine?: boolean
 }
 
 type ILineArrowProps = ILineArrowCustomProps & Omit<LineProps, 'points'>
 
 export const LineArrow = ({
 	position = new Vector3(0, 0, 0),
-	direction = new Vector3(1, 1, 1),
+	direction = new Vector3(1, 0, 0),
 	length = 1,
 	arrowSize = 0.25,
-	endBase = true,
+
+	endBase = false,
+	notLine = false,
 	...props
 }: ILineArrowProps): React.JSX.Element => {
 	// Normalize direction
@@ -29,6 +33,10 @@ export const LineArrow = ({
 
 	const linePoints = [
 		[0, 0, 0],
+		[length, 0, 0]
+	]
+
+	const arrowPoints = [
 		[length, 0, 0],
 		[length - arrowSize, arrowSize * 0.4, 0],
 		[length, 0, 0],
@@ -40,14 +48,24 @@ export const LineArrow = ({
 	return (
 		<>
 			<BillboardAxis axis={direction} position={position}>
-				<Line
-					points={linePoints.flat()}
-					position={endBase ? arrowPosition.toArray() : [0, 0, 0]}
-					lineWidth={2}
-					color={'red'}
-					quaternion={quat}
-					{...props}
-				/>
+				<group rotation-z={direction.x === 0 && direction.y === 0 ? Math.PI / 2 : 0}>
+					{!notLine && (
+						<Line
+							points={linePoints.flat()}
+							position={endBase ? arrowPosition.toArray() : [0, 0, 0]}
+							lineWidth={2}
+							quaternion={quat}
+							{...props}
+						/>
+					)}
+					<Line
+						points={arrowPoints.flat()}
+						position={endBase ? arrowPosition.toArray() : [0, 0, 0]}
+						lineWidth={2}
+						quaternion={quat}
+						{...props}
+					/>
+				</group>
 			</BillboardAxis>
 		</>
 	)

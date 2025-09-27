@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Default3dScene } from './components/3d'
 import { Bar, DrawSupport, Node } from './components/3d/objects/structural/elements'
-import { useStructureContext } from './contexts/Structure'
-import { IStructureData } from './types/Structure'
 import { ResizableContainer } from './containers'
 import { Accordion } from './containers/Accordion'
 import { ViewEntities } from './contents'
 import { useSceneContext } from './contexts/Scene'
-import { LineArrow } from './components/3d/objects'
+import { useStructureContext } from './contexts/Structure'
+import { IStructureData } from './types/Structure'
 
 export const App = (): React.JSX.Element => {
 	const { structure } = useStructureContext()
@@ -48,7 +47,6 @@ export const App = (): React.JSX.Element => {
 							{viewSupports &&
 								structureData?.supports.map((support) => DrawSupport(support, structure))}
 							<axesHelper />
-							<LineArrow />
 						</Default3dScene>
 					</div>
 				</div>

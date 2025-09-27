@@ -1,7 +1,7 @@
 import { Force } from './Force'
 import { Moment } from './Moment'
 
-interface IPointLoadCustomProps {
+interface IReactionCustomProps {
 	fx?: number
 	fy?: number
 	fz?: number
@@ -12,9 +12,9 @@ interface IPointLoadCustomProps {
 	label?: boolean
 }
 
-type IPointLoadProps = IPointLoadCustomProps & React.JSX.IntrinsicElements['group']
+type IReactionProps = IReactionCustomProps & React.JSX.IntrinsicElements['group']
 
-export const PointLoad = ({
+export const Reaction = ({
 	fx = 0,
 	fy = 0,
 	fz = 0,
@@ -23,7 +23,7 @@ export const PointLoad = ({
 	mz = 0,
 	label = false,
 	...groupProps
-}: IPointLoadProps): React.JSX.Element => {
+}: IReactionProps): React.JSX.Element => {
 	return (
 		<group {...groupProps}>
 			{/* Positive values */}
