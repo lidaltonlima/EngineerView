@@ -8,10 +8,12 @@ import { SpringRotation } from './SpringRotation'
 import { IEntityData } from '@renderer/types/Entity'
 import { click } from '@renderer/core/select'
 
-export const DrawSupport = (
-	support: ISupportData,
+interface ISupportProps {
+	support: ISupportData
 	structure: IStructureData
-): React.JSX.Element => {
+}
+
+export const Support = ({ support, structure }: ISupportProps): React.JSX.Element => {
 	let basePoint: [number, number, number] = [0, 0, 0]
 	let isError = true
 	let isFixedAllDisplacement = false

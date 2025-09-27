@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Default3dScene } from './components/3d'
-import { Bar, DrawSupport, Node } from './components/3d/objects/structural/elements'
+import { Bar, Support, Node } from './components/3d/objects/structural/elements'
 import { ResizableContainer } from './containers'
 import { Accordion } from './containers/Accordion'
 import { ViewEntities } from './contents'
@@ -45,7 +45,9 @@ export const App = (): React.JSX.Element => {
 							{structureData?.bars.map((bar) => <Bar key={bar.name} bar={bar} />)}
 							{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
 							{viewSupports &&
-								structureData?.supports.map((support) => DrawSupport(support, structure))}
+								structureData?.supports.map((support) => (
+									<Support key={support.node} support={support} structure={structureData} />
+								))}
 							<axesHelper />
 						</Default3dScene>
 					</div>
