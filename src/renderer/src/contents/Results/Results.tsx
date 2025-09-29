@@ -20,7 +20,6 @@ export const Results = (): React.JSX.Element => {
 					const results = structure.results
 						.find((result) => result.load_case === 'L1')
 						?.displacements.find((displacement) => displacement.node === selected.name)
-					console.log(results)
 					setResults(
 						<div className={styles.main}>
 							<fieldset>
@@ -28,23 +27,85 @@ export const Results = (): React.JSX.Element => {
 								<p>Name: {selected.name}</p>
 								<fieldset>
 									<legend>Displacements</legend>
-									<p>DX: {results?.Dx.toExponential(4)}</p>
-									<p>DY: {results?.Dy.toExponential(4)}</p>
-									<p>DZ: {results?.Dz.toExponential(4)}</p>
+									<p>Dx: {results?.Dx.toExponential(4)}</p>
+									<p>Dy: {results?.Dy.toExponential(4)}</p>
+									<p>Dz: {results?.Dz.toExponential(4)}</p>
 								</fieldset>
 								<fieldset>
 									<legend>Rotations</legend>
-									<p>RX: {results?.Rx.toExponential(4)}</p>
-									<p>RY: {results?.Ry.toExponential(4)}</p>
-									<p>RZ: {results?.Rz.toExponential(4)}</p>
+									<p>Rx: {results?.Rx.toExponential(4)}</p>
+									<p>Ry: {results?.Ry.toExponential(4)}</p>
+									<p>Rz: {results?.Rz.toExponential(4)}</p>
 								</fieldset>
 							</fieldset>
 						</div>
 					)
 				} else if (selected.type == 'bar') {
-					setResults(<p>Bar results to be implemented.</p>)
+					const results = structure.results
+						.find((result) => result.load_case === 'L1')
+						?.extreme_forces.find((force) => force.bar === selected.name)
+					setResults(
+						<div className={styles.main}>
+							<fieldset>
+								<legend>Bar Results</legend>
+								<p>Bar: {results?.bar}</p>
+								<fieldset>
+									<legend>Initial Node</legend>
+									<fieldset>
+										<legend>Forces</legend>
+										<p>Fx: {results?.Fxi.toExponential(4)}</p>
+										<p>Fy: {results?.Fyi.toExponential(4)}</p>
+										<p>Fz: {results?.Fzi.toExponential(4)}</p>
+									</fieldset>
+									<fieldset>
+										<legend>Moments</legend>
+										<p>Mx: {results?.Mxi.toExponential(4)}</p>
+										<p>My: {results?.Myi.toExponential(4)}</p>
+										<p>Mz: {results?.Mzi.toExponential(4)}</p>
+									</fieldset>
+								</fieldset>
+								<fieldset>
+									<legend>End Node</legend>
+									<fieldset>
+										<legend>Forces</legend>
+										<p>Fx: {results?.Fxj.toExponential(4)}</p>
+										<p>Fy: {results?.Fyj.toExponential(4)}</p>
+										<p>Fz: {results?.Fzj.toExponential(4)}</p>
+									</fieldset>
+									<fieldset>
+										<legend>Moments</legend>
+										<p>Mx: {results?.Mxj.toExponential(4)}</p>
+										<p>My: {results?.Myj.toExponential(4)}</p>
+										<p>Mz: {results?.Mzj.toExponential(4)}</p>
+									</fieldset>
+								</fieldset>
+							</fieldset>
+						</div>
+					)
 				} else if (selected.type == 'support') {
-					setResults(<p>Support results to be implemented.</p>)
+					const results = structure.results
+						.find((result) => result.load_case === 'L1')
+						?.reactions.find((reaction) => reaction.node === selected.name)
+					setResults(
+						<div className={styles.main}>
+							<fieldset>
+								<legend>Support Results</legend>
+								<p>Node: {results?.node}</p>
+								<fieldset>
+									<legend>Forces</legend>
+									<p>Fx: {results?.Fx.toExponential(4)}</p>
+									<p>Fy: {results?.Fy.toExponential(4)}</p>
+									<p>Fz: {results?.Fz.toExponential(4)}</p>
+								</fieldset>
+								<fieldset>
+									<legend>Moments</legend>
+									<p>Mx: {results?.Mx.toExponential(4)}</p>
+									<p>My: {results?.My.toExponential(4)}</p>
+									<p>Mz: {results?.Mz.toExponential(4)}</p>
+								</fieldset>
+							</fieldset>
+						</div>
+					)
 				}
 			}
 		}

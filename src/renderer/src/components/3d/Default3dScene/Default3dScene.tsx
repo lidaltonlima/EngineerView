@@ -16,8 +16,8 @@ export const Default3dScene = ({ children = null }: IDefault3dSceneProps): React
 				raycaster={{
 					params: {
 						Mesh: { threshold: 0 },
-						Line: { threshold: 0.1 },
-						Line2: { threshold: 0.1 },
+						Line: { threshold: 0 },
+						Line2: { threshold: 0 },
 						Points: { threshold: 0.1 },
 						Sprite: { threshold: 0 },
 						LOD: { threshold: 0 }
