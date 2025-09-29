@@ -1,12 +1,12 @@
 import { SceneViewOptions } from '@renderer/types/Scene'
 import { createContext, useContext } from 'react'
 
-export interface SceneContextData {
+export interface ISceneContextData {
 	view: SceneViewOptions
 }
 
-export const SceneContext = createContext({} as SceneContextData)
+export const SceneContext = createContext({} as ISceneContextData)
 
-export const useSceneContext = (): SceneContextData => {
+export const useSceneContext = (): ISceneContextData => {
 	return useContext(SceneContext)
 }

@@ -17,6 +17,10 @@ export const GridConfig = (): React.JSX.Element => {
 				sectionThickness={1.5}
 				sectionColor={'#4d4d4d'}
 				side={THREE.DoubleSide}
+				// Never pick the grid. Not raycast
+				ref={(grid) => {
+					if (grid) grid.raycast = () => null
+				}}
 			/>
 		</>
 	)

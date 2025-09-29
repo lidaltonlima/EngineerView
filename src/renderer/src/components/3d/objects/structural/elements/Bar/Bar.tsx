@@ -9,6 +9,7 @@ import { BarRelease } from '../../others'
 import { useSceneContext } from '@renderer/contexts/Scene'
 import { click } from '@renderer/core/select'
 import { IEntityData } from '@renderer/types/Entity'
+import { useSelectionContext } from '@renderer/contexts/Selection/SelectionContext'
 
 interface IBarProps {
 	bar: IBarData
@@ -17,6 +18,8 @@ interface IBarProps {
 export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 	const { structure } = useStructureContext()
 	const { view } = useSceneContext()
+	const selectionContext = useSelectionContext()
+
 	const [viewBars] = view.bars
 	const [viewPointBarLoads] = view.barPointLoads
 	const [viewDistributedBarLoads] = view.barDistributedLoads
@@ -53,7 +56,9 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 					points={[startPoint, endPoint]}
 					color={'orange'}
 					lineWidth={2}
-					onClick={(event) => click(event, event.object.userData as IEntityData, structure)}
+					onClick={(event) =>
+						click(event, event.object.userData as IEntityData, structure, selectionContext)
+					}
 				/>
 				{viewLocalAxes && (
 					<LocalAxes

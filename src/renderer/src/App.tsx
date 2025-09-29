@@ -3,16 +3,18 @@ import { Default3dScene } from './components/3d'
 import { Bar, Support, Node } from './components/3d/objects/structural/elements'
 import { ResizableContainer } from './containers'
 import { Accordion } from './containers/Accordion'
-import { ViewEntities } from './contents'
+import { Results, ViewEntities } from './contents'
 import { useSceneContext } from './contexts/Scene'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
+import { ClickVoid } from './components/3d/utils'
 
 export const App = (): React.JSX.Element => {
 	const { structure } = useStructureContext()
 	const { view } = useSceneContext()
 
 	const [structureData, setStructureData] = useState<IStructureData | null>()
+	const [footerText, setFooterText] = useState('Open a structure')
 
 	const [viewSupports] = view.supports
 
@@ -28,6 +30,10 @@ export const App = (): React.JSX.Element => {
 				structure.materials = data.materials
 				structure.sections = data.sections
 				structure.results = data.results
+
+				// Set footer text
+				if (data.results) setFooterText('Click in a object for view results.')
+				else setFooterText('No results available. Open a calculation structure.')
 			}
 		)
 
@@ -49,6 +55,7 @@ export const App = (): React.JSX.Element => {
 									<Support key={support.node} support={support} structure={structureData} />
 								))}
 							<axesHelper />
+							<ClickVoid />
 						</Default3dScene>
 					</div>
 				</div>
@@ -63,9 +70,12 @@ export const App = (): React.JSX.Element => {
 					<Accordion title='View' className='accordion'>
 						<ViewEntities />
 					</Accordion>
+					<Accordion title='Results' className='accordion'>
+						<Results />
+					</Accordion>
 				</ResizableContainer>
 			</main>
-			<footer>Footer</footer>
+			<footer>{footerText}</footer>
 		</>
 	)
 }

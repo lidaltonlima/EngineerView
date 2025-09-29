@@ -7,6 +7,7 @@ import { SpringDisplacement } from './SpringDisplacement'
 import { SpringRotation } from './SpringRotation'
 import { IEntityData } from '@renderer/types/Entity'
 import { click } from '@renderer/core/select'
+import { useSelectionContext } from '@renderer/contexts/Selection/SelectionContext'
 
 interface ISupportProps {
 	support: ISupportData
@@ -14,6 +15,8 @@ interface ISupportProps {
 }
 
 export const Support = ({ support, structure }: ISupportProps): React.JSX.Element => {
+	const selectionContext = useSelectionContext()
+
 	let basePoint: [number, number, number] = [0, 0, 0]
 	let isError = true
 	let isFixedAllDisplacement = false
@@ -41,7 +44,9 @@ export const Support = ({ support, structure }: ISupportProps): React.JSX.Elemen
 				key={`support-${support.node}`}
 				name={`support-${support.node}`}
 				userData={{ type: 'support', name: support.node } as IEntityData}
-				onClick={(event) => click(event, event.eventObject.userData as IEntityData, structure)}
+				onClick={(event) =>
+					click(event, event.eventObject.userData as IEntityData, structure, selectionContext)
+				}
 			>
 				{drawings}
 			</group>
@@ -200,7 +205,9 @@ export const Support = ({ support, structure }: ISupportProps): React.JSX.Elemen
 			key={`support-${support.node}`}
 			name={`support-${support.node}`}
 			userData={{ type: 'support', name: support.node } as IEntityData}
-			onClick={(event) => click(event, event.eventObject.userData as IEntityData, structure)}
+			onClick={(event) =>
+				click(event, event.eventObject.userData as IEntityData, structure, selectionContext)
+			}
 		>
 			{drawings}
 		</group>

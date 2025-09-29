@@ -9,6 +9,7 @@ import { PointLoad } from '../../loads'
 import { useSceneContext } from '@renderer/contexts/Scene'
 import { click } from '@renderer/core/select'
 import { IEntityData } from '@renderer/types/Entity'
+import { useSelectionContext } from '@renderer/contexts/Selection/SelectionContext'
 
 interface INodeProps {
 	node: INodeData
@@ -16,6 +17,7 @@ interface INodeProps {
 
 export const Node = ({ node }: INodeProps): React.JSX.Element => {
 	const { structure } = useStructureContext()
+	const selectionContext = useSelectionContext()
 
 	const { view } = useSceneContext()
 	const [viewNodes] = view.nodes
@@ -35,7 +37,9 @@ export const Node = ({ node }: INodeProps): React.JSX.Element => {
 						userData={{ type: 'node', name: node.name } as IEntityData}
 						position={position}
 						color={'magenta'}
-						onClick={(event) => click(event, event.object.userData as IEntityData, structure)}
+						onClick={(event) =>
+							click(event, event.object.userData as IEntityData, structure, selectionContext)
+						}
 					/>
 				</Points>
 				{viewNodalLoads &&
