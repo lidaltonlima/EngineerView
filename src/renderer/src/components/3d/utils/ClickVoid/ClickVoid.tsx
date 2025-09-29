@@ -1,5 +1,6 @@
 import { useThree } from '@react-three/fiber'
 import { useSelectionContext } from '@renderer/contexts/Selection'
+import { getNamedParent } from '@renderer/utils/functions/getNamedParent'
 import { useCallback, useEffect } from 'react'
 import * as THREE from 'three'
 
@@ -29,7 +30,7 @@ export const ClickVoid = (): React.JSX.Element => {
 				clickedInEntity = false
 			} else {
 				for (const intersect of intersects) {
-					if (intersect.object.name) {
+					if (getNamedParent(intersect.object)?.name) {
 						clickedInEntity = true
 					}
 				}

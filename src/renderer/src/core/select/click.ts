@@ -5,12 +5,12 @@ import { IStructureData } from '@renderer/types/Structure'
 
 export const click = (
 	event: ThreeEvent<MouseEvent>,
-	useData: IEntityData,
+	userData: IEntityData,
 	structureData: IStructureData,
 	selectionContext: ISelectionContextData
 ): void => {
 	const setSelectionList = selectionContext.selection[1]
-	setSelectionList([useData])
+	setSelectionList([userData])
 
 	event.stopPropagation()
 	if (!structureData.results) {
