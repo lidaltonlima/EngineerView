@@ -17,11 +17,4 @@ export const click = (
 		window.alert('No results available. Please open a calculated structure.')
 		return
 	}
-	// if (useData.type === 'node') {
-	// 	console.log(
-	// 		structureData.results
-	// 			.find((result) => result.load_case === 'L1')
-	// 			?.displacements.find((displacement) => displacement.node === useData.name)
-	// 	)
-	// }
 }
