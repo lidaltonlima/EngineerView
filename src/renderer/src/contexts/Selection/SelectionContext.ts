@@ -1,8 +1,9 @@
 import { selectionType } from '@renderer/types/Select'
-import { createContext, useContext } from 'react'
+import { createContext, Dispatch, SetStateAction, useContext } from 'react'
 
 export interface ISelectionContextData {
 	selection: selectionType
+	clickVoid: [boolean, Dispatch<SetStateAction<boolean>>]
 }
 
 export const SelectionContext = createContext({} as ISelectionContextData)

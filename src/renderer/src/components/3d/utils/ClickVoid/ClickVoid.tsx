@@ -1,14 +1,21 @@
 import { useThree } from '@react-three/fiber'
+import { useSelectionContext } from '@renderer/contexts/Selection'
 import { useCallback, useEffect } from 'react'
 import * as THREE from 'three'
 
 export const ClickVoid = (): React.JSX.Element => {
 	const { camera, scene, gl } = useThree()
+	const { clickVoid } = useSelectionContext()
+	const [isClickVoid, setIsClickVoid] = clickVoid
 
 	const handleClick = useCallback(
 		(event: MouseEvent) => {
+			if (event.button !== 0) return // Only left click
 			const raycaster = new THREE.Raycaster()
 			const mouse = new THREE.Vector2()
+
+			raycaster.params.Line!.threshold = 0.1
+			raycaster.params.Points!.threshold = 0.1
 
 			// normaliza coordenadas do clique
 			mouse.x = (event.offsetX / gl.domElement.clientWidth) * 2 - 1
@@ -29,10 +36,12 @@ export const ClickVoid = (): React.JSX.Element => {
 			}
 
 			if (!clickedInEntity) {
-				console.log('click in void')
+				setIsClickVoid(true)
+			} else {
+				if (isClickVoid) setIsClickVoid(false)
 			}
 		},
-		[camera, scene, gl]
+		[camera, scene, gl, isClickVoid, setIsClickVoid]
 	)
 
 	// adiciona o listener no canvas

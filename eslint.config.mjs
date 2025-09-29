@@ -47,7 +47,9 @@ export default tseslint.config(
 						'fog',
 						'depthTest',
 						'userData',
-						'quaternion'
+						'quaternion',
+						'geometry',
+						'object'
 					]
 				}
 			]

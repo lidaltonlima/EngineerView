@@ -1,15 +1,15 @@
 import { Line } from '@react-three/drei'
+import { useSceneContext } from '@renderer/contexts/Scene'
+import { useSelectionContext } from '@renderer/contexts/Selection/SelectionContext'
 import { useStructureContext } from '@renderer/contexts/Structure'
+import { click } from '@renderer/core/select'
+import { IEntityData } from '@renderer/types/Entity'
 import { forcesType, IBarData } from '@renderer/types/Structure'
 import * as THREE from 'three'
 import { degToRad } from 'three/src/math/MathUtils'
 import { BarDistributedLoad, PointBarLoad } from '../../loads'
-import { LocalAxes } from '../../others/LocalAxes'
 import { BarRelease } from '../../others'
-import { useSceneContext } from '@renderer/contexts/Scene'
-import { click } from '@renderer/core/select'
-import { IEntityData } from '@renderer/types/Entity'
-import { useSelectionContext } from '@renderer/contexts/Selection/SelectionContext'
+import { LocalAxes } from '../../others/LocalAxes'
 
 interface IBarProps {
 	bar: IBarData

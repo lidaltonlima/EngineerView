@@ -8,7 +8,8 @@ interface ISelectionProviderProps {
 
 export const SelectionProvider = ({ children }: ISelectionProviderProps): React.JSX.Element => {
 	const value = {
-		selection: useState<IEntityData[]>([])
+		selection: useState<IEntityData[]>([]),
+		clickVoid: useState<boolean>(false)
 	}
 
 	return <SelectionContext.Provider value={value}>{children}</SelectionContext.Provider>

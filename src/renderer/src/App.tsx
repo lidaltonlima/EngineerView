@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Default3dScene } from './components/3d'
-import { Bar, Support, Node } from './components/3d/objects/structural/elements'
+import { Bar, Node, Support } from './components/3d/objects/structural/elements'
+import { ClickVoid } from './components/3d/utils'
 import { ResizableContainer } from './containers'
 import { Accordion } from './containers/Accordion'
 import { Results, ViewEntities } from './contents'
 import { useSceneContext } from './contexts/Scene'
 import { useStructureContext } from './contexts/Structure'
 import { IStructureData } from './types/Structure'
-import { ClickVoid } from './components/3d/utils'
 
 export const App = (): React.JSX.Element => {
 	const { structure } = useStructureContext()

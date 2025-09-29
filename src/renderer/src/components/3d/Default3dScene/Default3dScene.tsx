@@ -15,12 +15,12 @@ export const Default3dScene = ({ children = null }: IDefault3dSceneProps): React
 			<Canvas
 				raycaster={{
 					params: {
-						Mesh: {},
-						Line: { threshold: 0.01 },
-						Line2: { threshold: 0.01 },
-						Points: { threshold: 0.01 },
-						Sprite: {},
-						LOD: {}
+						Mesh: { threshold: 0 },
+						Line: { threshold: 0.1 },
+						Line2: { threshold: 0.1 },
+						Points: { threshold: 0.1 },
+						Sprite: { threshold: 0 },
+						LOD: { threshold: 0 }
 					}
 				}}
 			>
