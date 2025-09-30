@@ -28,15 +28,27 @@ export const Results = (): React.JSX.Element => {
 									<p>Name: {selected.name}</p>
 									<fieldset>
 										<legend>Displacements</legend>
-										<p>Dx: {nodeResults?.Dx.toExponential(4)}</p>
-										<p>Dy: {nodeResults?.Dy.toExponential(4)}</p>
-										<p>Dz: {nodeResults?.Dz.toExponential(4)}</p>
+										<p style={{ color: nodeResults!.Dx >= 0 ? 'green' : 'red' }}>
+											<strong>Dx:</strong> {nodeResults?.Dx.toExponential(4)}
+										</p>
+										<p style={{ color: nodeResults!.Dy >= 0 ? 'green' : 'red' }}>
+											<strong>Dy:</strong> {nodeResults?.Dy.toExponential(4)}
+										</p>
+										<p style={{ color: nodeResults!.Dz >= 0 ? 'green' : 'red' }}>
+											<strong>Dz:</strong> {nodeResults?.Dz.toExponential(4)}
+										</p>
 									</fieldset>
 									<fieldset>
 										<legend>Rotations</legend>
-										<p>Rx: {nodeResults?.Rx.toExponential(4)}</p>
-										<p>Ry: {nodeResults?.Ry.toExponential(4)}</p>
-										<p>Rz: {nodeResults?.Rz.toExponential(4)}</p>
+										<p style={{ color: nodeResults!.Rx >= 0 ? 'green' : 'red' }}>
+											<strong>Rx:</strong> {nodeResults?.Rx.toExponential(4)}
+										</p>
+										<p style={{ color: nodeResults!.Ry >= 0 ? 'green' : 'red' }}>
+											<strong>Ry:</strong> {nodeResults?.Ry.toExponential(4)}
+										</p>
+										<p style={{ color: nodeResults!.Rz >= 0 ? 'green' : 'red' }}>
+											<strong>Rz:</strong> {nodeResults?.Rz.toExponential(4)}
+										</p>
 									</fieldset>
 								</fieldset>
 							</div>
@@ -54,30 +66,54 @@ export const Results = (): React.JSX.Element => {
 										<legend>Initial Node</legend>
 										<fieldset>
 											<legend>Forces</legend>
-											<p>Fx: {barResults?.Fxi.toExponential(4)}</p>
-											<p>Fy: {barResults?.Fyi.toExponential(4)}</p>
-											<p>Fz: {barResults?.Fzi.toExponential(4)}</p>
+											<p style={{ color: barResults!.Fxi >= 0 ? 'green' : 'red' }}>
+												<strong>Fx:</strong> {barResults?.Fxi.toExponential(4)}
+											</p>
+											<p style={{ color: barResults!.Fyi >= 0 ? 'green' : 'red' }}>
+												<strong>Fy:</strong> {barResults?.Fyi.toExponential(4)}
+											</p>
+											<p style={{ color: barResults!.Fzi >= 0 ? 'green' : 'red' }}>
+												<strong>Fz:</strong> {barResults?.Fzi.toExponential(4)}
+											</p>
 										</fieldset>
 										<fieldset>
 											<legend>Moments</legend>
-											<p>Mx: {barResults?.Mxi.toExponential(4)}</p>
-											<p>My: {barResults?.Myi.toExponential(4)}</p>
-											<p>Mz: {barResults?.Mzi.toExponential(4)}</p>
+											<p style={{ color: barResults!.Mxi >= 0 ? 'green' : 'red' }}>
+												<strong>Fx:</strong> {barResults?.Mxi.toExponential(4)}
+											</p>
+											<p style={{ color: barResults!.Myi >= 0 ? 'green' : 'red' }}>
+												<strong>My:</strong> {barResults?.Myi.toExponential(4)}
+											</p>
+											<p style={{ color: barResults!.Mzi >= 0 ? 'green' : 'red' }}>
+												<strong>Mz:</strong> {barResults?.Mzi.toExponential(4)}
+											</p>
 										</fieldset>
 									</fieldset>
 									<fieldset>
 										<legend>End Node</legend>
 										<fieldset>
 											<legend>Forces</legend>
-											<p>Fx: {barResults?.Fxj.toExponential(4)}</p>
-											<p>Fy: {barResults?.Fyj.toExponential(4)}</p>
-											<p>Fz: {barResults?.Fzj.toExponential(4)}</p>
+											<p style={{ color: barResults!.Fxj >= 0 ? 'green' : 'red' }}>
+												<strong>Fx:</strong> {barResults?.Fxj.toExponential(4)}
+											</p>
+											<p style={{ color: barResults!.Fyj >= 0 ? 'green' : 'red' }}>
+												<strong>Fy:</strong> {barResults?.Fyj.toExponential(4)}
+											</p>
+											<p style={{ color: barResults!.Fzj >= 0 ? 'green' : 'red' }}>
+												<strong>Fz:</strong> {barResults?.Fzj.toExponential(4)}
+											</p>
 										</fieldset>
 										<fieldset>
 											<legend>Moments</legend>
-											<p>Mx: {barResults?.Mxj.toExponential(4)}</p>
-											<p>My: {barResults?.Myj.toExponential(4)}</p>
-											<p>Mz: {barResults?.Mzj.toExponential(4)}</p>
+											<p style={{ color: barResults!.Mxj >= 0 ? 'green' : 'red' }}>
+												<strong>Mx:</strong> {barResults?.Mxj.toExponential(4)}
+											</p>
+											<p style={{ color: barResults!.Myj >= 0 ? 'green' : 'red' }}>
+												<strong>My:</strong> {barResults?.Myj.toExponential(4)}
+											</p>
+											<p style={{ color: barResults!.Mzj >= 0 ? 'green' : 'red' }}>
+												<strong>Mz:</strong> {barResults?.Mzj.toExponential(4)}
+											</p>
 										</fieldset>
 									</fieldset>
 								</fieldset>
@@ -94,15 +130,27 @@ export const Results = (): React.JSX.Element => {
 									<p>Node: {supportResults?.node}</p>
 									<fieldset>
 										<legend>Forces</legend>
-										<p>Fx: {supportResults?.Fx.toExponential(4)}</p>
-										<p>Fy: {supportResults?.Fy.toExponential(4)}</p>
-										<p>Fz: {supportResults?.Fz.toExponential(4)}</p>
+										<p style={{ color: supportResults!.Fx >= 0 ? 'green' : 'red' }}>
+											<strong>Fx:</strong> {supportResults?.Fx.toExponential(4)}
+										</p>
+										<p style={{ color: supportResults!.Fy >= 0 ? 'green' : 'red' }}>
+											<strong>Fy:</strong> {supportResults?.Fy.toExponential(4)}
+										</p>
+										<p style={{ color: supportResults!.Fz >= 0 ? 'green' : 'red' }}>
+											<strong>Fz:</strong> {supportResults?.Fz.toExponential(4)}
+										</p>
 									</fieldset>
 									<fieldset>
 										<legend>Moments</legend>
-										<p>Mx: {supportResults?.Mx.toExponential(4)}</p>
-										<p>My: {supportResults?.My.toExponential(4)}</p>
-										<p>Mz: {supportResults?.Mz.toExponential(4)}</p>
+										<p style={{ color: supportResults!.Mx >= 0 ? 'green' : 'red' }}>
+											<strong>Mx:</strong> {supportResults?.Mx.toExponential(4)}
+										</p>
+										<p style={{ color: supportResults!.My >= 0 ? 'green' : 'red' }}>
+											<strong>My:</strong> {supportResults?.My.toExponential(4)}
+										</p>
+										<p style={{ color: supportResults!.Mz >= 0 ? 'green' : 'red' }}>
+											<strong>Mz:</strong> {supportResults?.Mz.toExponential(4)}
+										</p>
 									</fieldset>
 								</fieldset>
 							</div>
