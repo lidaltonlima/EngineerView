@@ -9,6 +9,7 @@ export const SceneProvider = ({ children }: ISceneProviderProps): React.JSX.Elem
 	const view = {
 		// Elements
 		nodes: useState(true),
+		nodesLabel: useState(true),
 		nodalLoads: useState(true),
 		bars: useState(true),
 		barDistributedLoads: useState(true),

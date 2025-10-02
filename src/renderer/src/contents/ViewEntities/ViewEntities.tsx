@@ -5,6 +5,7 @@ export const ViewEntities = (): React.JSX.Element => {
 	const { view } = useSceneContext()
 	const [viewNodes, setViewNodes] = view.nodes
 	const [viewNodalLoads, setViewNodalLoads] = view.nodalLoads
+	const [viewNodeLabel, setViewNodeLabel] = view.nodesLabel
 	const [viewBars, setViewBars] = view.bars
 	const [viewPointBarLoads, setViewPointBarLoads] = view.barPointLoads
 	const [viewDistributedBarLoads, setViewDistributedBarLoads] = view.barDistributedLoads
@@ -35,6 +36,14 @@ export const ViewEntities = (): React.JSX.Element => {
 							onChange={(event) => setViewNodalLoads(event.target.checked)}
 						/>
 						<label htmlFor='nodalLoads'>Nodal Loads</label> <br />
+						<input
+							type='checkbox'
+							name='nodeLabel'
+							id='nodeLabel'
+							checked={viewNodeLabel}
+							onChange={(event) => setViewNodeLabel(event.target.checked)}
+						/>
+						<label htmlFor='nodeLabel'>Node Labels</label> <br />
 					</fieldset>
 					<fieldset>
 						<legend>Bars</legend>

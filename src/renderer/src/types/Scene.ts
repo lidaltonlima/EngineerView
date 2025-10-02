@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from 'react'
  */
 export type SceneViewOptions = {
 	nodes: [boolean, Dispatch<SetStateAction<boolean>>]
+	nodesLabel: [boolean, Dispatch<SetStateAction<boolean>>]
 	nodalLoads: [boolean, Dispatch<SetStateAction<boolean>>]
 	bars: [boolean, Dispatch<SetStateAction<boolean>>]
 	barPointLoads: [boolean, Dispatch<SetStateAction<boolean>>]

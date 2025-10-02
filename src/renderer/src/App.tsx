@@ -49,7 +49,7 @@ export const App = (): React.JSX.Element => {
 					<div className='canvas-content'>
 						<Default3dScene>
 							{structureData?.bars.map((bar) => <Bar key={bar.name} bar={bar} />)}
-							{structureData?.nodes.map((node) => <Node key={node.name} node={node} />)}
+							{structureData?.nodes.map((node) => <Node key={node.name} node={node} label />)}
 							{viewSupports &&
 								structureData?.supports.map((support) => (
 									<Support key={support.node} support={support} structure={structureData} />

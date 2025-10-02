@@ -1,7 +1,7 @@
 /**
  * Node component representing a structural node with loads if applicable
  */
-import { Point, Points } from '@react-three/drei'
+import { Billboard, Point, Points, Text } from '@react-three/drei'
 import { useStructureContext } from '@renderer/contexts/Structure'
 import { INodeData } from '@renderer/types/Structure'
 import { Vector3 } from 'three'
@@ -13,17 +13,32 @@ import { useSelectionContext } from '@renderer/contexts/Selection/SelectionConte
 
 interface INodeProps {
 	node: INodeData
+	color?: string
+	size?: number
+	labelSize?: number
+
+	label?: boolean
 }
 
-export const Node = ({ node }: INodeProps): React.JSX.Element => {
+export const Node = ({
+	node,
+	color = 'cyan',
+	size = 0.1,
+	labelSize = 0.1,
+	label = false
+}: INodeProps): React.JSX.Element => {
 	const { structure } = useStructureContext()
 	const selectionContext = useSelectionContext()
 
 	const { view } = useSceneContext()
 	const [viewNodes] = view.nodes
 	const [viewNodalLoads] = view.nodalLoads
+	const [viewNodeLabel] = view.nodesLabel
 
 	const position = new Vector3(node.position[0], node.position[1], node.position[2])
+	const labelPosition = new Vector3(size / 4, size / 4, 0).add(
+		new Vector3(-labelSize / 10.5, -labelSize / 4.1, 0)
+	)
 
 	if (!viewNodes) return <></>
 
@@ -31,12 +46,12 @@ export const Node = ({ node }: INodeProps): React.JSX.Element => {
 		<>
 			<>
 				<Points key={node.name} limit={1} range={1}>
-					<pointsMaterial vertexColors size={0.1} />
+					<pointsMaterial vertexColors size={size} />
 					<Point
 						name={`node-${node.name}`}
 						userData={{ type: 'node', name: node.name } as IEntityData}
 						position={position}
-						color={'magenta'}
+						color={color}
 						onClick={(event) =>
 							click(event, event.object.userData as IEntityData, structure, selectionContext)
 						}
@@ -61,6 +76,20 @@ export const Node = ({ node }: INodeProps): React.JSX.Element => {
 							)
 						)
 					})}
+				{label && viewNodeLabel && (
+					<Billboard position={position}>
+						<Text
+							fontSize={labelSize}
+							font={'/fonts/Inter-Regular.woff'}
+							position={labelPosition}
+							anchorX={'left'}
+							anchorY={'bottom'}
+						>
+							{node.name}
+							<meshBasicMaterial depthTest={false} color={color} />
+						</Text>
+					</Billboard>
+				)}
 			</>
 		</>
 	)
