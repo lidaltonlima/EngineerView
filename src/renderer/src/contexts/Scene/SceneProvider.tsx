@@ -16,6 +16,7 @@ export const SceneProvider = ({ children }: ISceneProviderProps): React.JSX.Elem
 		barPointLoads: useState(true),
 		barLocalAxes: useState(true),
 		barReleases: useState(true),
+		barLabel: useState(true),
 		supports: useState(true)
 	}
 

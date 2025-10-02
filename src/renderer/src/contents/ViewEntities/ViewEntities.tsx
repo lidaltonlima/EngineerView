@@ -11,6 +11,7 @@ export const ViewEntities = (): React.JSX.Element => {
 	const [viewDistributedBarLoads, setViewDistributedBarLoads] = view.barDistributedLoads
 	const [viewLocalAxes, setViewLocalAxes] = view.barLocalAxes
 	const [viewReleases, setViewReleases] = view.barReleases
+	const [viewBarLabel, setViewBarLabel] = view.barLabel
 	const [viewSupports, setViewSupports] = view.supports
 
 	return (
@@ -87,6 +88,14 @@ export const ViewEntities = (): React.JSX.Element => {
 							onChange={(event) => setViewReleases(event.target.checked)}
 						/>
 						<label htmlFor='viewReleases'>Releases</label> <br />
+						<input
+							type='checkbox'
+							name='viewBarLabel'
+							id='viewBarLabel'
+							checked={viewBarLabel}
+							onChange={(event) => setViewBarLabel(event.target.checked)}
+						/>
+						<label htmlFor='viewBarLabel'>Bar Labels</label> <br />
 					</fieldset>
 					<input
 						type='checkbox'
