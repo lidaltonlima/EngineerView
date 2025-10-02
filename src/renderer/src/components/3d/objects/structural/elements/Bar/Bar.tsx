@@ -40,9 +40,9 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 		}
 	}
 
-	const middlePoint = new THREE.Vector3().subVectors(endPoint, startPoint)
-	middlePoint.divideScalar(2)
-	middlePoint.addVectors(middlePoint, startPoint)
+	const localAxesPoint = new THREE.Vector3().subVectors(endPoint, startPoint)
+	localAxesPoint.divideScalar(3)
+	localAxesPoint.addVectors(localAxesPoint, startPoint)
 
 	const direction = new THREE.Vector3().subVectors(endPoint, startPoint).normalize()
 
@@ -66,7 +66,7 @@ export const Bar = ({ bar }: IBarProps): React.JSX.Element => {
 						rotationAroundDirection={degToRad(bar.rotation)}
 						label
 						scale={0.25}
-						position={middlePoint}
+						position={localAxesPoint}
 					/>
 				)}
 				{viewReleases && (
