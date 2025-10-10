@@ -1,6 +1,6 @@
 import { Arrow } from '@renderer/components/3d/objects/Arrow'
 import { isClose, linSpace } from '@renderer/utils/functions/others'
-import * as space2D from '@renderer/utils/functions/space2D'
+import * as space2D from '@renderer/utils/functions/space2d'
 import { Vector3 } from 'three'
 import * as matrix from '@renderer/utils/functions/matrix'
 import { BillboardTextAxis } from '@renderer/components/3d/utils'
