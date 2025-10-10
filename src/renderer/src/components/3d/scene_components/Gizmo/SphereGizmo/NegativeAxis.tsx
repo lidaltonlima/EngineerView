@@ -3,6 +3,8 @@ import { RefObject } from 'react'
 import { Group, Object3DEventMap } from 'three'
 import { Line2, LineSegments2 } from 'three/examples/jsm/Addons'
 
+const interBoldFont = new URL('/fonts/Inter-Bold.woff', import.meta.url).href
+
 interface INegativeAxisProps {
 	axis: '-x' | '-y' | '-z'
 	label: string
@@ -40,7 +42,7 @@ export const NegativeAxis = ({
 			/>
 			<Billboard position={[0.4, 0, 0]}>
 				<group ref={labelRef} visible={false} position={[0, 0, 0.01]}>
-					<Text font='/fonts/Inter-Bold.woff' fontSize={0.14}>
+					<Text font={interBoldFont} fontSize={0.14}>
 						{label}
 						<meshBasicMaterial color={'white'} fog={false} />
 					</Text>

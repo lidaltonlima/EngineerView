@@ -1,6 +1,8 @@
 import { Billboard, Line, Text } from '@react-three/drei'
 import { linSpace } from '@renderer/utils/functions/others'
 
+const interRegularFont = new URL('/fonts/Inter-Regular.woff', import.meta.url).href
+
 interface ISpringRotationProps {
 	value: number
 	position: [number, number, number]
@@ -69,7 +71,7 @@ export const SpringRotation = ({
 						rotation-z={labelRotation}
 						renderOrder={10}
 						anchorX={'left'}
-						font='/fonts/Inter-Regular.woff'
+						font={interRegularFont}
 						fontSize={0.1}
 					>
 						{value.toString()}

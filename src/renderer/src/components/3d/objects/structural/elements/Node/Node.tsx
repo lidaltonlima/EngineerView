@@ -11,6 +11,8 @@ import { click } from '@renderer/core/select'
 import { IEntityData } from '@renderer/types/Entity'
 import { useSelectionContext } from '@renderer/contexts/Selection/SelectionContext'
 
+const interRegularFont = new URL('/fonts/Inter-Regular.woff', import.meta.url).href
+
 interface INodeProps {
 	node: INodeData
 	color?: string
@@ -80,7 +82,7 @@ export const Node = ({
 					<Billboard position={position}>
 						<Text
 							fontSize={labelSize}
-							font={'/fonts/Inter-Regular.woff'}
+							font={interRegularFont}
 							position={labelPosition}
 							anchorX={'left'}
 							anchorY={'bottom'}

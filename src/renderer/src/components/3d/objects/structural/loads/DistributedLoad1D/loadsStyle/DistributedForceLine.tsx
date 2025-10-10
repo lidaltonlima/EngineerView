@@ -6,6 +6,8 @@ import { Vector3 } from 'three'
 import * as matrix from '@renderer/utils/functions/matrix'
 import { BillboardTextAxis } from '@renderer/components/3d/utils'
 
+const interRegularFont = new URL('/fonts/Inter-Regular.woff', import.meta.url).href
+
 interface IDistributedForceLineProps {
 	name: string
 	forceDirection: 'Fx' | 'Fy' | 'Fz'
@@ -351,7 +353,7 @@ export const DistributedForceLine = ({
 														linearFunctionBarXZ(x[0]) -
 														parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={loads[0] < 0 ? negativeLabelColor : positiveLabelColor}
 											>
@@ -373,7 +375,7 @@ export const DistributedForceLine = ({
 														linearFunctionBarXZ(x[1]) -
 														parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={loads[1] < 0 ? negativeLabelColor : positiveLabelColor}
 											>
@@ -399,7 +401,7 @@ export const DistributedForceLine = ({
 														linearFunctionBarXZ(x[0]) -
 														parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={positiveLabelColor}
 											>
@@ -421,7 +423,7 @@ export const DistributedForceLine = ({
 														linearFunctionBarXZ(x[1]) -
 														parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={positiveLabelColor}
 											>
@@ -447,7 +449,7 @@ export const DistributedForceLine = ({
 														linearFunctionBarXZ(x[0]) -
 														parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={negativeLabelColor}
 											>
@@ -469,7 +471,7 @@ export const DistributedForceLine = ({
 														linearFunctionBarXZ(x[1]) -
 														parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={negativeLabelColor}
 											>
@@ -520,7 +522,7 @@ export const DistributedForceLine = ({
 														linearFunctionBarXZ(x[0]) -
 														parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={loads[0] < 0 ? negativeLabelColor : positiveLabelColor}
 											>
@@ -542,7 +544,7 @@ export const DistributedForceLine = ({
 														linearFunctionBarXZ(x[1]) -
 														parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={loads[1] < 0 ? negativeLabelColor : positiveLabelColor}
 											>
@@ -568,7 +570,7 @@ export const DistributedForceLine = ({
 														linearFunctionBarXZ(x[0]) -
 														parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={positiveLabelColor}
 											>
@@ -590,7 +592,7 @@ export const DistributedForceLine = ({
 														linearFunctionBarXZ(x[1]) -
 														parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={positiveLabelColor}
 											>
@@ -616,7 +618,7 @@ export const DistributedForceLine = ({
 														linearFunctionBarXZ(x[0]) -
 														parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={negativeLabelColor}
 											>
@@ -638,7 +640,7 @@ export const DistributedForceLine = ({
 														linearFunctionBarXZ(x[1]) -
 														parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={negativeLabelColor}
 											>
@@ -693,7 +695,7 @@ export const DistributedForceLine = ({
 													linearFunctionBarXZ(x[0]) -
 													parametersLinearBarXZ.b
 											]}
-											font='/fonts/Inter-Regular.woff'
+											font={interRegularFont}
 											fontSize={0.1}
 											color={loads[0] < 0 ? negativeLabelColor : positiveLabelColor}
 										>
@@ -714,7 +716,7 @@ export const DistributedForceLine = ({
 													linearFunctionBarXZ(x[1]) -
 													parametersLinearBarXZ.b
 											]}
-											font='/fonts/Inter-Regular.woff'
+											font={interRegularFont}
 											fontSize={0.1}
 											color={loads[1] < 0 ? negativeLabelColor : positiveLabelColor}
 										>
@@ -739,7 +741,7 @@ export const DistributedForceLine = ({
 													linearFunctionBarXZ(x[0]) -
 													parametersLinearBarXZ.b
 											]}
-											font='/fonts/Inter-Regular.woff'
+											font={interRegularFont}
 											fontSize={0.1}
 											color={positiveLabelColor}
 										>
@@ -760,7 +762,7 @@ export const DistributedForceLine = ({
 													linearFunctionBarXZ(x[1]) -
 													parametersLinearBarXZ.b
 											]}
-											font='/fonts/Inter-Regular.woff'
+											font={interRegularFont}
 											fontSize={0.1}
 											color={positiveLabelColor}
 										>
@@ -785,7 +787,7 @@ export const DistributedForceLine = ({
 													linearFunctionBarXZ(x[0]) -
 													parametersLinearBarXZ.b
 											]}
-											font='/fonts/Inter-Regular.woff'
+											font={interRegularFont}
 											fontSize={0.1}
 											color={negativeLabelColor}
 										>
@@ -806,7 +808,7 @@ export const DistributedForceLine = ({
 													linearFunctionBarXZ(x[1]) -
 													parametersLinearBarXZ.b
 											]}
-											font='/fonts/Inter-Regular.woff'
+											font={interRegularFont}
 											fontSize={0.1}
 											color={negativeLabelColor}
 										>

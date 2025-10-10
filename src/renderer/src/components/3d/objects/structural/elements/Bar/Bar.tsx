@@ -13,6 +13,8 @@ import { LocalAxes } from '../../others/LocalAxes'
 import { BillboardTextAxis } from '@renderer/components/3d/utils'
 import { useEffect, useRef } from 'react'
 
+const interRegularFont = new URL('/fonts/Inter-Regular.woff', import.meta.url).href
+
 interface IBarProps {
 	bar: IBarData
 	labelSize?: number
@@ -178,7 +180,7 @@ export const Bar = ({ bar, labelSize = 0.1, color = 'orange' }: IBarProps): Reac
 					{viewBarLabel && (
 						<BillboardTextAxis
 							axis='x'
-							font={'/fonts/Inter-Regular.woff'}
+							font={interRegularFont}
 							fontSize={labelSize}
 							color={color}
 							anchorX='left'

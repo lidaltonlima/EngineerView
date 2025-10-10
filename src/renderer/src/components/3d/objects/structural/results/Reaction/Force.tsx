@@ -2,6 +2,8 @@ import { BillboardTextAxis } from '@renderer/components/3d/utils'
 import { LineArrow } from '../../../LineArrow'
 import { Vector3 } from 'three'
 
+const interRegularFont = new URL('/fonts/Inter-Regular.woff', import.meta.url).href
+
 interface IForceCustomProps {
 	direction: 'x' | 'y' | 'z' | '-x' | '-y' | '-z'
 	value: number
@@ -77,7 +79,7 @@ export const Force = ({
 					position={billboardPosition}
 					anchorX={anchorXLabel}
 					anchorY='bottom'
-					font='/fonts/Inter-Regular.woff'
+					font={interRegularFont}
 					fontSize={0.1}
 					color={textColor}
 				>

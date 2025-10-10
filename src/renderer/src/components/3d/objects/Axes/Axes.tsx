@@ -1,5 +1,7 @@
 import { Billboard, Line, Text } from '@react-three/drei'
 
+const interBoldFont = new URL('/fonts/Inter-Bold.woff', import.meta.url).href
+
 interface IAxesCustomProps {
 	label?: boolean
 	scale?: number
@@ -22,19 +24,19 @@ export const Axes = ({
 			{label && (
 				<>
 					<Billboard position={[1.3, 0, 0]}>
-						<Text fontSize={0.4} font={'/fonts/Inter-Bold.woff'}>
+						<Text fontSize={0.4} font={interBoldFont}>
 							X
 							<meshBasicMaterial depthTest={false} color={color} />
 						</Text>
 					</Billboard>
 					<Billboard position={[0, 1.3, 0]}>
-						<Text fontSize={0.4} font={'/fonts/Inter-Bold.woff'}>
+						<Text fontSize={0.4} font={interBoldFont}>
 							Y
 							<meshBasicMaterial depthTest={false} color={color} />
 						</Text>
 					</Billboard>
 					<Billboard position={[0, 0, 1.3]}>
-						<Text fontSize={0.4} font={'/fonts/Inter-Bold.woff'}>
+						<Text fontSize={0.4} font={interBoldFont}>
 							Z
 							<meshBasicMaterial depthTest={false} color={color} />
 						</Text>

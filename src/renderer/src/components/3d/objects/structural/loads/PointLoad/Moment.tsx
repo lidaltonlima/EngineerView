@@ -2,6 +2,8 @@ import { BillboardTextAxis } from '@renderer/components/3d/utils'
 import { Vector3 } from 'three'
 import { CurvedArrow } from '../../../CurvedArrow'
 
+const interRegularFont = new URL('/fonts/Inter-Regular.woff', import.meta.url).href
+
 interface IMomentCustomProps {
 	direction: 'x' | 'y' | 'z' | '-x' | '-y' | '-z'
 	value: number
@@ -70,7 +72,7 @@ export const Moment = ({
 					offsetX={0.03}
 					anchorX={anchorXLabel}
 					anchorY='middle'
-					font='/fonts/Inter-Regular.woff'
+					font={interRegularFont}
 					fontSize={0.1}
 					color={labelColor}
 				>

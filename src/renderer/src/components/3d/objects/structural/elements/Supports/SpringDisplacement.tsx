@@ -1,5 +1,7 @@
 import { Billboard, Line, Text } from '@react-three/drei'
 
+const interRegularFont = new URL('/fonts/Inter-Regular.woff', import.meta.url).href
+
 interface ISpringDisplacementProps {
 	value: number
 	position: [number, number, number]
@@ -59,7 +61,7 @@ export const SpringDisplacement = ({
 						rotation-z={labelRotation}
 						renderOrder={10}
 						anchorX={anchorXLabel}
-						font='/fonts/Inter-Regular.woff'
+						font={interRegularFont}
 						fontSize={0.1}
 					>
 						{value.toString()}

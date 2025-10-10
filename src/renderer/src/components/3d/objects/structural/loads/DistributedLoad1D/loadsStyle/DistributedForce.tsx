@@ -5,6 +5,8 @@ import { Vector3 } from 'three'
 import * as matrix from '@renderer/utils/functions/matrix'
 import { BillboardTextAxis } from '@renderer/components/3d/utils'
 
+const interRegularFont = new URL('/fonts/Inter-Regular.woff', import.meta.url).href
+
 interface IDistributedForceProps {
 	name: string
 	forceDirection: 'Fx' | 'Fy' | 'Fz'
@@ -221,7 +223,7 @@ export const DistributedForce = ({
 													0,
 													x[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={loads[0] < 0 ? negativeLabelColor : positiveLabelColor}
 												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -239,7 +241,7 @@ export const DistributedForce = ({
 													0,
 													x[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={loads[1] < 0 ? negativeLabelColor : positiveLabelColor}
 												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -261,7 +263,7 @@ export const DistributedForce = ({
 													0,
 													x[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={positiveLabelColor}
 												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -279,7 +281,7 @@ export const DistributedForce = ({
 													0,
 													x[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={positiveLabelColor}
 												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -301,7 +303,7 @@ export const DistributedForce = ({
 													0,
 													x[0] + linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={negativeLabelColor}
 												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -319,7 +321,7 @@ export const DistributedForce = ({
 													0,
 													x[1] + linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={negativeLabelColor}
 												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -416,7 +418,7 @@ export const DistributedForce = ({
 													x[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
 													linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={loads[0] < 0 ? negativeLabelColor : positiveLabelColor}
 												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -434,7 +436,7 @@ export const DistributedForce = ({
 													x[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
 													linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={loads[1] < 0 ? negativeLabelColor : positiveLabelColor}
 												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -456,7 +458,7 @@ export const DistributedForce = ({
 													x[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
 													linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={positiveLabelColor}
 												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -474,7 +476,7 @@ export const DistributedForce = ({
 													x[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
 													linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={positiveLabelColor}
 												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -496,7 +498,7 @@ export const DistributedForce = ({
 													x[0] + linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
 													linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={negativeLabelColor}
 												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -514,7 +516,7 @@ export const DistributedForce = ({
 													x[1] + linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
 													linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
 												]}
-												font='/fonts/Inter-Regular.woff'
+												font={interRegularFont}
 												fontSize={0.1}
 												color={negativeLabelColor}
 												offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -615,7 +617,7 @@ export const DistributedForce = ({
 												linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
 												linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
 											]}
-											font='/fonts/Inter-Regular.woff'
+											font={interRegularFont}
 											fontSize={0.1}
 											color={loads[0] < 0 ? negativeLabelColor : positiveLabelColor}
 											offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -633,7 +635,7 @@ export const DistributedForce = ({
 												linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
 												linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
 											]}
-											font='/fonts/Inter-Regular.woff'
+											font={interRegularFont}
 											fontSize={0.1}
 											color={loads[1] < 0 ? negativeLabelColor : positiveLabelColor}
 											offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -655,7 +657,7 @@ export const DistributedForce = ({
 												linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
 												linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
 											]}
-											font='/fonts/Inter-Regular.woff'
+											font={interRegularFont}
 											fontSize={0.1}
 											color={positiveLabelColor}
 											offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -673,7 +675,7 @@ export const DistributedForce = ({
 												linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
 												linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
 											]}
-											font='/fonts/Inter-Regular.woff'
+											font={interRegularFont}
 											fontSize={0.1}
 											color={positiveLabelColor}
 											offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -695,7 +697,7 @@ export const DistributedForce = ({
 												linearFunctionBarXY(x[0]) - parametersLinearBarXY.b,
 												linearFunctionBarXZ(x[0]) - parametersLinearBarXZ.b
 											]}
-											font='/fonts/Inter-Regular.woff'
+											font={interRegularFont}
 											fontSize={0.1}
 											color={negativeLabelColor}
 											offsetY={(Math.abs(yPos) + 0.2) * 0.1}
@@ -713,7 +715,7 @@ export const DistributedForce = ({
 												linearFunctionBarXY(x[1]) - parametersLinearBarXY.b,
 												linearFunctionBarXZ(x[1]) - parametersLinearBarXZ.b
 											]}
-											font='/fonts/Inter-Regular.woff'
+											font={interRegularFont}
 											fontSize={0.1}
 											color={negativeLabelColor}
 											offsetY={(Math.abs(yPos) + 0.2) * 0.1}

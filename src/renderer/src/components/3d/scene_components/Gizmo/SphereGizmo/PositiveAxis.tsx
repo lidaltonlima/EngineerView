@@ -2,6 +2,8 @@ import { Billboard, Circle, Line, Text } from '@react-three/drei'
 import { RefObject } from 'react'
 import { MeshBasicMaterial } from 'three'
 
+const interBoldFont = new URL('/fonts/Inter-Bold.woff', import.meta.url).href
+
 interface IPositiveAxisProps {
 	axis: 'x' | 'y' | 'z'
 	label: string
@@ -27,7 +29,7 @@ export const PositiveAxis = ({
 		<group rotation={rotation}>
 			<Line fog points={[0, 0, 0, 0.3, 0, 0]} color={color} lineWidth={2} />
 			<Billboard position={[0.4, 0, 0]}>
-				<Text position={[0, 0, 0.01]} font='/fonts/Inter-Bold.woff' fontSize={0.14}>
+				<Text position={[0, 0, 0.01]} font={interBoldFont} fontSize={0.14}>
 					{label}
 					<meshBasicMaterial ref={labelRef} color={'black'} fog={false} />
 				</Text>
